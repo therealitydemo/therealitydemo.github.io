@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lora&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Baskervville|Calistoga&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="style/style.css">
+<link rel="stylesheet" type="text/css" href="style/css/bulma.css">
+<style>
+.button.is-custom{
+    height: 35px;
+    font-size : 12px;
+}
+.button.is-custom.is-info{
+    font-weight: bold;
+}
+</style>
+
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript">
+    // set the pyodide files URL (packages.json, pyodide.asm.data etc)
+    window.languagePluginUrl = 'https://pyodide-cdn2.iodide.io/v0.15.0/full/';
+</script>
+<script src="https://pyodide-cdn2.iodide.io/v0.15.0/full/pyodide.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Fira+Code&display=swap" rel="stylesheet">
+<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+<head>
+    <title>IPQ Cal - A illustrative tool helps you with analyzing IPQ data</title>
+</head>
+<body>    
+    <section class="section" id = "header" style="background-color: #EAF2F8; ">
+        <nav class="navbar" id = "navbar" role="navigation" aria-label="main navigation"  style="background-color: #EAF2F8; margin-top: -20px; margin-bottom: 20px; margin-left: 20px;">            
+            <div class="navbar-menu">
+                <div class="navbar-start">
+                    <h1 class="title" style="font-family: 'Calistoga', cursive; font-size: 45px;">IPQ Cal 
+                        <h2 class="sub" style="font-family: 'Baskervville', serif; font-size: 22.5px;">
+                            &nbsp;&nbsp;A illustrative tool helps you with analyzing IPQ data
+                        </h2>
+                    </h1>
+                </div>
+            
+                <div class="navbar-end">
+                    <div class="navbar-item" style="margin-top: -30px;">
+                        <div class="buttons">
+                            <a class="button is-info is-outlined" id="btn_what_is_ipq" onclick="ShowWhatIsIPQ()">
+                                What is IPQ?
+                            </a>
+                            <a class="button is-info is-outlined" id="btn_usage_guidelines" onclick="ShowUsageGuidelines()">
+                                Usage Guidelines
+                            </a>
+                            <a class="button is-info is-outlined" id="btn_contribute" onclick="ShowContribute()">
+                                Contribute
+                            </a>
+                            <a class="button is-info is-outlined" id="btn_terms_and_conditions" onclick="ShowTermsandCondition()">
+                                Terms and Conditions
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="columns">
+                <div class="column"></div>                
+                <div class="column is-11">
+                    <div class="field has-text-centered">
+                        <div class="file is-centered is-boxed is-success has-name">
+                            <label class="file-label">
+                            <input class="file-input" type="file" name="user_data" onchange='loadFile(event)'>
+                            <span class="file-cta">
+                                <span class="file-label">
+                                Load your IPQ data
+                                </span>
+                            </span>
+                            <span class="file-name" id="user_data_file_name">
+                                
+                            </span>
+                            </label>
+                        </div>
+                        <p style="font-size: 12px;">I agree with the <a onclick="ShowTermsandCondition()">terms and conditions</a>.</p>
+                    </div>
+                </div>
+                <div class="column">
+                </div>
+            </div>
+        </div>
+    </section>  
+    
+    <div class="row" id="terms_and_conditions" style="margin-top: 50px; margin-bottom: 50px;">
+        <div class="columns">
+            <div class="column"></div>
+            <div class="column is-11">
+                <article class="message is-info">
+                    <div class="message-header">
+                        <p>Terms and Conditions</p>
+                        <button class="delete" aria-label="delete" onclick="HideTermsandCondition()"></button>
+                    </div>
+                    <div class="message-body">
+                        <div class="content is-small">
+                            <h5>Terms of Use</h5>
+                            <p></p>
+                            <h5>No legal advice</h5>
+                            <p></p>
+                            <h5>Exclusions/Limitation of Liability</h5>
+                            <p></p>
+                            <h5>Governing Law</h5>
+                            <p></p>
+                            <h5>Your Use of this Website</h5>
+                            <p></p>
+                            <h5>License to use our intellectual property</h5>
+                            <p></p>
+                            <h5>Termination of relationship</h5>
+                            <p></p>
+                            <h5>Purchases and Delivery</h5>
+                            <p></p>
+                            <h5>Linked Websites / Newsletters.</h5>
+                            <p></p>
+                            <h5>Electronic Communications</h5>
+                            <p></p>
+                            <h5>Privacy Policy</h5>
+                            <p></p>
+                            <h5>Disclaimers</h5>
+                            <p></p>
+                            <h5>General</h5>
+                            <p></p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="column"></div>
+        </div>
+    </div> 
+
+    <div class="row" id="usage_guidelines" style="margin-top: 50px; margin-bottom: 50px;">
+        <div class="columns">
+            <div class="column"></div>
+            <div class="column is-11">
+                <article class="message is-info">
+                    <div class="message-header">
+                        <p>Usage Guidelines</p>
+                        <button class="delete" aria-label="delete" onclick="HideUsageGuidelines()"></button>
+                    </div>
+                    <div class="message-body">
+                        <div class="content black">                            
+                            <h5>Input Data Format</h5>
+                            <p>
+                                The current version of the tool could support upto two different independent variable. 
+                                The input data has to be in <strong>Comma Separated Values</strong> (*.csv) format.
+                                In addition, the file should be formated as below:
+                            </p>
+                            <img src="assets/pictures/upload_data_format.png"/>
+                            <p>
+                                There are some compulsory attributes in the input data. 
+                                For those, the records has to be provided.
+                                They are:
+                                <br>
+                                &nbsp;&nbsp;&nbsp;<strong>experiment_design</strong>: between-subject or within-subject
+                                <br>
+                                &nbsp;&nbsp;&nbsp;<strong>number_of_experimental_conditions</strong>: is the number of independent variables
+                                <br>
+                                &nbsp;&nbsp;&nbsp;<strong>number_of_entries</strong>: the number of entry rows of recordes 
+                                <br>
+                                &nbsp;&nbsp;&nbsp;<strong>participant_id</strong>: each participant has to have a unique id in order distinguish with others
+                                <br>
+                                &nbsp;&nbsp;&nbsp;<strong>visual_display</strong>: 3D - Monoscopic or 3D - HMD VR or Projection Display (eg. CAVE)
+                                <br>
+                                &nbsp;&nbsp;&nbsp;<strong>experiment_condition</strong>: the name given for each independent variable
+                                <br>
+                                All of the requied data are highlighted in <a style="color: orange;">Orange</a> color.
+                            </p>
+                            <h5>Template File</h5>
+                            <p>The template for the input data can be downloaded at <a href="assets/documents/data_template.csv" style="color: blue;">here</a>. For more information, please contact the authors.</p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="column"></div>
+        </div>
+    </div> 
+
+    <div class="row" id="contribute" style="margin-top: 50px; margin-bottom: 50px;">
+        <div class="columns">
+            <div class="column"></div>
+            <div class="column is-11">
+                <article class="message is-info">
+                    <div class="message-header">
+                        <p>Contribution</p>
+                        <button class="delete" aria-label="delete" onclick="HideContribute()"></button>
+                    </div>
+                    <div class="message-body">
+                        <h1 style="color: #E74C3C;">We are SORRY that this current version does not support contribution section!</h1> 
+                        <div class="content black" style="visibility: hidden;"> 
+                                                      
+                            <h5>Want to contribute?</h5>
+                            <p>
+                                If you would like to contribute to the improvement of the ranking scale for IPQ, please help us with providing your user study data.
+                                Your data additionally should be formated as below.
+                            </p>
+                            <img src="assets/pictures/upload_data_format.png"/>
+                            <p>
+                                There are some compulsory attributes in the input data. 
+                                For those, the records has to be provided.
+                                They are:
+                                <br>
+                                &nbsp;&nbsp;&nbsp;<strong>experiment_design</strong>: between-subject or within-subject
+                                <br>
+                                &nbsp;&nbsp;&nbsp;<strong>number_of_experimental_conditions</strong>: is the number of independent variables
+                                <br>
+                                &nbsp;&nbsp;&nbsp;<strong>number_of_entries</strong>: the number of entry rows of recordes 
+                                <br>
+                                &nbsp;&nbsp;&nbsp;<strong>participant_id</strong>: each participant has to have a unique id in order distinguish with others
+                                <br>
+                                &nbsp;&nbsp;&nbsp;<strong>visual_display</strong>: 3D - Monoscopic or 3D - HMD VR or Projection Display (eg. CAVE)
+                                <br>
+                                &nbsp;&nbsp;&nbsp;<strong>experiment_condition</strong>: the name given for each independent variable
+                                <br>
+                                All of the requied data are highlighted in <a style="color: orange;">Orange</a> color.
+                            </p>                            
+                            <h5>Upload Your Data</h5>
+                            <p>
+                                With this contribution it means that you agree that your data can be uploaded to our server and used for improving the ranking scale for IPQ. All the fills highlighted in <a style="color: blue;">Blue</a> or marked with (*) have to be provided. 
+                            </p>
+                            <p>
+                                If you do not agree, please close this panel.
+                            </p>
+                            <div class="columns">
+                                <div class="column">
+
+                                </div>
+                                <div class="column is-8">
+                                    <div class="form" style="margin: auto; z-index: 3;" id="form_contribute">
+                                        <div class="field is-horizontal">
+                                            <div class="field-label is-normal">
+                                                <label class="label">author (*)</label>
+                                            </div>
+                                            <div class="field-body">
+                                                <div class="field">
+                                                    <div class="control">
+                                                        <input id="in_author" class="input is-info" type="text" placeholder="Tran, Tanh Quang and Tran, Thanh Dat Ngoc and Nguyen, Tam Duy and Regenbrecht, Holger and Tran, Minh-Triet">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field is-horizontal">
+                                            <div class="field-label is-normal">
+                                                <label class="label">title (*)</label>
+                                            </div>
+                                            <div class="field-body">
+                                                <div class="field">
+                                                    <div class="control">
+                                                        <input id="in_title" class="input is-info" type="text" placeholder="Can We Perceive Changes in Our Moving Speed: A Comparison Between Directly and Indirectly Powering the Locomotion in Virtual Environments">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field is-horizontal">
+                                            <div class="field-label is-normal">
+                                                <label class="label">booktitle (*)</label>
+                                            </div>
+                                            <div class="field-body">
+                                                <div class="field">
+                                                    <div class="control">
+                                                        <input id="in_booktitle" class="input is-info" type="text" placeholder="Proceedings of the 24th ACM Symposium on Virtual Reality Software and Technology">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field is-horizontal">
+                                            <div class="field-label is-normal">
+                                                <label class="label">series (*)</label>
+                                            </div>
+                                            <div class="field-body">
+                                                <div class="field">
+                                                    <div class="control">
+                                                        <input id="in_series" class="input is-info" type="text" placeholder="VRST '18">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field is-horizontal">
+                                            <div class="field-label is-normal">
+                                                <label class="label">year (*)</label>
+                                            </div>
+                                            <div class="field-body">
+                                                <div class="field">
+                                                    <div class="control">
+                                                        <input id="in_year" class="input is-info" type="text" placeholder="2018">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field is-horizontal">
+                                            <div class="field-label is-normal">
+                                                <label class="label">isbn (*)</label>
+                                            </div>
+                                            <div class="field-body">
+                                                <div class="field">
+                                                    <div class="control">
+                                                        <input id="in_isbn" class="input is-info" type="text" placeholder="978-1-4503-6086-9">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field is-horizontal">
+                                            <div class="field-label is-normal">
+                                                <label class="label">location</label>
+                                            </div>
+                                            <div class="field-body">
+                                                <div class="field">
+                                                    <div class="control">
+                                                        <input id="in_location" class="input" type="text" placeholder="Tokyo, Japan">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field is-horizontal">
+                                            <div class="field-label is-normal">
+                                                <label class="label">pages</label>
+                                            </div>
+                                            <div class="field-body">
+                                                <div class="field">
+                                                    <div class="control">
+                                                        <input id="in_pages" class="input" type="text" placeholder="36:1--36:10">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field is-horizontal">
+                                            <div class="field-label is-normal">
+                                                <label class="label">article number</label>
+                                            </div>
+                                            <div class="field-body">
+                                                <div class="field">
+                                                    <div class="control">
+                                                        <input id="in_articlenumber" class="input" type="text" placeholder="36">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field is-horizontal">
+                                            <div class="field-label is-normal">
+                                                <label class="label">number of pages</label>
+                                            </div>
+                                            <div class="field-body">
+                                                <div class="field">
+                                                    <div class="control">
+                                                        <input id="in_numberofpages" class="input" type="text" placeholder="10">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field is-horizontal">
+                                            <div class="field-label is-normal">
+                                                <label class="label">url (*)</label>
+                                            </div>
+                                            <div class="field-body">
+                                                <div class="field">
+                                                    <div class="control">
+                                                        <input id="in_url" class="input is-info" type="text" placeholder="http://doi.acm.org/10.1145/3281505.3281510">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field is-horizontal">
+                                            <div class="field-label is-normal">
+                                                <label class="label">doi</label>
+                                            </div>
+                                            <div class="field-body">
+                                                <div class="field">
+                                                    <div class="control">
+                                                        <input id="in_doi" class="input" type="text" placeholder="10.1145/3281505.3281510">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field is-horizontal">
+                                            <div class="field-label is-normal">
+                                                <label class="label">publisher (*)</label>
+                                            </div>
+                                            <div class="field-body">
+                                                <div class="field">
+                                                    <div class="control">
+                                                        <input id="in_publisher" class="input is-info" type="text" placeholder="ACM">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field is-horizontal">
+                                            <div class="field-label is-normal">
+                                                <label class="label">address</label>
+                                            </div>
+                                            <div class="field-body">
+                                                <div class="field">
+                                                    <div class="control">
+                                                        <input id="in_address" class="input" type="text" placeholder="New York, NY, USA">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field is-horizontal">
+                                            <div class="field-label is-normal">
+                                                <label class="label">keywords</label>
+                                            </div>
+                                            <div class="field-body">
+                                                <div class="field">
+                                                    <div class="control">
+                                                        <input id="in_keywords" class="input" type="text" placeholder="bike simulator, locomotion, speed perception, virtual reality">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="field is-horizontal">
+                                            <div class="field-label is-normal">
+                                                <label class="label">number of user studies you want to contribute</label>
+                                            </div>
+                                            <div class="field-body">
+                                                <div class="field">
+                                                    <div class="control">
+                                                        <input id="in_numberofstudies" class="input is-info" type="text" placeholder="1" onchange="NumberOfContributedStudies()">
+                                                    </div>
+                                                </div>
+                                                <div class="field is-vertical" id="user_contributed_files">
+                                            
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+                                    
+                                    <div class="row has-text-centered">
+                                        <button class="button is-info is-rounded is-medium" style="margin-top: 20px;" id="form_contribute_btn" onclick="SubmitUserData()">Contribute</button>
+                                    </div> 
+                                </div>
+                                <div class="column"> </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="column"></div>
+        </div>
+    </div> 
+    
+    <div class="row" id="what_is_ipq" style="margin-top: 50px; margin-bottom: 50px;">
+        <div class="columns">
+            <div class="column"></div>
+            <div class="column is-11">
+                <article class="message is-info">
+                    <div class="message-header">
+                        <p>What is IPQ?</p>
+                        <button class="delete" aria-label="delete" onclick="HideWhatIsIPQ()"></button>
+                    </div>
+                    <div class="message-body">
+                        <div class="content black">                            
+                            <h5>Igroup Presence Questionnaire</h5>
+                            <p>
+                                Igroup Presence Questionnaire or IPQ is a questionnaire used for evaluate the level of presence users perceive in the virtual environment. 
+                                The IPQ was developed based on four general principles and requirements: (1) it was developed on top of a theoretical framework around cognitive processes, (2) it should clearly distinguish between the concepts of immersion and presence, (3) it should be practical to apply in terms of length and versatility, and finally (4) it should be validated with a statistical model.
+                                As an instrument, the IPQ is composed of 13+1 items, each as a 7-point Likert scale between -3 and 3, expressing full disagreement and full agreement, respectively. 
+                                It consists of three sub scales (spatial presence (SP), involvement (INV), experience realism (REAL)) plus one general presence (GP) question. For more information, please visit the IPQ homepage at <a href="http://www.igroup.org/pq/ipq/index.php" style="color: blue;">here</a> or read our manuscript.
+                            </p>
+                            <h5>Questionnaire Template</h5>
+                            <p>The whole questionnaire template can be downloaded at <a href="assets/documents/ipq_template.pdf" style="color: blue;">here</a>, as shown below:</p>
+                            <embed src="assets/documents/ipq_template.pdf" type="application/pdf" width="100%" height="1200px" />
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="column"></div>
+        </div>
+    </div> 
+
+    <div id="main_page">
+        <div class="row">
+            <div class="row" style="margin-top: 20px;">
+                <div class="columns">
+                    <div class="column is-half" style="margin-left: 20px;">
+                        <div class="box" style="background-color: #d6cfc7;">
+                            <header style="margin-bottom: 15px; font-weight: bold; font-size: 14px;">
+                                CATEGORY
+                            </header>
+                            <div class="row">
+                                <button class="button is-custom is-info" id="btn_overall" onclick="ChangeCategory(this)">Overall</button>
+                            </div>
+                            <div class="row" style="margin-top: 5px;">
+                                <button class="button is-custom" id="btn_sp" onclick="ChangeCategory(this)">Spatial Presence (SP)</button>
+                                <button class="button is-custom" id="btn_inv" onclick="ChangeCategory(this)">Involvement (INV)</button>
+                                <button class="button is-custom" id="btn_real" onclick="ChangeCategory(this)">Experienced Realism (REAL)</button>
+                                <button class="button is-custom" id="btn_gp" onclick="ChangeCategory(this)">General Presence (GP)</button>                               
+                            </div>
+                            <div class="row" style="margin-top: 5px;">
+                                <button class="button is-custom" id="btn_hmd" onclick="ChangeCategory(this)">3D - HMD</button>
+                                <button class="button is-custom" id="btn_mono" onclick="ChangeCategory(this)">3D - Monoscopic</button>
+                                <button class="button is-custom" id="btn_proj" onclick="ChangeCategory(this)">Projection Display</button>
+                            </div>  
+                        </div>
+                        <!-- <div class="tile is-parent">
+                            <article class="tile is-child notification" style="background-color: #d6cfc7;">
+                                <div class="content">
+                                <p class="subtitle" style="font-size:16px">CATEGORY</p>
+                                <div class="content">
+                                    <div class="row">
+                                        <button class="button is-custom is-info" id="btn_overall" onclick="ChangeCategory(this)">Overall</button>
+                                    </div>
+                                    <div class="row" style="margin-top: 5px;">
+                                        <button class="button is-custom" id="btn_sp" onclick="ChangeCategory(this)">Spatial Presence (SP)</button>
+                                        <button class="button is-custom" id="btn_inv" onclick="ChangeCategory(this)">Involvement (INV)</button>
+                                        <button class="button is-custom" id="btn_real" onclick="ChangeCategory(this)">Experienced Realism (REAL)</button>
+                                        <button class="button is-custom" id="btn_gp" onclick="ChangeCategory(this)">General Presence (GP)</button>                               
+                                    </div>
+                                    <div class="row" style="margin-top: 5px;">
+                                        <button class="button is-custom" id="btn_hmd" onclick="ChangeCategory(this)">3D - HMD</button>
+                                        <button class="button is-custom" id="btn_mono" onclick="ChangeCategory(this)">3D - Monoscopic</button>
+                                        <button class="button is-custom" id="btn_proj" onclick="ChangeCategory(this)">Projection Display</button>
+                                    </div>                               
+                                </div>
+                                </div>
+                            </article>
+                        </div> -->
+                    </div>
+                    <div class="column is-one-fifth" >
+                        <div class="box" style="background-color: #c7c6c1;">
+                            <header style="margin-bottom: 15px; font-weight: bold; font-size: 14px;">
+                                RANKING CLASS
+                            </header>
+                            <div class="row">
+                                <button class="button is-custom is-info" id="all_classes" onclick="ChangeRankingClass(this)">All classes</button>
+                            </div>
+                            <div class="row" style="margin-top: 5px;">
+                                <button class="button is-custom" id="class_a" onclick="ChangeRankingClass(this)">(A | 1)</button>
+                                <button class="button is-custom" id="class_b" onclick="ChangeRankingClass(this)">(B | 2)</button>
+                                <button class="button is-custom" id="class_c" onclick="ChangeRankingClass(this)">(C | 3)</button>
+                            </div>  
+                            <div class="row" style="margin-top: 5px;">
+                                <button class="button is-custom" id="class_d" onclick="ChangeRankingClass(this)">(D | 4)</button>
+                                <button class="button is-custom" id="class_e" onclick="ChangeRankingClass(this)">(E | 5)</button>
+                                <button class="button is-custom" id="class_f" onclick="ChangeRankingClass(this)">(F | 6)</button>
+                            </div>           
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="box" style="background-color: #bebdb8;">
+                            <header style="margin-bottom: 15px; font-weight: bold; font-size: 14px; height: 60px;">
+                                PUBLICATION YEAR
+                            </header>
+                            <div class="row">
+                                <button class="button is-custom is-info" id="btn_year_ascending" onclick="YearSortBy(this, true, false, true)">Ascending</button> 
+                                </div>  
+                            <div class="row" style="margin-top: 5px;">
+                                <button class="button is-custom is-small" id="btn_year_descending" onclick="YearSortBy(this, true, false, false)">Descending</button>                     
+                            </div>    
+                        </div>
+                    </div>
+                    
+                    <div class="column"  style="margin-right: 20px;">                        
+                        <div class="box" style="background-color: #bdb7ab;">
+                            <header style="margin-bottom: 15px; font-weight: bold; font-size: 14px; height: 60px;">
+                                NUMBER OF PARTICIPANTS
+                            </header>
+                            <div class="row">
+                                <button class="button is-custom is-info" id="btn_npar_ascending" onclick="NParSortBy(this, false, true, true)">Ascending</button> 
+                            </div>
+                            <div class="row" style="margin-top: 5px;">
+                                <button class="button is-custom" id="btn_npar_descending" onclick="NParSortBy(this, false, true, false)">Descending</button>  
+                            </div>    
+                        </div> 
+                    </div>
+                </div>   
+            </div>
+            <div class="row" style="margin-top: 20px;">
+                <div class="container">
+                    <nav class="level is-mobile">
+                        <div class="level-item has-text-centered">
+                            <div>
+                            <p class="heading">CATEGORY</p>
+                            <p class="title" id="info_main_category">Overall</p>
+                            </div>
+                        </div>
+                        <div class="level-item has-text-centered">
+                            <div>
+                            <p class="heading">CLASS</p>
+                            <p class="title" id="info_main_adjective_rating">General</p>
+                            </div>
+                        </div>
+                        <div class="level-item has-text-centered">
+                            <div>
+                            <p class="heading">PUBLICATIONS</p>
+                            <p class="title" id="info_main_publications">139</p>
+                            </div>
+                        </div>
+                        <div class="level-item has-text-centered">
+                            <div>
+                            <p class="heading">USER STUDIES</p>
+                            <p class="title" id="info_main_user_studies">150</p>
+                            </div>
+                        </div>
+                        <div class="level-item has-text-centered">
+                            <div>
+                            <p class="heading">PARTICIPANTS</p>
+                            <p class="title" id="info_main_participants">5608</p>
+                            </div>
+                        </div>
+                        <div class="level-item has-text-centered">
+                            <div>
+                            <p class="heading">YEARS</p>
+                            <p class="title" id="info_main_years">17</p>
+                            </div>
+                        </div>
+                        <!-- <div class="level-item has-text-centered">
+                            <div>
+                            <p class="heading">PERCENT</p>
+                            <p class="title" id="info_main_percent">100%</p>
+                            </div>
+                        </div> -->
+                    </nav>
+                </div>        
+            </div>
+
+            <!-- Pie charts -->
+            <!-- 
+            <div class='row' style="margin-top: 20px;">
+                <div class="columns">
+                    <div class="column"></div>
+                    <div class="column is-11">
+                        <div class="box"> 
+                            <div class="columns">
+                                <div class="column has-text-centered is-4" >                                    
+                                    <div class="row" id="main_pie_chart">                                     
+                                    </div> 
+                                </div>
+                                <div class="column has-text-centered is-8">
+                                    <div class="row">
+                                        <div class="columns">
+                                            <div class="column has-text-centered is-3" id="main_gp_pie_chart">
+                                            </div>
+                                            <div class="column has-text-centered is-3" id="main_sp_pie_chart">
+                                            </div>
+                                            <div class="column has-text-centered is-3" id="main_inv_pie_chart">
+                                            </div>
+                                            <div class="column has-text-centered is-3" id="main_real_pie_chart">
+                                            </div>                                                
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="columns">
+                                            <div class="column has-text-centered is-3" id="main_hmd_pie_chart">
+                                            </div>
+                                            <div class="column has-text-centered is-3" id="main_monoscopic_pie_chart">
+                                            </div>
+                                            <div class="column has-text-centered is-3" id="main_projectiondisplay_pie_chart">
+                                            </div>
+                                            <div class="column has-text-centered is-3" id="main_appendix">
+                                            </div>                                          
+                                        </div>
+                                    </div> 
+                                </div>   
+                            </div>         
+                        </div>
+                    </div>   
+                    <div class="column"></div>
+                </div>
+            </div>  -->
+
+            <div class="row" style="margin-top: 20px;">
+                <div class="columns">
+                    <div class="column">                                    
+                    </div>                                                 
+                    <div class="column is-6">
+                        <div class="box" id="main_bar_chart_for_score">                                           
+                        </div>                                        
+                    </div>
+                    <div class="column is-5">   
+                        <div class="box" id="main_bar_chart_for_year">                                           
+                        </div>                                           
+                    </div>
+                    <div class="column">                                    
+                    </div>         
+                </div>
+            </div>
+            <div class='row'>
+                <div class="columns">
+                    <div class="column" >
+                    </div>
+                    <div class="column is-11" id="main_list_publications">                        
+                    </div>
+                    <div class="column" >
+                    </div>
+                </div>        
+            </div>
+        </div>        
+    </div> 
+
+    <div id="user_data_page">
+        <div class="row" id="user_data_summary">
+
+        </div>
+        <div class="row" id="user_data_statistics">
+            <section class="section" id = "header_analysis_statistics">
+                <div class="container">
+                    <div class="columns">
+                        <div class="column"></div>
+                        <div class="column is-11 has-text-centered">
+                            <div class="box">
+                                <h1 class="title">ANALYSIS STATISTICS</h1>
+                            </div>
+                        </div> 
+                        <div class="column"></div>                   
+                    </div>
+                </div>
+            </section>     
+            
+            <div class="row" id="user_data_sample_report_text">
+
+            </div>
+            
+            <div class="row">
+                <div class="columns">
+                    <div class="column">
+                    </div>
+                    <div class="column is-11">
+                        <div class="box code" style="background-color: #E5E8E8; text-align:center;" id="analysis_code">                            
+                        </div>
+                    </div>    
+                    <div class="column">
+                    </div>                    
+                </div>
+            </div>            
+        </div>
+    </div>     
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                Statistics analyses in python is conducted thank to <strong><a href="https://github.com/iodide-project/pyodide/">Pyodide</a></strong>.<br>
+                There are some libraries in python has been used, but not limited to <i>scipy</i>, <i>numpy</i>, <i>pendas</i>, and <i>statsmodels</i>.<br>
+                The illustations are done with <strong><a href="https://d3js.org/">D3.js</a></strong> library.<br>
+                This page is format with <strong><a href="https://bulma.io/">Bulma</a></strong>.
+            </p>
+        </div>
+    </footer>
+    <!-- <img src="assets/pictures/go-to-top.jpg"/> -->
+    <button onclick="GoTop()" id="goTopBtn" title="Go to top" style="width: 50px; height: 50px; font-size: 14px;" class="has-text-centered">Top</button>
+    
+    <script  src="index.js"></script>
+
+    <script>
+    </script>
+</body>
+</html>

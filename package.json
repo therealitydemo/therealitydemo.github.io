@@ -1,0 +1,25 @@
+{
+  "name": "ipq-browser",
+  "version": "1.0.0",
+  "description": "A application for calculating IPQ score.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "",
+  "keywords": [
+    "IPQ",
+    "Igroup Presence Questionnaire",
+    "I-group Presence Questionnaire",
+    "Presence",
+    "Schubert et al."
+  ],
+  "author": "Tanh Tran",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^7.3.3"
+  },
+  "dependencies": {
+    "d3": "^5.12.0"
+  }
+}
