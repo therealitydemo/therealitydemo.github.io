@@ -458,7 +458,7 @@
                                 Igroup Presence Questionnaire or IPQ is a questionnaire used for evaluate the level of presence users perceive in the virtual environment. 
                                 The IPQ was developed based on four general principles and requirements: (1) it was developed on top of a theoretical framework around cognitive processes, (2) it should clearly distinguish between the concepts of immersion and presence, (3) it should be practical to apply in terms of length and versatility, and finally (4) it should be validated with a statistical model.
                                 As an instrument, the IPQ is composed of 13+1 items, each as a 7-point Likert scale between -3 and 3, expressing full disagreement and full agreement, respectively. 
-                                It consists of three sub scales (spatial presence (SP), involvement (INV), experience realism (REAL)) plus one general presence (GP) question. For more information, please visit the IPQ homepage at <a href="http://www.igroup.org/pq/ipq/index.php" style="color: blue;">here</a> or read our manuscript.
+                                It consists of three sub scales (spatial presence (SP), involvement (INV), experienced realism (REAL)) plus one general presence (GP) question. For more information, please visit the IPQ homepage at <a href="http://www.igroup.org/pq/ipq/index.php" style="color: blue;">here</a> or read our manuscript.
                             </p>
                             <h5>Questionnaire Template</h5>
                             <p>The whole questionnaire template can be downloaded at <a href="assets/documents/ipq_template.pdf" style="color: blue;">here</a>, as shown below:</p>
@@ -481,18 +481,18 @@
                                 CATEGORY
                             </header>
                             <div class="row">
-                                <button class="button is-custom is-info" id="btn_overall" onclick="ChangeCategory(this)">Overall</button>
+                                <button class="button is-custom is-info" id="btn_overall" onclick="ChangeCategory(this)" style="width: 170px;">Overall</button>
                             </div>
                             <div class="row" style="margin-top: 5px;">
-                                <button class="button is-custom" id="btn_sp" onclick="ChangeCategory(this)">Spatial Presence (SP)</button>
-                                <button class="button is-custom" id="btn_inv" onclick="ChangeCategory(this)">Involvement (INV)</button>
-                                <button class="button is-custom" id="btn_real" onclick="ChangeCategory(this)">Experienced Realism (REAL)</button>
-                                <button class="button is-custom" id="btn_gp" onclick="ChangeCategory(this)">General Presence (GP)</button>                               
+                                <button class="button is-custom" id="btn_sp" onclick="ChangeCategory(this)" style="width: 170px;">Spatial Presence (SP)</button>
+                                <button class="button is-custom" id="btn_inv" onclick="ChangeCategory(this)" style="width: 170px;">Involvement (INV)</button>
+                                <button class="button is-custom" id="btn_real" onclick="ChangeCategory(this)" style="width: 170px;">Experienced Realism (REAL)</button>
+                                <button class="button is-custom" id="btn_gp" onclick="ChangeCategory(this)" style="width: 170px;">General Presence (GP)</button>                               
                             </div>
                             <div class="row" style="margin-top: 5px;">
-                                <button class="button is-custom" id="btn_hmd" onclick="ChangeCategory(this)">3D - HMD</button>
-                                <button class="button is-custom" id="btn_mono" onclick="ChangeCategory(this)">3D - Monoscopic</button>
-                                <button class="button is-custom" id="btn_proj" onclick="ChangeCategory(this)">Projection Display</button>
+                                <button class="button is-custom" id="btn_hmd" onclick="ChangeCategory(this)" style="width: 170px;">3D - HMD</button>
+                                <button class="button is-custom" id="btn_mono" onclick="ChangeCategory(this)" style="width: 170px;">3D - Monoscopic</button>
+                                <button class="button is-custom" id="btn_proj" onclick="ChangeCategory(this)" style="width: 170px;">Projection Display</button>
                             </div>  
                         </div>
                         <!-- <div class="tile is-parent">
@@ -525,17 +525,17 @@
                                 RANKING CLASS
                             </header>
                             <div class="row">
-                                <button class="button is-custom is-info" id="all_classes" onclick="ChangeRankingClass(this)">All classes</button>
+                                <button class="button is-custom is-info" id="all_classes" onclick="ChangeRankingClass(this)" style="width: 85px;">All Classes</button>
                             </div>
                             <div class="row" style="margin-top: 5px;">
-                                <button class="button is-custom" id="class_a" onclick="ChangeRankingClass(this)">(A | 1)</button>
-                                <button class="button is-custom" id="class_b" onclick="ChangeRankingClass(this)">(B | 2)</button>
-                                <button class="button is-custom" id="class_c" onclick="ChangeRankingClass(this)">(C | 3)</button>
+                                <button class="button is-custom" id="class_a" onclick="ChangeRankingClass(this)" style="width: 85px;">TOP1% </button>
+                                <button class="button is-custom" id="class_b" onclick="ChangeRankingClass(this)" style="width: 85px;">TOP5% </button>
+                                <button class="button is-custom" id="class_c" onclick="ChangeRankingClass(this)" style="width: 85px;">TOP10%</button>
                             </div>  
                             <div class="row" style="margin-top: 5px;">
-                                <button class="button is-custom" id="class_d" onclick="ChangeRankingClass(this)">(D | 4)</button>
-                                <button class="button is-custom" id="class_e" onclick="ChangeRankingClass(this)">(E | 5)</button>
-                                <button class="button is-custom" id="class_f" onclick="ChangeRankingClass(this)">(F | 6)</button>
+                                <button class="button is-custom" id="class_d" onclick="ChangeRankingClass(this)" style="width: 85px;">TOP25%</button>
+                                <button class="button is-custom" id="class_e" onclick="ChangeRankingClass(this)" style="width: 85px;">TOP50%</button>
+                                <button class="button is-custom" id="class_f" onclick="ChangeRankingClass(this)" style="width: 85px;">BASE  </button>
                             </div>           
                         </div>
                     </div>
@@ -545,10 +545,10 @@
                                 PUBLICATION YEAR
                             </header>
                             <div class="row">
-                                <button class="button is-custom is-info" id="btn_year_ascending" onclick="YearSortBy(this, true, false, true)">Ascending</button> 
+                                <button class="button is-custom is-info" id="btn_year_ascending" onclick="YearSortBy(this, true, false, true)" style="width: 85px;">Ascending</button> 
                                 </div>  
                             <div class="row" style="margin-top: 5px;">
-                                <button class="button is-custom is-small" id="btn_year_descending" onclick="YearSortBy(this, true, false, false)">Descending</button>                     
+                                <button class="button is-custom is-small" id="btn_year_descending" onclick="YearSortBy(this, true, false, false)" style="width: 85px;">Descending</button>                     
                             </div>    
                         </div>
                     </div>
@@ -559,10 +559,10 @@
                                 NUMBER OF PARTICIPANTS
                             </header>
                             <div class="row">
-                                <button class="button is-custom is-info" id="btn_npar_ascending" onclick="NParSortBy(this, false, true, true)">Ascending</button> 
+                                <button class="button is-custom is-info" id="btn_npar_ascending" onclick="NParSortBy(this, false, true, true)" style="width: 85px;">Ascending</button> 
                             </div>
                             <div class="row" style="margin-top: 5px;">
-                                <button class="button is-custom" id="btn_npar_descending" onclick="NParSortBy(this, false, true, false)">Descending</button>  
+                                <button class="button is-custom" id="btn_npar_descending" onclick="NParSortBy(this, false, true, false)" style="width: 85px;">Descending</button>  
                             </div>    
                         </div> 
                     </div>
@@ -729,14 +729,19 @@
         </div>
     </div>     
 
-    <footer class="footer">
+    <footer class="footer" style="background-image: linear-gradient(to bottom, white, #EAF2F8);">
         <div class="content has-text-centered">
-            <p>
+            <p style="font-size: 14px;">
                 Statistics analyses in python is conducted thank to <strong><a href="https://github.com/iodide-project/pyodide/">Pyodide</a></strong>.<br>
                 There are some libraries in python has been used, but not limited to <i>scipy</i>, <i>numpy</i>, <i>pendas</i>, and <i>statsmodels</i>.<br>
                 The illustations are done with <strong><a href="https://d3js.org/">D3.js</a></strong> library.<br>
-                This page is format with <strong><a href="https://bulma.io/">Bulma</a></strong>.
+                This page is styled with <strong><a href="https://bulma.io/">Bulma</a></strong>.
             </p>
+        </div>
+        <div class="content has-text-centered">
+            <h6 id="copyright">
+                &copy; Tanh Quang Tran, Tobias Langlotz, Thomas Schubert, Holger Regenbrecht
+            </h6>
         </div>
     </footer>
     <!-- <img src="assets/pictures/go-to-top.jpg"/> -->
