@@ -17,79 +17,79 @@ $("#terms_and_conditions").hide();
 // ];
 
 var adjective_ratings_overall = [
-    {'name': 'BASE', 'from': -3, 'to': 0.2304}, 
-    {'name': 'TOP50%', 'from': 0.2304, 'to': 0.6996}, 
-    {'name': 'TOP25%', 'from': 0.6996, 'to': 1.1059}, 
-    {'name': 'TOP10%', 'from': 1.1059, 'to': 1.5014}, 
-    {'name': 'TOP5%', 'from': 1.5014, 'to': 1.8882}, 
-    {'name': 'TOP1%', 'from': 1.8882, 'to': 3}, 
+    {'name': 'Class VI', 'from': -3, 'to': 0.2304}, 
+    {'name': 'Class V', 'from': 0.2304, 'to': 0.6996}, 
+    {'name': 'Class IV', 'from': 0.6996, 'to': 1.1059}, 
+    {'name': 'Class III', 'from': 1.1059, 'to': 1.5014}, 
+    {'name': 'Class II', 'from': 1.5014, 'to': 1.8882}, 
+    {'name': 'Class I', 'from': 1.8882, 'to': 3}, 
 ];
 
 var adjective_ratings_SP = [
-    {'name': 'BASE', 'from': -3, 'to': 0.6383}, 
-    {'name': 'TOP50%', 'from': 0.6383, 'to': 1.3455}, 
-    {'name': 'TOP25%', 'from': 1.3455, 'to': 1.8905}, 
-    {'name': 'TOP10%', 'from': 1.8905, 'to': 2.1837}, 
-    {'name': 'TOP5%', 'from': 2.1837, 'to': 2.5610}, 
-    {'name': 'TOP1%', 'from': 2.5610, 'to': 3}, 
+    {'name': 'Class VI', 'from': -3, 'to': 0.6383}, 
+    {'name': 'Class V', 'from': 0.6383, 'to': 1.3455}, 
+    {'name': 'Class IV', 'from': 1.3455, 'to': 1.8905}, 
+    {'name': 'Class III', 'from': 1.8905, 'to': 2.1837}, 
+    {'name': 'Class II', 'from': 2.1837, 'to': 2.5610}, 
+    {'name': 'Class I', 'from': 2.5610, 'to': 3}, 
 ];
 
 
 var adjective_ratings_INV = [
-    {'name': 'BASE', 'from': -3, 'to': 0.2478}, 
-    {'name': 'TOP50%', 'from': 0.2478, 'to': 0.8255}, 
-    {'name': 'TOP25%', 'from': 0.8255, 'to': 1.2730}, 
-    {'name': 'TOP10%', 'from': 1.2730, 'to': 1.5153}, 
-    {'name': 'TOP5%', 'from': 1.5153, 'to': 1.9248}, 
-    {'name': 'TOP1%', 'from': 1.9248, 'to': 3},
+    {'name': 'Class VI', 'from': -3, 'to': 0.2478}, 
+    {'name': 'Class V', 'from': 0.2478, 'to': 0.8255}, 
+    {'name': 'Class IV', 'from': 0.8255, 'to': 1.2730}, 
+    {'name': 'Class III', 'from': 1.2730, 'to': 1.5153}, 
+    {'name': 'Class II', 'from': 1.5153, 'to': 1.9248}, 
+    {'name': 'Class I', 'from': 1.9248, 'to': 3},
 ];
 
 
 var adjective_ratings_REAL = [
-    {'name': 'BASE', 'from': -3, 'to': -0.3206}, 
-    {'name': 'TOP50%', 'from': -0.3206, 'to': 0.0425}, 
-    {'name': 'TOP25%', 'from': 0.0425, 'to': 0.6863}, 
-    {'name': 'TOP10%', 'from': 0.6863, 'to': 1.2430}, 
-    {'name': 'TOP5%', 'from': 1.2430, 'to': 1.9402}, 
-    {'name': 'TOP1%', 'from': 1.9402, 'to': 3},
+    {'name': 'Class VI', 'from': -3, 'to': -0.3206}, 
+    {'name': 'Class V', 'from': -0.3206, 'to': 0.0425}, 
+    {'name': 'Class IV', 'from': 0.0425, 'to': 0.6863}, 
+    {'name': 'Class III', 'from': 0.6863, 'to': 1.2430}, 
+    {'name': 'Class II', 'from': 1.2430, 'to': 1.9402}, 
+    {'name': 'Class I', 'from': 1.9402, 'to': 3},
 ];
 
 var adjective_ratings_GP = [
-    {'name': 'BASE', 'from': -3, 'to': 0.8475}, 
-    {'name': 'TOP50%', 'from': 0.8475, 'to': 1.5118}, 
-    {'name': 'TOP25%', 'from': 1.5118, 'to': 1.9164}, 
-    {'name': 'TOP10%', 'from': 1.9164, 'to': 2.1497}, 
-    {'name': 'TOP5%', 'from': 2.1497, 'to': 2.5865}, 
-    {'name': 'TOP1%', 'from': 2.5865, 'to': 3}, 
+    {'name': 'Class VI', 'from': -3, 'to': 0.8475}, 
+    {'name': 'Class V', 'from': 0.8475, 'to': 1.5118}, 
+    {'name': 'Class IV', 'from': 1.5118, 'to': 1.9164}, 
+    {'name': 'Class III', 'from': 1.9164, 'to': 2.1497}, 
+    {'name': 'Class II', 'from': 2.1497, 'to': 2.5865}, 
+    {'name': 'Class I', 'from': 2.5865, 'to': 3}, 
 ];
 
 var adjective_ratings_hmd = [
-    {'name': 'BASE', 'from': -3, 'to': 0.4821}, 
-    {'name': 'TOP50%', 'from': 0.4821, 'to': 0.9580}, 
-    {'name': 'TOP25%', 'from': 0.9580, 'to': 1.4324}, 
-    {'name': 'TOP10%', 'from': 1.4324, 'to': 1.8132}, 
-    {'name': 'TOP5%', 'from': 1.8132, 'to': 2.3994}, 
-    {'name': 'TOP1%', 'from': 2.3994, 'to': 3},
+    {'name': 'Class VI', 'from': -3, 'to': 0.4821}, 
+    {'name': 'Class V', 'from': 0.4821, 'to': 0.9580}, 
+    {'name': 'Class IV', 'from': 0.9580, 'to': 1.4324}, 
+    {'name': 'Class III', 'from': 1.4324, 'to': 1.8132}, 
+    {'name': 'Class II', 'from': 1.8132, 'to': 2.3994}, 
+    {'name': 'Class I', 'from': 2.3994, 'to': 3},
 ];
 
 
 var adjective_ratings_monoscopic = [
-    {'name': 'BASE', 'from': -3, 'to': 0.0607}, 
-    {'name': 'TOP50%', 'from': 0.0607, 'to': 0.6771}, 
-    {'name': 'TOP25%', 'from': 0.6771, 'to': 1.3980}, 
-    {'name': 'TOP10%', 'from': 1.3980, 'to': 1.6674}, 
-    {'name': 'TOP5%', 'from': 1.6674, 'to': 1.8980}, 
-    {'name': 'TOP1%', 'from': 1.8980, 'to': 3}, 
+    {'name': 'Class VI', 'from': -3, 'to': 0.0607}, 
+    {'name': 'Class V', 'from': 0.0607, 'to': 0.6771}, 
+    {'name': 'Class IV', 'from': 0.6771, 'to': 1.3980}, 
+    {'name': 'Class III', 'from': 1.3980, 'to': 1.6674}, 
+    {'name': 'Class II', 'from': 1.6674, 'to': 1.8980}, 
+    {'name': 'Class I', 'from': 1.8980, 'to': 3}, 
 ];
 
 
 var adjective_ratings_projection_display = [
-    {'name': 'BASE', 'from': -3, 'to': 0.1250}, 
-    {'name': 'TOP50%', 'from': 0.1250, 'to': 0.6107}, 
-    {'name': 'TOP25%', 'from': 0.6107, 'to': 0.7309}, 
-    {'name': 'TOP10%', 'from': 0.7309, 'to': 1.0138}, 
-    {'name': 'TOP5%', 'from': 1.0138, 'to': 1.1050}, 
-    {'name': 'TOP1%', 'from': 1.1050, 'to': 3}, 
+    {'name': 'Class VI', 'from': -3, 'to': 0.1250}, 
+    {'name': 'Class V', 'from': 0.1250, 'to': 0.6107}, 
+    {'name': 'Class IV', 'from': 0.6107, 'to': 0.7309}, 
+    {'name': 'Class III', 'from': 0.7309, 'to': 1.0138}, 
+    {'name': 'Class II', 'from': 1.0138, 'to': 1.1050}, 
+    {'name': 'Class I', 'from': 1.1050, 'to': 3}, 
 ];
 
 
@@ -166,12 +166,12 @@ var numberofParticipants = 0;
 // ];
 
 var colors = [
-    {"name": 'BASE', "color":"#cce2fd"},
-    {"name": 'TOP50%', "color":"#a9d7fc"},
-    {"name": 'TOP25%', "color":"#80cafb"},
-    {"name": 'TOP10%', "color":"#51bbfa"},
-    {"name": 'TOP5%', "color":"#31b1f9"},
-    {"name": 'TOP1%', "color":"#3092c7"}
+    {"name": 'Class VI', "color":"#cce2fd"},
+    {"name": 'Class V', "color":"#a9d7fc"},
+    {"name": 'Class IV', "color":"#80cafb"},
+    {"name": 'Class III', "color":"#51bbfa"},
+    {"name": 'Class II', "color":"#31b1f9"},
+    {"name": 'Class I', "color":"#3092c7"}
 ];
 
 var user_data_color = "#F39C12";
@@ -189,7 +189,7 @@ var standard_total_each_item_mono = [];
 var standard_total_each_item_proj = [];
 
 jQuery(window).ready(function () {
-    d3.csv("data/IPQReport_EachStudy_SubScale_August2020_NewClass.csv", function (error, data)
+    d3.csv("data/August2020_RomanClassName/IPQReport_EachStudy_SubScale_August2020_RomanClassName.csv", function (error, data)
     {      
         for(var i = 0; i < subscalesObject.value.length; i++)
         {
@@ -228,7 +228,7 @@ jQuery(window).ready(function () {
         }     
     });
 
-    d3.csv("data/IPQReport_EachCondition_VisualDisplay_August2020_NewClass.csv", function (error, data)
+    d3.csv("data/August2020_RomanClassName/IPQReport_EachCondition_VisualDisplay_August2020_RomanClassName.csv", function (error, data)
     {      
         for(var i = 0; i < visualDisplaysObject.value.length; i++)
         {
@@ -255,7 +255,7 @@ jQuery(window).ready(function () {
         
     });
 
-    d3.csv("data/IPQReport_EachStudy_August2020_NewClass.csv", function (error, data)
+    d3.csv("data/August2020_RomanClassName/IPQReport_EachStudy_August2020_RomanClassName.csv", function (error, data)
     {      
         overallObject = ParseData(data, "Overall", "class", "standard_total_each_item");
         var adjectiveRatingsObject = overallObject.value.find(function(element) {
@@ -348,12 +348,12 @@ function ParseData(data, name, attr, col = "", type = "ipq")
     // adjectiveRatingsObject.value.push({"name": "Excellent", "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
     // adjectiveRatingsObject.value.push({"name": "Best", "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
     
-    adjectiveRatingsObject.value.push({"name": 'BASE', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
-    adjectiveRatingsObject.value.push({"name": 'TOP50%', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
-    adjectiveRatingsObject.value.push({"name": 'TOP25%', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
-    adjectiveRatingsObject.value.push({"name": 'TOP10%', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
-    adjectiveRatingsObject.value.push({"name": 'TOP5%', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
-    adjectiveRatingsObject.value.push({"name": 'TOP1%', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
+    adjectiveRatingsObject.value.push({"name": 'Class VI', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
+    adjectiveRatingsObject.value.push({"name": 'Class V', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
+    adjectiveRatingsObject.value.push({"name": 'Class IV', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
+    adjectiveRatingsObject.value.push({"name": 'Class III', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
+    adjectiveRatingsObject.value.push({"name": 'Class II', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
+    adjectiveRatingsObject.value.push({"name": 'Class I', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
     
     mainObject.value.push(overallObject);
     mainObject.value.push(adjectiveRatingsObject);
@@ -1116,29 +1116,29 @@ function HandleUploadedData()
             {
                 retObject.ranges.forEach(function(r)
                 {
-                    if(r.name === 'BASE' && average_score >= r.from && average_score < r.to)
+                    if(r.name === 'Class VI' && average_score >= r.from && average_score < r.to)
                     {
-                        adjectiveRating = 'BASE';
+                        adjectiveRating = 'Class VI';
                     }
-                    else if(r.name === 'TOP50%' && average_score >= r.from && average_score < r.to)
+                    else if(r.name === 'Class V' && average_score >= r.from && average_score < r.to)
                     {
-                        adjectiveRating = 'TOP50%';
+                        adjectiveRating = 'Class V';
                     }
-                    else if(r.name === 'TOP25%' && average_score >= r.from && average_score < r.to)
+                    else if(r.name === 'Class IV' && average_score >= r.from && average_score < r.to)
                     {
-                        adjectiveRating = 'TOP25%';
+                        adjectiveRating = 'Class IV';
                     }
-                    else if(r.name === 'TOP10%' && average_score >= r.from && average_score <= r.to)
+                    else if(r.name === 'Class III' && average_score >= r.from && average_score <= r.to)
                     {
-                        adjectiveRating = 'TOP10%';
+                        adjectiveRating = 'Class III';
                     }
-                    else if(r.name === 'TOP5%' && average_score > r.from && average_score <= r.to)
+                    else if(r.name === 'Class II' && average_score > r.from && average_score <= r.to)
                     {
-                        adjectiveRating = 'TOP5%';
+                        adjectiveRating = 'Class II';
                     }
-                    else if(r.name === 'TOP1%' && average_score > r.from && average_score <= r.to)
+                    else if(r.name === 'Class I' && average_score > r.from && average_score <= r.to)
                     {
-                        adjectiveRating = 'TOP1%';
+                        adjectiveRating = 'Class I';
                     }
                     // else if(r.name === "Best" && average_score > r.from && average_score <= r.to)
                     // {
@@ -3105,12 +3105,12 @@ function AddAppendix(is_user_data = false, div = "#main_appendix")
     appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 4 * (height / 8)).attr("r", 6).style("fill", "#3092c7");
 
     // appendixSVG.append("text").attr("x", width/5 + 15).attr("y", height - 1 * (height / 8)).text("Best").attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
-    appendixSVG.append("text").attr("x", width/5 + width/3 + 15).attr("y", height - 2 * (height / 8)).text('BASE').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
-    appendixSVG.append("text").attr("x", width/5 + 15).attr("y", height - 2 * (height / 8)).text('TOP50%').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
-    appendixSVG.append("text").attr("x", width/5 + width/3 + 15).attr("y", height - 3 * (height / 8)).text('TOP25%').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
-    appendixSVG.append("text").attr("x", width/5 + 15).attr("y", height - 3 * (height / 8)).text('TOP10%').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
-    appendixSVG.append("text").attr("x", width/5 + width/3 + 15).attr("y", height - 4 * (height / 8)).text('TOP5%').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
-    appendixSVG.append("text").attr("x", width/5 + 15).attr("y", height - 4 * (height / 8)).text('TOP1%').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
+    appendixSVG.append("text").attr("x", width/5 + width/3 + 15).attr("y", height - 2 * (height / 8)).text('Class VI').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
+    appendixSVG.append("text").attr("x", width/5 + 15).attr("y", height - 2 * (height / 8)).text('Class V').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
+    appendixSVG.append("text").attr("x", width/5 + width/3 + 15).attr("y", height - 3 * (height / 8)).text('Class IV').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
+    appendixSVG.append("text").attr("x", width/5 + 15).attr("y", height - 3 * (height / 8)).text('Class III').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
+    appendixSVG.append("text").attr("x", width/5 + width/3 + 15).attr("y", height - 4 * (height / 8)).text('Class II').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
+    appendixSVG.append("text").attr("x", width/5 + 15).attr("y", height - 4 * (height / 8)).text('Class I').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
 
     if(is_user_data)
     {        
