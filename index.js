@@ -1835,8 +1835,8 @@ for i in range(0, len(bp_xlabels)):
 print(x_ticks)
 
 bp_xlabels = [""] + bp_xlabels
-ax.set_xticklabels(bp_xlabels)
 ax.set_xticks(x_ticks)
+ax.set_xticklabels(bp_xlabels)
 ax.set_ylim(-3, 3)
 
 plt.tight_layout()
