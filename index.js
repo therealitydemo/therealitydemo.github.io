@@ -1306,7 +1306,7 @@ function HandleUploadedData()
 
         if(i === 0)
         {
-            var user_data_report_text = '<p>In general, the analysis on IPQ score showed that this experiment provided users with level "' + averageData.value[i].value[0].adjective_rating +
+            var user_data_report_text = '<p>In general, the analysis on IPQ scores showed that this experiment provided users with level "' + averageData.value[i].value[0].adjective_rating +
                 '" of presence in comparison with previous user studies. For more details, the level presence for sub-scales of IPQ including general presence, spatial presence, involvement, and experience realism are "' +
                 averageData.value[0].value[1].adjective_rating + '", "' + 
                 averageData.value[0].value[2].adjective_rating + '", "' + 
@@ -1322,7 +1322,7 @@ function HandleUploadedData()
 
             if(averageData.value[0].value.length > 6)
             {
-                user_data_report_text += 'In addition, users perceived perceive presence at level "' + averageData.value[0].value[6].adjective_rating + 
+                user_data_report_text += 'In addition, users perceived presence at level "' + averageData.value[0].value[6].adjective_rating + 
                     '" when they experienced with the ' + averageData.value[0].value[6].name + ' display. ';
             }
 
