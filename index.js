@@ -721,6 +721,73 @@ function AddScoreBarChart(object, div){
             return height - y(d.number); 
         });
 
+    var text1 = " ";
+    var text2 = " ";
+    if(object.name == "Summary")
+    {
+        text1 += "for all classes"
+    }
+    else
+    {
+        text1 = "for " + object.name;
+    }
+
+    if(typeof object.subscale !== "undefined")
+    {
+        if(object.subscale == "Overall" || object.subscale == "")
+        {
+            text2 += " overall average";
+        }
+        else if(object.subscale == "REAL")
+        {
+            text2 += " Experienced Realism sub-scale average";
+        }
+        else if(object.subscale == "INV")
+        {
+            text2 += " Involvement sub-scale average";
+        }
+        else if(object.subscale == "SP")
+        {
+            text2 += " Spatial Presence sub-scale average";
+        }
+        else if(object.subscale == "GP")
+        {
+            text2 += " General Presence sub-scale average";
+        }    
+    }
+    else
+    {
+        if(typeof _category !== "undefined")
+        {
+            if(_category == "SP")
+            {
+                text2 += " Spatial Presence sub-scale average";
+            }
+            else if(_category == "INV")
+            {
+                text2 += " Involvement sub-scale average";
+            }
+            else if(_category == "REAL")
+            {
+                text2 += " Experienced Realism sub-scale average";
+            }
+            else if(_category == "GP")
+            {
+                text2 += " General Presence sub-scale average";
+            }
+            else
+            {
+                text2 += " overall average";
+            }
+        }
+    }
+
+    
+    if(object.display != "" && typeof object.display !== "undefined")
+    {
+        text1 += " with " + object.display;
+    }
+
     barChartSVG.append("text")           
         .attr("transform",
             "translate(" + (width/2) + " ," + 
@@ -728,7 +795,7 @@ function AddScoreBarChart(object, div){
         .attr("text-anchor", "middle")  
         .style("font-size", "14px") 
         .style("font-weight", "bold")  
-        .text("Distribution of rating scores from previous user studies");
+        .text("Distribution of" + text2 + " rating scores from previous user studies " + text1);
 }
 
 function UpdateInfo(stage, object, option = "")
@@ -3378,27 +3445,27 @@ function ChangeRankingClass(btn)
     }
     else if(btn.id === "class_a")
     {
-        _currentRankingClass = "TOP1%";
+        _currentRankingClass = "Class I";
     }
     else if(btn.id === "class_b")
     {
-        _currentRankingClass = "TOP5%";
+        _currentRankingClass = "Class II";
     }
     else if(btn.id === "class_c")
     {
-        _currentRankingClass = "TOP10%";
+        _currentRankingClass = "Class III";
     }
     else if(btn.id === "class_d")
     {
-        _currentRankingClass = "TOP25%";
+        _currentRankingClass = "Class IV";
     }
     else if(btn.id === "class_e")
     {
-        _currentRankingClass = "TOP50%";
+        _currentRankingClass = "Class V";
     }
     else if(btn.id === "class_f")
     {
-        _currentRankingClass = "BASE";
+        _currentRankingClass = "Class VI";
     }
 
     UpdateCategoryAndClassSelection();
