@@ -17,79 +17,79 @@ $("#terms_and_conditions").hide();
 // ];
 
 var adjective_ratings_overall = [
-    {'name': 'Class VI', 'from': -3, 'to': 0.2304}, 
-    {'name': 'Class V', 'from': 0.2304, 'to': 0.6996}, 
-    {'name': 'Class IV', 'from': 0.6996, 'to': 1.1059}, 
-    {'name': 'Class III', 'from': 1.1059, 'to': 1.5014}, 
-    {'name': 'Class II', 'from': 1.5014, 'to': 1.8882}, 
-    {'name': 'Class I', 'from': 1.8882, 'to': 3}, 
+    {'name': 'Class VI', 'from': -3, 'to': 0.230}, 
+    {'name': 'Class V', 'from': 0.230, 'to': 0.667}, 
+    {'name': 'Class IV', 'from': 0.667, 'to': 1.104}, 
+    {'name': 'Class III', 'from': 1.104, 'to': 1.465}, 
+    {'name': 'Class II', 'from': 1.465, 'to': 1.883}, 
+    {'name': 'Class I', 'from': 1.883, 'to': 3}, 
 ];
 
 var adjective_ratings_SP = [
-    {'name': 'Class VI', 'from': -3, 'to': 0.6383}, 
-    {'name': 'Class V', 'from': 0.6383, 'to': 1.3455}, 
-    {'name': 'Class IV', 'from': 1.3455, 'to': 1.8905}, 
-    {'name': 'Class III', 'from': 1.8905, 'to': 2.1837}, 
-    {'name': 'Class II', 'from': 2.1837, 'to': 2.5610}, 
-    {'name': 'Class I', 'from': 2.5610, 'to': 3}, 
+    {'name': 'Class VI', 'from': -3, 'to': 0.638}, 
+    {'name': 'Class V', 'from': 0.638, 'to': 1.310}, 
+    {'name': 'Class IV', 'from': 1.310, 'to': 1.790}, 
+    {'name': 'Class III', 'from': 1.790, 'to': 2.000}, 
+    {'name': 'Class II', 'from': 2.000, 'to': 2.340}, 
+    {'name': 'Class I', 'from': 2.340, 'to': 3}, 
 ];
 
 
 var adjective_ratings_INV = [
-    {'name': 'Class VI', 'from': -3, 'to': 0.2478}, 
-    {'name': 'Class V', 'from': 0.2478, 'to': 0.8255}, 
-    {'name': 'Class IV', 'from': 0.8255, 'to': 1.2730}, 
-    {'name': 'Class III', 'from': 1.2730, 'to': 1.5153}, 
-    {'name': 'Class II', 'from': 1.5153, 'to': 1.9248}, 
-    {'name': 'Class I', 'from': 1.9248, 'to': 3},
+    {'name': 'Class VI', 'from': -3, 'to': 0.250}, 
+    {'name': 'Class V', 'from': 0.250, 'to': 0.700}, 
+    {'name': 'Class IV', 'from': 0.700, 'to': 1.158}, 
+    {'name': 'Class III', 'from': 1.158, 'to': 1.385}, 
+    {'name': 'Class II', 'from': 1.385, 'to': 1.810}, 
+    {'name': 'Class I', 'from': 1.810, 'to': 3},
 ];
 
 
 var adjective_ratings_REAL = [
-    {'name': 'Class VI', 'from': -3, 'to': -0.3206}, 
-    {'name': 'Class V', 'from': -0.3206, 'to': 0.0425}, 
-    {'name': 'Class IV', 'from': 0.0425, 'to': 0.6863}, 
-    {'name': 'Class III', 'from': 0.6863, 'to': 1.2430}, 
-    {'name': 'Class II', 'from': 1.2430, 'to': 1.9402}, 
-    {'name': 'Class I', 'from': 1.9402, 'to': 3},
+    {'name': 'Class VI', 'from': -3, 'to': -0.317}, 
+    {'name': 'Class V', 'from': -0.317, 'to': -0.014}, 
+    {'name': 'Class IV', 'from': -0.014, 'to': 0.590}, 
+    {'name': 'Class III', 'from': 0.590, 'to': 1.100}, 
+    {'name': 'Class II', 'from': 1.100, 'to': 1.846}, 
+    {'name': 'Class I', 'from': 1.846, 'to': 3},
 ];
 
 var adjective_ratings_GP = [
-    {'name': 'Class VI', 'from': -3, 'to': 0.8475}, 
-    {'name': 'Class V', 'from': 0.8475, 'to': 1.5118}, 
-    {'name': 'Class IV', 'from': 1.5118, 'to': 1.9164}, 
-    {'name': 'Class III', 'from': 1.9164, 'to': 2.1497}, 
-    {'name': 'Class II', 'from': 2.1497, 'to': 2.5865}, 
-    {'name': 'Class I', 'from': 2.5865, 'to': 3}, 
+    {'name': 'Class VI', 'from': -3, 'to': 0.875}, 
+    {'name': 'Class V', 'from': 0.875, 'to': 1.390}, 
+    {'name': 'Class IV', 'from': 1.390, 'to': 1.800}, 
+    {'name': 'Class III', 'from': 1.800, 'to': 2.000}, 
+    {'name': 'Class II', 'from': 2.000, 'to': 2.500}, 
+    {'name': 'Class I', 'from': 2.500, 'to': 3}, 
 ];
 
 var adjective_ratings_hmd = [
-    {'name': 'Class VI', 'from': -3, 'to': 0.4821}, 
-    {'name': 'Class V', 'from': 0.4821, 'to': 0.9580}, 
-    {'name': 'Class IV', 'from': 0.9580, 'to': 1.4324}, 
-    {'name': 'Class III', 'from': 1.4324, 'to': 1.8132}, 
-    {'name': 'Class II', 'from': 1.8132, 'to': 2.3994}, 
-    {'name': 'Class I', 'from': 2.3994, 'to': 3},
+    {'name': 'Class VI', 'from': -3, 'to': 0.471}, 
+    {'name': 'Class V', 'from': 0.471, 'to': 0.900}, 
+    {'name': 'Class IV', 'from': 0.900, 'to': 1.301}, 
+    {'name': 'Class III', 'from': 1.301, 'to': 1.629}, 
+    {'name': 'Class II', 'from': 1.629, 'to': 2.041}, 
+    {'name': 'Class I', 'from': 2.041, 'to': 3},
 ];
 
 
 var adjective_ratings_monoscopic = [
-    {'name': 'Class VI', 'from': -3, 'to': 0.0607}, 
-    {'name': 'Class V', 'from': 0.0607, 'to': 0.6771}, 
-    {'name': 'Class IV', 'from': 0.6771, 'to': 1.3980}, 
-    {'name': 'Class III', 'from': 1.3980, 'to': 1.6674}, 
-    {'name': 'Class II', 'from': 1.6674, 'to': 1.8980}, 
-    {'name': 'Class I', 'from': 1.8980, 'to': 3}, 
+    {'name': 'Class VI', 'from': -3, 'to': 0.049}, 
+    {'name': 'Class V', 'from': 0.049, 'to': 0.581}, 
+    {'name': 'Class IV', 'from': 0.581, 'to': 1.398}, 
+    {'name': 'Class III', 'from': 1.398, 'to': 1.520}, 
+    {'name': 'Class II', 'from': 1.520, 'to': 1.898}, 
+    {'name': 'Class I', 'from': 1.898, 'to': 3}, 
 ];
 
 
 var adjective_ratings_projection_display = [
-    {'name': 'Class VI', 'from': -3, 'to': 0.1250}, 
-    {'name': 'Class V', 'from': 0.1250, 'to': 0.6107}, 
-    {'name': 'Class IV', 'from': 0.6107, 'to': 0.7309}, 
-    {'name': 'Class III', 'from': 0.7309, 'to': 1.0138}, 
-    {'name': 'Class II', 'from': 1.0138, 'to': 1.1050}, 
-    {'name': 'Class I', 'from': 1.1050, 'to': 3}, 
+    {'name': 'Class VI', 'from': -3, 'to': 0.105}, 
+    {'name': 'Class V', 'from': 0.105, 'to': 0.600}, 
+    {'name': 'Class IV', 'from': 0.600, 'to': 0.725}, 
+    {'name': 'Class III', 'from': 0.725, 'to': 0.740}, 
+    {'name': 'Class II', 'from': 0.740, 'to': 1.105}, 
+    {'name': 'Class I', 'from': 1.105, 'to': 3}, 
 ];
 
 
@@ -106,13 +106,13 @@ var adjective_ratings = [
 
 var rootPapers = [];
 
-var overallObject = {'name': 'Overall', 'attr': 'rating_scale', 'value': []};
+var overallObject = {'name': 'Overall', 'attr': 'Ranking_class', 'value': []};
 var subscalesObject = {'name': 'Subscales', 'value': []};
 
-var spObject = {'name': 'SP', 'attr': 'class_sp', 'value': []};
-var gpObject = {'name': 'GP', 'attr': 'class_gp', 'value': []};
-var invObject = {'name': 'INV', 'attr': 'class_inv', 'value': []};
-var realObject = {'name': 'REAL', 'attr': 'class_real', 'value': []};
+var spObject = {'name': 'SP', 'attr': 'Sp_ranking_class', 'value': []};
+var gpObject = {'name': 'GP', 'attr': 'Gp_ranking_class', 'value': []};
+var invObject = {'name': 'INV', 'attr': 'Inv_ranking_class', 'value': []};
+var realObject = {'name': 'REAL', 'attr': 'Real_ranking_class', 'value': []};
 
 subscalesObject.value.push(spObject);
 subscalesObject.value.push(gpObject);
@@ -121,9 +121,9 @@ subscalesObject.value.push(realObject);
 
 var visualDisplaysObject = {'name': 'Visual_Displays', 'value': []};
 
-var hmdObject = {'name': '3D - HMD VR', 'attr': 'class', 'value': []};
-var monoscopicObject = {'name': '3D - Monoscopic', 'attr': 'class', 'value': []};
-var projectionObject = {'name': 'Projection Display', 'attr': 'class', 'value': []};
+var hmdObject = {'name': '3D - HMD VR', 'attr': 'Ranking_class', 'value': []};
+var monoscopicObject = {'name': '3D - Monoscopic', 'attr': 'Ranking_class', 'value': []};
+var projectionObject = {'name': 'Projection Display', 'attr': 'Ranking_class', 'value': []};
 
 visualDisplaysObject.value.push(hmdObject);
 visualDisplaysObject.value.push(monoscopicObject);
@@ -189,31 +189,31 @@ var standard_total_each_item_mono = [];
 var standard_total_each_item_proj = [];
 
 jQuery(window).ready(function () {
-    d3.csv("data/August2020_RomanClassName/IPQReport_EachStudy_SubScale_August2020_RomanClassName.csv", function (error, data)
+    d3.csv("data/August2020_Revision2021/IPQReport_EachCondition_August2020_Revision2021_Reformatted_EachSubscale_UTF8.csv", function (error, data)
     {      
         for(var i = 0; i < subscalesObject.value.length; i++)
         {
             var div = "#main_hmd_pie_chart";
-            var col = "standard_sp_each_item";
+            var col = "Standard_sp_each_item";
             if(subscalesObject.value[i].name === "SP")
             {
                 div = "#main_sp_pie_chart";
-                col = "standard_sp_each_item";
+                col = "Standard_sp_each_item";
             }
             else if(subscalesObject.value[i].name === "GP")
             {
                 div = "#main_gp_pie_chart";
-                col = "standard_gp_each_item";
+                col = "Standard_gp_each_item";
             }
             else if(subscalesObject.value[i].name === "INV")
             {
                 div = "#main_inv_pie_chart";
-                col = "standard_inv_each_item";
+                col = "Standard_inv_each_item";
             }
             else if(subscalesObject.value[i].name === "REAL")
             {
                 div = "#main_real_pie_chart";
-                col = "standard_real_each_item";
+                col = "Standard_real_each_item";
             }
 
             var e = ParseData(data, subscalesObject.value[i].name, subscalesObject.value[i].attr, col);
@@ -228,11 +228,11 @@ jQuery(window).ready(function () {
         }     
     });
 
-    d3.csv("data/August2020_RomanClassName/IPQReport_EachCondition_VisualDisplay_August2020_RomanClassName.csv", function (error, data)
+    d3.csv("data/August2020_Revision2021/IPQReport_EachCondition_August2020_Revision2021_Reformatted_VisualDisplays_UTF8.csv", function (error, data)
     {      
         for(var i = 0; i < visualDisplaysObject.value.length; i++)
         {
-            var e = ParseData(data, visualDisplaysObject.value[i].name, visualDisplaysObject.value[i].attr, "standard_total_each_item", "display");
+            var e = ParseData(data, visualDisplaysObject.value[i].name, visualDisplaysObject.value[i].attr, "Standard_total_each_item", "display");
 
             var adjectiveRatingsObject = e.value.find(function(element) {
                 return element.name === "AdjectiveRatings";
@@ -255,9 +255,9 @@ jQuery(window).ready(function () {
         
     });
 
-    d3.csv("data/August2020_RomanClassName/IPQReport_EachStudy_August2020_RomanClassName.csv", function (error, data)
+    d3.csv("data/August2020_Revision2021/IPQReport_EachCondition_August2020_Revision2021_Reformatted_EachStudy_UTF8.csv", function (error, data)
     {      
-        overallObject = ParseData(data, "Overall", "class", "standard_total_each_item");
+        overallObject = ParseData(data, "Overall", "Ranking_class", "Standard_total_each_item");
         var adjectiveRatingsObject = overallObject.value.find(function(element) {
             return element.name === "AdjectiveRatings";
         });
@@ -357,38 +357,39 @@ function ParseData(data, name, attr, col = "", type = "ipq")
     
     mainObject.value.push(overallObject);
     mainObject.value.push(adjectiveRatingsObject);
+    numberofParticipants = 0;
 
     data.forEach(function(d){
-        numberofParticipants += d.number_of_study_participants;
+        numberofParticipants += parseInt(d.Number_of_study_participants);
         
         mainObject.value.forEach(function(object)
         {
             object.value.forEach(function(e)
             {
                 if(((e.name === "Summary" && object.name === "Overall") || 
-                (e.name === d[attr] && object.name === "AdjectiveRatings")) && (type === "ipq" || (type === "display" && name === d["visual_display"])))
+                (e.name === d[attr] && object.name === "AdjectiveRatings")) && (type === "ipq" || (type === "display" && name === d["Visual_display"])))
                 {
                     e.number++;
-                            
+                    
                     var selectedColor = colors.find(function(element) {
                         return element.name === d[attr];
                     });
 
                     e.color = selectedColor.color;
-                    e.participants = parseInt(e.participants) + parseInt(d.number_of_study_participants);
-                    if(!e.years.includes(d.year))
+                    e.participants = parseInt(e.participants) + parseInt(d.Number_of_study_participants);
+                    if(!e.years.includes(d.Year))
                     {
-                        e.years.push(d.year);
+                        e.years.push(d.Year);
                     }
 
-                    if(!e.publications.includes(d.paperid))
+                    if(!e.publications.includes(d.Paperid))
                     {
-                        e.publications.push(d.paperid);
+                        e.publications.push(d.Paperid);
                     }
 
-                    if(!e.user_studies.includes(d.studyid))
+                    if(!e.user_studies.includes(d.Studyid))
                     {
-                        e.user_studies.push(d.studyid);
+                        e.user_studies.push(d.Studyid);
                     }
                     
                     e.value.forEach(function(e2)
@@ -403,7 +404,7 @@ function ParseData(data, name, attr, col = "", type = "ipq")
                             var flag = false;
 
                             e2.value.forEach(function(e3){
-                                if(e3.year === d.year)
+                                if(e3.year === d.Year)
                                 {
                                     e3.number++;
                                     e3.value.push(d);
@@ -416,19 +417,19 @@ function ParseData(data, name, attr, col = "", type = "ipq")
 
                             if(!flag)
                             {
-                                var element = {"year": d.year, "number": 1, "value": []};
+                                var element = {"year": d.Year, "number": 1, "value": []};
                                 element.value.push(d);
 
                                 e2.value.push(element);
                             }
 
-                            if(d.year < fromYear)
+                            if(d.Year < fromYear)
                             {
-                                fromYear = d.year;
+                                fromYear = d.Year;
                             }
-                            else if(d.year > toYear)
+                            else if(d.Year > toYear)
                             {
-                                toYear = d.year;
+                                toYear = d.Year;
                             }
                         }
 
@@ -494,7 +495,7 @@ function ParseData(data, name, attr, col = "", type = "ipq")
         }        
         else if(type === "display")
         {
-            if(d.visual_display === name)
+            if(d.Visual_display === name)
             {
                 if(name === "3D - HMD VR")
                 {
@@ -871,39 +872,39 @@ function WriteTable(data, div)
                 '</tfoot>' +
                 '<tbody height="200px">';
 
-    var rating_scale = "class";
+    var rating_scale = "Ranking_class";
 
     if(data.subscale === "Overall")
     {
-        rating_scale = 'class';
+        rating_scale = 'Ranking_class';
     }
     else if(data.subscale === "SP")
     {
-        rating_scale = 'class_sp';
+        rating_scale = 'Sp_ranking_class';
     }
     else if(data.subscale === "GP")
     {
-        rating_scale = 'class_gp';
+        rating_scale = 'Gp_ranking_class';
     }
     else if(data.subscale === "INV")
     {
-        rating_scale = 'class_inv';
+        rating_scale = 'Inv_ranking_class';
     }
     else if(data.subscale === "REAL")
     {
-        rating_scale = 'class_real';
+        rating_scale = 'Real_ranking_class';
     }
 
     detailObject.value.forEach(function(e){         
         html = html + '<tr style="background-color:' + data.color + '">' +
-                        '<td>' + e.title + '</td>' + 
-                        '<td>' + e.authors + '</td>' + 
+                        '<td>' + e.Title + '</td>' + 
+                        '<td>' + e.Authors + '</td>' + 
                         '<td>' + e[rating_scale] + '</td>' + 
-                        '<td>' + Math.round(e.standard_total_each_item * 1000) / 1000 + '</td>' + 
-                        '<td>' + e.number_of_total_participants + '</td>' + 
-                        '<td>' + e.year + '</td>' + 
-                        '<td>' + e.source + '</td>' + 
-                        '<td><a href="' + e.articleURL + '">Link</a></td>' +                    
+                        '<td>' + Math.round(e.Standard_total_each_item * 1000) / 1000 + '</td>' + 
+                        '<td>' + e.Number_of_total_participants + '</td>' + 
+                        '<td>' + e.Year + '</td>' + 
+                        '<td>' + e.Source + '</td>' + 
+                        '<td><a href="' + e.ArticleURL + '">Link</a></td>' +                    
                     '</tr>';
     });
 
