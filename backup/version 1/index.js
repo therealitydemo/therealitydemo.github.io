@@ -16,148 +16,80 @@ $("#terms_and_conditions").hide();
 //     {'name': 'Best', 'from': 1.363, 'to': 3}, 
 // ];
 
-// var adjective_ratings_overall = [
-//     {'name': 'Class VI', 'from': -3, 'to': 0.230}, 
-//     {'name': 'Class V', 'from': 0.230, 'to': 0.667}, 
-//     {'name': 'Class IV', 'from': 0.667, 'to': 1.104}, 
-//     {'name': 'Class III', 'from': 1.104, 'to': 1.465}, 
-//     {'name': 'Class II', 'from': 1.465, 'to': 1.883}, 
-//     {'name': 'Class I', 'from': 1.883, 'to': 3}, 
-// ];
-
-// var adjective_ratings_SP = [
-//     {'name': 'Class VI', 'from': -3, 'to': 0.638}, 
-//     {'name': 'Class V', 'from': 0.638, 'to': 1.310}, 
-//     {'name': 'Class IV', 'from': 1.310, 'to': 1.790}, 
-//     {'name': 'Class III', 'from': 1.790, 'to': 2.000}, 
-//     {'name': 'Class II', 'from': 2.000, 'to': 2.340}, 
-//     {'name': 'Class I', 'from': 2.340, 'to': 3}, 
-// ];
-
-
-// var adjective_ratings_INV = [
-//     {'name': 'Class VI', 'from': -3, 'to': 0.250}, 
-//     {'name': 'Class V', 'from': 0.250, 'to': 0.700}, 
-//     {'name': 'Class IV', 'from': 0.700, 'to': 1.158}, 
-//     {'name': 'Class III', 'from': 1.158, 'to': 1.385}, 
-//     {'name': 'Class II', 'from': 1.385, 'to': 1.810}, 
-//     {'name': 'Class I', 'from': 1.810, 'to': 3},
-// ];
-
-
-// var adjective_ratings_REAL = [
-//     {'name': 'Class VI', 'from': -3, 'to': -0.317}, 
-//     {'name': 'Class V', 'from': -0.317, 'to': -0.014}, 
-//     {'name': 'Class IV', 'from': -0.014, 'to': 0.590}, 
-//     {'name': 'Class III', 'from': 0.590, 'to': 1.100}, 
-//     {'name': 'Class II', 'from': 1.100, 'to': 1.846}, 
-//     {'name': 'Class I', 'from': 1.846, 'to': 3},
-// ];
-
-// var adjective_ratings_GP = [
-//     {'name': 'Class VI', 'from': -3, 'to': 0.875}, 
-//     {'name': 'Class V', 'from': 0.875, 'to': 1.390}, 
-//     {'name': 'Class IV', 'from': 1.390, 'to': 1.800}, 
-//     {'name': 'Class III', 'from': 1.800, 'to': 2.000}, 
-//     {'name': 'Class II', 'from': 2.000, 'to': 2.500}, 
-//     {'name': 'Class I', 'from': 2.500, 'to': 3}, 
-// ];
-
-// var adjective_ratings_hmd = [
-//     {'name': 'Class VI', 'from': -3, 'to': 0.471}, 
-//     {'name': 'Class V', 'from': 0.471, 'to': 0.900}, 
-//     {'name': 'Class IV', 'from': 0.900, 'to': 1.301}, 
-//     {'name': 'Class III', 'from': 1.301, 'to': 1.629}, 
-//     {'name': 'Class II', 'from': 1.629, 'to': 2.041}, 
-//     {'name': 'Class I', 'from': 2.041, 'to': 3},
-// ];
-
-
-// var adjective_ratings_monoscopic = [
-//     {'name': 'Class VI', 'from': -3, 'to': 0.049}, 
-//     {'name': 'Class V', 'from': 0.049, 'to': 0.581}, 
-//     {'name': 'Class IV', 'from': 0.581, 'to': 1.398}, 
-//     {'name': 'Class III', 'from': 1.398, 'to': 1.520}, 
-//     {'name': 'Class II', 'from': 1.520, 'to': 1.898}, 
-//     {'name': 'Class I', 'from': 1.898, 'to': 3}, 
-// ];
-
-
-// var adjective_ratings_projection_display = [
-//     {'name': 'Class VI', 'from': -3, 'to': 0.105}, 
-//     {'name': 'Class V', 'from': 0.105, 'to': 0.600}, 
-//     {'name': 'Class IV', 'from': 0.600, 'to': 0.725}, 
-//     {'name': 'Class III', 'from': 0.725, 'to': 0.740}, 
-//     {'name': 'Class II', 'from': 0.740, 'to': 1.105}, 
-//     {'name': 'Class I', 'from': 1.105, 'to': 3}, 
-// ];
-
 var adjective_ratings_overall = [
-    {'name': 'Class V', 'from': -3, 'to': 0.230}, 
-    {'name': 'Class IV', 'from': 0.230, 'to': 0.667}, 
-    {'name': 'Class III', 'from': 0.667, 'to': 1.104}, 
-    {'name': 'Class II', 'from': 1.104, 'to': 1.465}, 
-    {'name': 'Class I', 'from': 1.465, 'to': 3}, 
+    {'name': 'Class VI', 'from': -3, 'to': 0.230}, 
+    {'name': 'Class V', 'from': 0.230, 'to': 0.667}, 
+    {'name': 'Class IV', 'from': 0.667, 'to': 1.104}, 
+    {'name': 'Class III', 'from': 1.104, 'to': 1.465}, 
+    {'name': 'Class II', 'from': 1.465, 'to': 1.883}, 
+    {'name': 'Class I', 'from': 1.883, 'to': 3}, 
 ];
 
 var adjective_ratings_SP = [
-    {'name': 'Class V', 'from': -3, 'to': 0.638}, 
-    {'name': 'Class IV', 'from': 0.638, 'to': 1.310}, 
-    {'name': 'Class III', 'from': 1.310, 'to': 1.790}, 
-    {'name': 'Class II', 'from': 1.790, 'to': 2.000}, 
-    {'name': 'Class I', 'from': 2.000, 'to': 3}, 
+    {'name': 'Class VI', 'from': -3, 'to': 0.638}, 
+    {'name': 'Class V', 'from': 0.638, 'to': 1.310}, 
+    {'name': 'Class IV', 'from': 1.310, 'to': 1.790}, 
+    {'name': 'Class III', 'from': 1.790, 'to': 2.000}, 
+    {'name': 'Class II', 'from': 2.000, 'to': 2.340}, 
+    {'name': 'Class I', 'from': 2.340, 'to': 3}, 
 ];
 
 
 var adjective_ratings_INV = [
-    {'name': 'Class V', 'from': -3, 'to': 0.250}, 
-    {'name': 'Class IV', 'from': 0.250, 'to': 0.700}, 
-    {'name': 'Class III', 'from': 0.700, 'to': 1.158}, 
-    {'name': 'Class II', 'from': 1.158, 'to': 1.385},
-    {'name': 'Class I', 'from': 1.385, 'to': 3},
+    {'name': 'Class VI', 'from': -3, 'to': 0.250}, 
+    {'name': 'Class V', 'from': 0.250, 'to': 0.700}, 
+    {'name': 'Class IV', 'from': 0.700, 'to': 1.158}, 
+    {'name': 'Class III', 'from': 1.158, 'to': 1.385}, 
+    {'name': 'Class II', 'from': 1.385, 'to': 1.810}, 
+    {'name': 'Class I', 'from': 1.810, 'to': 3},
 ];
 
 
 var adjective_ratings_REAL = [
-    {'name': 'Class V', 'from': -3, 'to': -0.317}, 
-    {'name': 'Class IV', 'from': -0.317, 'to': -0.014}, 
-    {'name': 'Class III', 'from': -0.014, 'to': 0.590}, 
-    {'name': 'Class II', 'from': 0.590, 'to': 1.100},
-    {'name': 'Class I', 'from': 1.100, 'to': 3},
+    {'name': 'Class VI', 'from': -3, 'to': -0.317}, 
+    {'name': 'Class V', 'from': -0.317, 'to': -0.014}, 
+    {'name': 'Class IV', 'from': -0.014, 'to': 0.590}, 
+    {'name': 'Class III', 'from': 0.590, 'to': 1.100}, 
+    {'name': 'Class II', 'from': 1.100, 'to': 1.846}, 
+    {'name': 'Class I', 'from': 1.846, 'to': 3},
 ];
 
 var adjective_ratings_GP = [
-    {'name': 'Class V', 'from': -3, 'to': 0.875}, 
-    {'name': 'Class IV', 'from': 0.875, 'to': 1.390}, 
-    {'name': 'Class III', 'from': 1.390, 'to': 1.800}, 
-    {'name': 'Class II', 'from': 1.800, 'to': 2.000}, 
-    {'name': 'Class I', 'from': 2.000, 'to': 3}, 
+    {'name': 'Class VI', 'from': -3, 'to': 0.875}, 
+    {'name': 'Class V', 'from': 0.875, 'to': 1.390}, 
+    {'name': 'Class IV', 'from': 1.390, 'to': 1.800}, 
+    {'name': 'Class III', 'from': 1.800, 'to': 2.000}, 
+    {'name': 'Class II', 'from': 2.000, 'to': 2.500}, 
+    {'name': 'Class I', 'from': 2.500, 'to': 3}, 
 ];
 
 var adjective_ratings_hmd = [
-    {'name': 'Class V', 'from': -3, 'to': 0.471}, 
-    {'name': 'Class IV', 'from': 0.471, 'to': 0.900}, 
-    {'name': 'Class III', 'from': 0.900, 'to': 1.301}, 
-    {'name': 'Class II', 'from': 1.301, 'to': 1.629},
-    {'name': 'Class I', 'from': 1.629, 'to': 3},
+    {'name': 'Class VI', 'from': -3, 'to': 0.471}, 
+    {'name': 'Class V', 'from': 0.471, 'to': 0.900}, 
+    {'name': 'Class IV', 'from': 0.900, 'to': 1.301}, 
+    {'name': 'Class III', 'from': 1.301, 'to': 1.629}, 
+    {'name': 'Class II', 'from': 1.629, 'to': 2.041}, 
+    {'name': 'Class I', 'from': 2.041, 'to': 3},
 ];
 
 
 var adjective_ratings_monoscopic = [
-    {'name': 'Class V', 'from': -3, 'to': 0.049}, 
-    {'name': 'Class IV', 'from': 0.049, 'to': 0.581}, 
-    {'name': 'Class III', 'from': 0.581, 'to': 1.398}, 
-    {'name': 'Class II', 'from': 1.398, 'to': 1.520}, 
-    {'name': 'Class I', 'from': 1.520, 'to': 3}, 
+    {'name': 'Class VI', 'from': -3, 'to': 0.049}, 
+    {'name': 'Class V', 'from': 0.049, 'to': 0.581}, 
+    {'name': 'Class IV', 'from': 0.581, 'to': 1.398}, 
+    {'name': 'Class III', 'from': 1.398, 'to': 1.520}, 
+    {'name': 'Class II', 'from': 1.520, 'to': 1.898}, 
+    {'name': 'Class I', 'from': 1.898, 'to': 3}, 
 ];
 
 
 var adjective_ratings_projection_display = [
-    {'name': 'Class V', 'from': -3, 'to': 0.105}, 
-    {'name': 'Class IV', 'from': 0.105, 'to': 0.600}, 
-    {'name': 'Class III', 'from': 0.600, 'to': 0.725}, 
-    {'name': 'Class II', 'from': 0.725, 'to': 0.740},
-    {'name': 'Class I', 'from': 0.740, 'to': 3}, 
+    {'name': 'Class VI', 'from': -3, 'to': 0.105}, 
+    {'name': 'Class V', 'from': 0.105, 'to': 0.600}, 
+    {'name': 'Class IV', 'from': 0.600, 'to': 0.725}, 
+    {'name': 'Class III', 'from': 0.725, 'to': 0.740}, 
+    {'name': 'Class II', 'from': 0.740, 'to': 1.105}, 
+    {'name': 'Class I', 'from': 1.105, 'to': 3}, 
 ];
 
 
@@ -233,21 +165,13 @@ var numberofParticipants = 0;
 //     {"name": "Best", "color":"#3092c7"}
 // ];
 
-// var colors = [
-//     {"name": 'Class VI', "color":"#cce2fd"},
-//     {"name": 'Class V', "color":"#a9d7fc"},
-//     {"name": 'Class IV', "color":"#80cafb"},
-//     {"name": 'Class III', "color":"#51bbfa"},
-//     {"name": 'Class II', "color":"#31b1f9"},
-//     {"name": 'Class I', "color":"#3092c7"}
-// ];
-
 var colors = [
-    {"name": 'Class V', "color":"#accbff"},
-    {"name": 'Class IV', "color":"#92bbff"},
-    {"name": 'Class III', "color":"#78aaff"},
-    {"name": 'Class II', "color":"#649eff"},
-    {"name": 'Class I', "color":"#4188ff"}
+    {"name": 'Class VI', "color":"#cce2fd"},
+    {"name": 'Class V', "color":"#a9d7fc"},
+    {"name": 'Class IV', "color":"#80cafb"},
+    {"name": 'Class III', "color":"#51bbfa"},
+    {"name": 'Class II', "color":"#31b1f9"},
+    {"name": 'Class I', "color":"#3092c7"}
 ];
 
 var user_data_color = "#F39C12";
@@ -451,10 +375,6 @@ function ParseData(data, name, attr, col = "", type = "ipq")
                         return element.name === d[attr];
                     });
 
-                    if(typeof selectedColor === "undefined")
-                    {
-                        selectedColor = {"name": 'Unclassified', "color":"#ffffff"};
-                    }
                     e.color = selectedColor.color;
                     e.participants = parseInt(e.participants) + parseInt(d.Number_of_study_participants);
                     if(!e.years.includes(d.Year))
@@ -925,29 +845,29 @@ function WriteTable(data, div)
 
     html += 
         '<div class="table-container">' +
-            '<table class="table is-bordered is-striped is-fullwidth" id="reported_papers_table">' +
+            '<table class="table" id="reported_papers_table">' +
                 '<thead>' +
-                    '<tr class="has-background-link">' +
-                        '<th class="has-text-white-bis"><abbr title="Title">Title</abbr></th>' +
-                        '<th class="has-text-white-bis"><abbr title="Author">Author</abbr></th>' +
-                        '<th class="has-text-white-bis"><abbr title="Ranking Class">Ranking Class</abbr></th>' +
-                        '<th class="has-text-white-bis"><abbr title="Score">Score</abbr></th>' +
-                        '<th class="has-text-white-bis"><abbr title="Participants">Number of Participants</abbr></th>' +
-                        '<th class="has-text-white-bis"><abbr title="Year">Year</abbr></th>' +
-                        '<th class="has-text-white-bis"><abbr title="Published in">Published in</abbr></th>' +
-                        '<th class="has-text-white-bis"><abbr title="Link">Link</abbr></th>' +
+                    '<tr style="background-color: gainsboro;">' +
+                        '<th><abbr title="Title">Title</abbr></th>' +
+                        '<th><abbr title="Author">Author</abbr></th>' +
+                        '<th><abbr title="AdjectiveRating">Adjective Rating</abbr></th>' +
+                        '<th><abbr title="Score">Score</abbr></th>' +
+                        '<th><abbr title="Participants">Number of Participants</abbr></th>' +
+                        '<th><abbr title="Year">Year</abbr></th>' +
+                        '<th><abbr title="Published in">Published in</abbr></th>' +
+                        '<th><abbr title="Link">Link</abbr></th>' +
                     '</tr>' +
                 '</thead>' +
                 '<tfoot>' +
-                    '<tr class="has-background-link">' +
-                        '<th class="has-text-white-bis"><abbr title="Title">Title</abbr></th>' +
-                        '<th class="has-text-white-bis"><abbr title="Author">Author</abbr></th>' +
-                        '<th class="has-text-white-bis"><abbr title="Ranking Class">Ranking Class</abbr></th>' +
-                        '<th class="has-text-white-bis"><abbr title="Score">Score</abbr></th>' +
-                        '<th class="has-text-white-bis"><abbr title="Participants">Number of Participants</abbr></th>' +
-                        '<th class="has-text-white-bis"><abbr title="Year">Year</abbr></th>' +
-                        '<th class="has-text-white-bis"><abbr title="Published in">Published in</abbr></th>' +
-                        '<th class="has-text-white-bis"><abbr title="Link">Link</abbr></th>' +
+                    '<tr style="background-color: gainsboro;">' +
+                        '<th><abbr title="Title">Title</abbr></th>' +
+                        '<th><abbr title="Author">Author</abbr></th>' +
+                        '<th><abbr title="AdjectiveRating">Adjective Rating</abbr></th>' +
+                        '<th><abbr title="Score">Score</abbr></th>' +
+                        '<th><abbr title="Participants">Number of Participants</abbr></th>' +
+                        '<th><abbr title="Year">Year</abbr></th>' +
+                        '<th><abbr title="Published in">Published in</abbr></th>' +
+                        '<th><abbr title="Link">Link</abbr></th>' +
                     '</tr>' +
                 '</tfoot>' +
                 '<tbody height="200px">';
@@ -976,7 +896,7 @@ function WriteTable(data, div)
     }
 
     detailObject.value.forEach(function(e){         
-        html = html + '<tr>' +
+        html = html + '<tr style="background-color:' + data.color + '">' +
                         '<td>' + e.Title + '</td>' + 
                         '<td>' + e.Authors + '</td>' + 
                         '<td>' + e[rating_scale] + '</td>' + 
@@ -1222,291 +1142,29 @@ function HandleUploadedData()
 
             if(retObject === undefined)
             {
-                // retObject = {"name": experimental_condition, "value":[], "participants": []};  
-                retObject = {
-                    "name": experimental_condition, 
-                    "ratingscores": [
-                        {"name":"Overall", "values": [], "participants": []}, 
-                        {"name":"GP", "values": [], "participants": []}, 
-                        {"name":"SP", "values": [], "participants": []}, 
-                        {"name":"INV", "values": [], "participants": []}, 
-                        {"name":"REAL", "values": [], "participants": []}
-                    ]
-                };  
+                retObject = {"name": experimental_condition, "value":[], "participants": []};   
                 arrayData.value.push(retObject);
             }
 
-            var overallElement = retObject.ratingscores.find(ele => {
-                return ele.name === "Overall"
-            })
-
-            var spElement = retObject.ratingscores.find(ele => {
-                return ele.name === "SP"
-            })
-            var gpElement = retObject.ratingscores.find(ele => {
-                return ele.name === "GP"
-            })
-            var invElement = retObject.ratingscores.find(ele => {
-                return ele.name === "INV"
-            })
-            var realElement = retObject.ratingscores.find(ele => {
-                return ele.name === "REAL"
-            })
-
             for(var j = 0; j < 14; j++)
             {
-                if(j < 5)
-                    spElement.participants.push(participant_id);
-
-                if(j < 4)
-                {
-                    realElement.participants.push(participant_id);
-                    invElement.participants.push(participant_id);
-                }
-                        
-                if(j < 1)
-                    gpElement.participants.push(participant_id);
-                
-                overallElement.participants.push(participant_id);
+                retObject.participants.push(participant_id);
             }
 
-            overallElement.values.push(item_1,item_2);
-            overallElement.values.push(item_3);
-            overallElement.values.push(item_4);
-            overallElement.values.push(item_5);
-            overallElement.values.push((-1) * item_6);
-            overallElement.values.push(item_7);
-            overallElement.values.push(item_8);
-            overallElement.values.push(item_9);
-            overallElement.values.push(item_10);
-            overallElement.values.push((-1) * item_11);
-            overallElement.values.push(item_12);
-            overallElement.values.push((-1) * item_13);
-            overallElement.values.push(item_14);
-
-            spElement.values.push(item_3);
-            spElement.values.push((-1) * item_6);
-            spElement.values.push(item_9);
-            spElement.values.push(item_10);
-            spElement.values.push((-1) * item_13);
-            gpElement.values.push(item_8);
-            invElement.values.push(item_1);
-            invElement.values.push(item_7);
-            invElement.values.push((-1) * item_11);
-            invElement.values.push(item_14);
-            realElement.values.push(item_2);
-            realElement.values.push(item_4);
-            realElement.values.push(item_5);
-            realElement.values.push(item_12);
-            
-
-            // for(var j = 0; j < 14; j++)
-            // {
-            //     retObject.participants.push(participant_id);
-            // }
-
-            // retObject.value.push(item_1,item_2);
-            // retObject.value.push(item_3);
-            // retObject.value.push(item_4);
-            // retObject.value.push(item_5);
-            // retObject.value.push((-1) * item_6);
-            // retObject.value.push(item_7);
-            // retObject.value.push(item_8);
-            // retObject.value.push(item_9);
-            // retObject.value.push(item_10);
-            // retObject.value.push((-1) * item_11);
-            // retObject.value.push(item_12);
-            // retObject.value.push((-1) * item_13);
-            // retObject.value.push(item_14);
+            retObject.value.push(item_1,item_2);
+            retObject.value.push(item_3);
+            retObject.value.push(item_4);
+            retObject.value.push(item_5);
+            retObject.value.push((-1) * item_6);
+            retObject.value.push(item_7);
+            retObject.value.push(item_8);
+            retObject.value.push(item_9);
+            retObject.value.push(item_10);
+            retObject.value.push((-1) * item_11);
+            retObject.value.push(item_12);
+            retObject.value.push((-1) * item_13);
+            retObject.value.push(item_14);
         }
-    }
-
-    // Store the whole experiment rating scores
-    var wholeExperimentObject = {
-        "name": "Whole", 
-        "ratingscores": [
-            {"name":"Overall", "values": [], "participants": []}, 
-            {"name":"GP", "values": [], "participants": []}, 
-            {"name":"SP", "values": [], "participants": []}, 
-            {"name":"INV", "values": [], "participants": []}, 
-            {"name":"REAL", "values": [], "participants": []}
-        ]
-    };  
-    
-    var overallWEElement = wholeExperimentObject.ratingscores.find(ele => {
-        return ele.name === "Overall"
-    })
-
-    var spWEElement = wholeExperimentObject.ratingscores.find(ele => {
-        return ele.name === "SP"
-    })
-    var gpWEElement = wholeExperimentObject.ratingscores.find(ele => {
-        return ele.name === "GP"
-    })
-    var invWEElement = wholeExperimentObject.ratingscores.find(ele => {
-        return ele.name === "INV"
-    })
-    var realWEElement = wholeExperimentObject.ratingscores.find(ele => {
-        return ele.name === "REAL"
-    })
-
-    arrayData.value.forEach(element => {
-        element.ratingscores.forEach(element => {
-            if(element.name == "Overall")
-            {
-                element.values.forEach(element => {
-                    overallWEElement.values.push(element);
-                });
-
-                element.participants.forEach(element => {
-                    overallWEElement.participants.push(element);
-                });
-            }
-            else if(element.name == "GP")
-            {
-                element.values.forEach(element => {
-                    gpWEElement.values.push(element);
-                });
-
-                element.participants.forEach(element => {
-                    gpWEElement.participants.push(element);
-                });
-            }
-            else if(element.name == "SP")
-            {
-                element.values.forEach(element => {
-                    spWEElement.values.push(element);
-                });
-
-                element.participants.forEach(element => {
-                    spWEElement.participants.push(element);
-                });
-            }
-            else if(element.name == "INV")
-            {
-                element.values.forEach(element => {
-                    invWEElement.values.push(element);
-                });
-
-                element.participants.forEach(element => {
-                    invWEElement.participants.push(element);
-                });
-            }
-            else if(element.name == "REAL")
-            {
-                element.values.forEach(element => {
-                    realWEElement.values.push(element);
-                });
-
-                element.participants.forEach(element => {
-                    realWEElement.participants.push(element);
-                });
-            }
-        });
-    });
-
-
-    var visualisationData = [];
-
-    arrayData.value.forEach(element =>{
-        var object = {
-            "name": element.name,
-            "data": []
-        };
-
-        element.ratingscores.forEach(element => {
-            var mean = math.round(math.mean(element.values), 3);
-            var sd = math.round(math.std(element.values), 3);
-            var value;
-
-            var retObject = adjective_ratings.find(function(ea){
-                return ea.name.replace(/\s/g,'') === element.name.replace(/\s/g,'')
-            });
-    
-            if(retObject !== undefined)
-            {
-                retObject.ranges.forEach(function(r)
-                {
-                    if(r.name === 'Class V' && mean >= r.from && mean < r.to)
-                    {
-                        value = 1;
-                    }
-                    else if(r.name === 'Class IV' && mean >= r.from && mean < r.to)
-                    {
-                        value = 2;
-                    }
-                    else if(r.name === 'Class III' && mean >= r.from && mean <= r.to)
-                    {
-                        value = 3;
-                    }
-                    else if(r.name === 'Class II' && mean > r.from && mean <= r.to)
-                    {
-                        value = 4;
-                    }
-                    else if(r.name === 'Class I' && mean > r.from && mean <= r.to)
-                    {
-                        value = 5;
-                    }
-                });
-            }
-    
-            object.data.push({"axis": element.name, "value": value, "mean": mean, "std": sd });
-        }); 
-
-        visualisationData.push(object);
-    });
-
-    var wholeElement = visualisationData.find(function(element){
-        return element.name == "Whole";
-    });
-
-    if(wholeElement === undefined)
-    {
-        var wholeElementVisualisationData = {
-            "name": "Whole",
-            "data": []
-        };
-
-        wholeExperimentObject.ratingscores.forEach(element => {
-            var mean = math.round(math.mean(element.values), 3);
-            var sd = math.round(math.std(element.values), 3);
-            var value;
-
-            var retObject = adjective_ratings.find(function(ea){
-                return ea.name.replace(/\s/g,'') === element.name.replace(/\s/g,'')
-            });
-    
-            if(retObject !== undefined)
-            {
-                retObject.ranges.forEach(function(r)
-                {
-                    if(r.name === 'Class V' && mean >= r.from && mean < r.to)
-                    {
-                        value = 1;
-                    }
-                    else if(r.name === 'Class IV' && mean >= r.from && mean < r.to)
-                    {
-                        value = 2;
-                    }
-                    else if(r.name === 'Class III' && mean >= r.from && mean <= r.to)
-                    {
-                        value = 3;
-                    }
-                    else if(r.name === 'Class II' && mean > r.from && mean <= r.to)
-                    {
-                        value = 4;
-                    }
-                    else if(r.name === 'Class I' && mean > r.from && mean <= r.to)
-                    {
-                        value = 5;
-                    }
-                });
-            }
-    
-            wholeElementVisualisationData.data.push({"axis": element.name, "value": value, "mean": mean, "std": sd });
-        }); 
-
-        visualisationData.unshift(wholeElementVisualisationData);
     }
 
     averageData.value.forEach(function(c)
@@ -1629,7 +1287,7 @@ function HandleUploadedData()
                                         </div>
                                         <div class="level-item has-text-centered_` + averageData.value[i].name + `">
                                             <div>
-                                            <p class="heading">EXPERIENCED REALISM</p>
+                                            <p class="heading">EXPERIENCE REALISM</p>
                                             <p class="title" id="info_user_data_real_` + averageData.value[i].name + `">...</p>
                                             </div>
                                         </div>
@@ -1639,9 +1297,48 @@ function HandleUploadedData()
                         </div>
                     </div>
                 </section>
-                  
-              
-                      
+                <div class='row'>
+                    <div class="columns">
+                        <div class="column"></div>
+                        <div class="column is-11">
+                            <div class="box"> 
+                                <div class="columns">
+                                    <div class="column has-text-centered is-4" >                                    
+                                        <div class="row" id="user_data_pie_chart_` + averageData.value[i].name + `">                                     
+                                        </div> 
+                                    </div>
+                                    <div class="column has-text-centered is-8">
+                                        <div class="row">
+                                            <div class="columns">
+                                                <div class="column has-text-centered is-3" id="user_data_gp_pie_chart_` + averageData.value[i].name + `">
+                                                </div>
+                                                <div class="column has-text-centered is-3" id="user_data_sp_pie_chart_` + averageData.value[i].name + `">
+                                                </div>
+                                                <div class="column has-text-centered is-3" id="user_data_inv_pie_chart_` + averageData.value[i].name + `">
+                                                </div>
+                                                <div class="column has-text-centered is-3" id="user_data_real_pie_chart_` + averageData.value[i].name + `">
+                                                </div>                                                
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="columns">
+                                                <div class="column has-text-centered is-3" id="user_data_hmd_pie_chart_` + averageData.value[i].name + `">
+                                                </div>
+                                                <div class="column has-text-centered is-3" id="user_data_monoscopic_pie_chart_` + averageData.value[i].name + `">
+                                                </div>
+                                                <div class="column has-text-centered is-3" id="user_data_projectiondisplay_pie_chart_` + averageData.value[i].name + `">
+                                                </div>
+                                                <div class="column has-text-centered is-3" id="user_data_appendix_` + averageData.value[i].name + `">
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </div>   
+                                </div>         
+                            </div>
+                        </div>   
+                        <div class="column"></div>
+                    </div>
+                </div>            
                 <div class="row">
                     <div class="columns">
                         <div class="column">                                    
@@ -1649,30 +1346,12 @@ function HandleUploadedData()
                         <div class="column is-11 is-centered">
                             <div class="columns">
                                 <div class="column is-5 is-vcentered">
-                                    <div class="row">
-                                        <div class="box summary-text" class="" id="user_data_text_report_` + averageData.value[i].name + `">                                                                                  
-                                        </div>
-                                    </div>   
-                                    <div class="row">
-                                        <div class="box" class="" id="user_data_bar_chart_for_score_` + averageData.value[i].name + `">                                           
-                                        </div>
-                                    </div>                                    
-                                </div>
-                                <div class="column is-5">
-                                    <div class="box" class="" id="user_data_radar_chart_for_score_` + averageData.value[i].name + `">                                           
+                                    <div class="box summary-text" class="" id="user_data_text_report_` + averageData.value[i].name + `">  
+                                                                                
                                     </div>
                                 </div>
-                                <div class="column is-2">
-                                    <div class="box">
-                                        <div class="row has-text-centered" id="user_data_hmd_pie_chart_` + averageData.value[i].name + `">
-
-                                        </div> 
-                                        <div class="row has-text-centered" id="user_data_hmd_pie_chart_` + averageData.value[i].name + `">
-                                        
-                                        </div> 
-                                        <div class="row has-text-centered" id="user_data_projectiondisplay_pie_chart_` + averageData.value[i].name + `">
-
-                                        </div>                                           
+                                <div class="column is-7">
+                                    <div class="box" class="" id="user_data_bar_chart_for_score_` + averageData.value[i].name + `">                                           
                                     </div>
                                 </div>
                             </div>                                     
@@ -1685,119 +1364,18 @@ function HandleUploadedData()
 
         $("#user_data_summary").append(html);
 
-
-        var radarChartDiv = "#user_data_radar_chart_for_score_" + averageData.value[i].name;
-
-        var margin = {top: 100, right: 100, bottom: 100, left: 100},
-            width = $(radarChartDiv).width() - margin.left - margin.right,
-            height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
-
-        var color = d3.scale.ordinal()
-            .range(["#F27F0C","#F7AD19","#9FE7F5"]);
-            
-        var radarChartOptions = {
-            w: width,
-            h: height,
-            margin: margin,
-            maxValue: 5,
-            levels: 5,
-            roundStrokes: true,
-            color: color
-        };
-        
-
-        //Call function to draw the Radar chart
-        var radarData = [];
-        radarData.push(visualisationData.find(function(e){
-            if(e.name == "Whole")
-                e.name = "Overall---AAA";
-            return e.name === averageData.value[i].name;
-        }).data);
-
-        RadarChart(
-            radarChartDiv,
-            radarData, 
-            radarChartOptions);
-
-        // <div class='row'>
-        //     <div class="columns">
-        //         <div class="column"></div>
-        //         <div class="column is-11">
-        //             <div class="box"> 
-        //                 <div class="columns">
-        //                     <div class="column has-text-centered is-4" >                                    
-        //                         <div class="row" id="user_data_pie_chart_` + averageData.value[i].name + `">                                     
-        //                         </div> 
-        //                     </div>
-        //                     <div class="column has-text-centered is-8">
-        //                         <div class="row">
-        //                             <div class="columns">
-        //                                 <div class="column has-text-centered is-3" id="user_data_gp_pie_chart_` + averageData.value[i].name + `">
-        //                                 </div>
-        //                                 <div class="column has-text-centered is-3" id="user_data_sp_pie_chart_` + averageData.value[i].name + `">
-        //                                 </div>
-        //                                 <div class="column has-text-centered is-3" id="user_data_inv_pie_chart_` + averageData.value[i].name + `">
-        //                                 </div>
-        //                                 <div class="column has-text-centered is-3" id="user_data_real_pie_chart_` + averageData.value[i].name + `">
-        //                                 </div>                                                
-        //                             </div>
-        //                         </div>
-                                
-        //                     </div>   
-        //                 </div>         
-        //             </div>
-        //         </div>   
-        //         <div class="column"></div>
-        //     </div>
-        // </div>          
-
-        // <div class="row">
-        //     <div class="columns">
-        //         <div class="column">                                    
-        //         </div>                                                 
-        //         <div class="column is-11 is-centered">
-        //             <div class="columns">
-        //                 <div class="column is-5 is-vcentered">
-        //                     <div class="box summary-text" class="" id="user_data_text_report_` + averageData.value[i].name + `">  
-                                                                        
-        //                     </div>
-        //                 </div>
-        //                 <div class="column is-7">
-        //                     <div class="box" class="" id="user_data_bar_chart_for_score_` + averageData.value[i].name + `">                                           
-        //                     </div>
-        //                 </div>
-        //             </div>                                     
-        //         </div>   
-        //         <div class="column">                                    
-        //         </div>         
-        //     </div>
-        // </div>
-
-        // <div class="row">
-        //     <div class="columns">
-        //         <div class="column has-text-centered is-3" id="user_data_hmd_pie_chart_` + averageData.value[i].name + `">
-        //         </div>
-        //         <div class="column has-text-centered is-3" id="user_data_monoscopic_pie_chart_` + averageData.value[i].name + `">
-        //         </div>
-        //         <div class="column has-text-centered is-3" id="user_data_projectiondisplay_pie_chart_` + averageData.value[i].name + `">
-        //         </div>
-        //         <div class="column has-text-centered is-3" id="user_data_appendix_` + averageData.value[i].name + `">
-        //         </div>
-        //     </div>
-        // </div> 
-
-        $("#info_user_data_overall_" + averageData.value[i].name).html(ClassesConverter(averageData.value[i].value[0].adjective_rating));
-        $("#info_user_data_gp_" + averageData.value[i].name).html(ClassesConverter(averageData.value[i].value[1].adjective_rating));
-        $("#info_user_data_sp_" + averageData.value[i].name).html(ClassesConverter(averageData.value[i].value[2].adjective_rating));
-        $("#info_user_data_inv_" + averageData.value[i].name).html(ClassesConverter(averageData.value[i].value[3].adjective_rating));
-        $("#info_user_data_real_" + averageData.value[i].name).html(ClassesConverter(averageData.value[i].value[4].adjective_rating));   
+        $("#info_user_data_overall_" + averageData.value[i].name).html(averageData.value[i].value[0].adjective_rating);
+        $("#info_user_data_gp_" + averageData.value[i].name).html(averageData.value[i].value[1].adjective_rating);
+        $("#info_user_data_sp_" + averageData.value[i].name).html(averageData.value[i].value[2].adjective_rating);
+        $("#info_user_data_inv_" + averageData.value[i].name).html(averageData.value[i].value[3].adjective_rating);
+        $("#info_user_data_real_" + averageData.value[i].name).html(averageData.value[i].value[4].adjective_rating);   
         
         var user_data_report_text = "";
 
         if(i === 0)
         {
             var user_data_report_text = '<p>In general, the analysis on IPQ scores showed that this experiment provided users with level "' + averageData.value[i].value[0].adjective_rating +
-                '" of presence in comparison with previous user studies. For more details, the level presence for sub-scales of IPQ including general presence, spatial presence, involvement, and experienced realism are "' +
+                '" of presence in comparison with previous user studies. For more details, the level presence for sub-scales of IPQ including general presence, spatial presence, involvement, and experience realism are "' +
                 averageData.value[0].value[1].adjective_rating + '", "' + 
                 averageData.value[0].value[2].adjective_rating + '", "' + 
                 averageData.value[0].value[3].adjective_rating + '", and "' + 
@@ -1831,7 +1409,7 @@ function HandleUploadedData()
                 averageData.value[0].value[1].adjective_rating + '" and "' + 
                 averageData.value[0].value[2].adjective_rating + '", respectively. "' + 
                 averageData.value[0].value[3].adjective_rating + '" and "' + 
-                averageData.value[0].value[4].adjective_rating + '" are, furthermore, categories for involvement and experienced realism.</p>';
+                averageData.value[0].value[4].adjective_rating + '" are, furthermore, categories for involvement and experience realism.</p>';
         }
         else if(i === 2)
         {
@@ -1840,44 +1418,44 @@ function HandleUploadedData()
             averageData.value[0].value[1].adjective_rating + '" and "' + 
             averageData.value[0].value[2].adjective_rating + '" was the level of presence of spatial presence. While involvement sub-scale had level "' + 
             averageData.value[0].value[3].adjective_rating + '" of presence, "' + 
-            averageData.value[0].value[4].adjective_rating + '" is the class for experienced realism.</p>';
+            averageData.value[0].value[4].adjective_rating + '" is the class for experience realism.</p>';
         }
         
         $("#user_data_text_report_" + averageData.value[i].name).html(user_data_report_text);             
 
-        // var width = 0.85 * $("#user_data_pie_chart_" + averageData.value[i].name).width();
+        var width = 0.85 * $("#user_data_pie_chart_" + averageData.value[i].name).width();
 
-        // IllustrateUserData(Object.assign({}, overallObject), width, width, "#user_data_pie_chart_" + averageData.value[i].name, averageData.value[i].value[0], averageData.value[i].name);
+        IllustrateUserData(Object.assign({}, overallObject), width, width, "#user_data_pie_chart_" + averageData.value[i].name, averageData.value[i].value[0], averageData.value[i].name);
 
-        // subscalesObject.value.forEach(function(e)
-        // {
-        //     var div = "#user_data_sp_pie_chart_" + averageData.value[i].name;
-        //     if(e.name === "SP")
-        //     {
-        //         div = "#user_data_sp_pie_chart_" + averageData.value[i].name;
-        //     }
-        //     else if(e.name === "GP")
-        //     {
-        //         div = "#user_data_gp_pie_chart_" + averageData.value[i].name;
-        //     }
-        //     else if(e.name === "INV")
-        //     {
-        //         div = "#user_data_inv_pie_chart_" + averageData.value[i].name;
-        //     }
-        //     else if(e.name === "REAL")
-        //     {
-        //         div = "#user_data_real_pie_chart_" + averageData.value[i].name;
-        //     }
+        subscalesObject.value.forEach(function(e)
+        {
+            var div = "#user_data_sp_pie_chart_" + averageData.value[i].name;
+            if(e.name === "SP")
+            {
+                div = "#user_data_sp_pie_chart_" + averageData.value[i].name;
+            }
+            else if(e.name === "GP")
+            {
+                div = "#user_data_gp_pie_chart_" + averageData.value[i].name;
+            }
+            else if(e.name === "INV")
+            {
+                div = "#user_data_inv_pie_chart_" + averageData.value[i].name;
+            }
+            else if(e.name === "REAL")
+            {
+                div = "#user_data_real_pie_chart_" + averageData.value[i].name;
+            }
 
-        //     width = 0.85 * $(div).width();
+            width = 0.85 * $(div).width();
             
-        //     averageData.value[i].value.forEach(function(f){
-        //         if(e.name === f.name)
-        //         {
-        //             IllustrateUserData(Object.assign({}, e), width, width, div, f, averageData.value[i].name);
-        //         }
-        //     });
-        // });
+            averageData.value[i].value.forEach(function(f){
+                if(e.name === f.name)
+                {
+                    IllustrateUserData(Object.assign({}, e), width, width, div, f, averageData.value[i].name);
+                }
+            });
+        });
 
         visualDisplaysObject.value.forEach(function(e)
         {
@@ -1898,7 +1476,7 @@ function HandleUploadedData()
 
             if(div != "")
             {
-                width = 0.7 * $(div).width();
+                width = 0.85 * $(div).width();
             
                 averageData.value[i].value.forEach(function(f){
                     if(e.name.replace(/\s/g,'') === f.name.replace(/\s/g,''))
@@ -2271,7 +1849,7 @@ conditions_values.append([variable_` + i + `_value_overall, variable_` + i + `_v
         code += `
 print(conditions_values)
 bp_colors = ["#D2B4DE", "#A9CCE3", "#A3E4D7", "#F9E79F", "#F5CBA7"]
-bp_xlabels = ["Overall", "General Presence", "Spatial Presence", "Involvement", "Experienced Realism"]
+bp_xlabels = ["Overall", "General Presence", "Spatial Presence", "Involvement", "Experience Realism"]
 
 left = 0.25
 bottom = 0.25
@@ -2392,8 +1970,8 @@ analysis_code.innerHTML += '<p class="code comment">  ## analyse involvement sco
                 code += `
 current_scale = "experience_realism"
                 
-## analyse experienced realism score data
-analysis_code.innerHTML += '<p class="code comment">  ## analyse experienced realism score data<p>'
+## analyse experience realism score data
+analysis_code.innerHTML += '<p class="code comment">  ## analyse experience realism score data<p>'
 `;
             }
                      
@@ -2509,7 +2087,7 @@ elif current_scale == "involvement":
     html += string
 
 elif current_scale == "experience_realism":
-    string = "Finally, " + str(all_value_mean) + " and " + str(all_value_std) + " were mean and standard deviation rating score for experienced realism sub-scale. "
+    string = "Finally, " + str(all_value_mean) + " and " + str(all_value_std) + " were mean and standard deviation rating score for experience realism sub-scale. "
     print(string)
     
     whole_analysis_report_text += string
@@ -3161,7 +2739,7 @@ if is_normal_distribution == False:
                     whole_analysis_report_text += string
                     html += string
             else:
-                string = "Finally, the rating scores for experienced realism was analysed with an one-way repeated-measures ANOVA procedure. The results showed that there was no significant difference in rating scores for this sub-scale between " + variable_1_name + " and " + variable_2_name + " (F<sub>" + str(anova_table['Num DF'][0]) + ", " + str(anova_table['Den DF'][00]) + "</sub> = " + str(round(anova_table['F Value'][0], 3)) + ", p = " + str(round(anova_table['Pr > F'][0], 3)) + ", &eta;<sup>2</sup> = " + str(round(anova_table['Eta-Squared'][0], 3)) + "). "
+                string = "Finally, the rating scores for experience realism was analysed with an one-way repeated-measures ANOVA procedure. The results showed that there was no significant difference in rating scores for this sub-scale between " + variable_1_name + " and " + variable_2_name + " (F<sub>" + str(anova_table['Num DF'][0]) + ", " + str(anova_table['Den DF'][00]) + "</sub> = " + str(round(anova_table['F Value'][0], 3)) + ", p = " + str(round(anova_table['Pr > F'][0], 3)) + ", &eta;<sup>2</sup> = " + str(round(anova_table['Eta-Squared'][0], 3)) + "). "
                 string += "The mean rating score of this sub-scale for condition " + variable_1_name + " is " + str(variable_1_mean) + " (SD = " + str(variable_1_std) + ") and " + variable_2_name + " had the average score at " + str(variable_2_mean) + " (SD = " + str(variable_2_std) + "). "
                 print(string)
 
@@ -3439,8 +3017,7 @@ function DrawPie(data, width, height, margin, div_id, is_reference, data_score =
     var circlePie = d3.layout.pie()
         .sort(null)
         .value(function(element){
-            return 20;
-            //return element.percent;
+            return element.percent;
     });
 
     var outerCircleArc = d3.svg.arc()
@@ -3853,42 +3430,41 @@ var _currentObject;
 
 function ChangeRankingClass(btn)
 {
-    // $("#all_classes").removeClass("is-info");
-    // $("#class_a").removeClass("is-info");
-    // $("#class_b").removeClass("is-info");
-    // $("#class_c").removeClass("is-info");
-    // $("#class_d").removeClass("is-info");
-    // $("#class_e").removeClass("is-info");
-    // $("#class_f").removeClass("is-info");
+    $("#all_classes").removeClass("is-info");
+    $("#class_a").removeClass("is-info");
+    $("#class_b").removeClass("is-info");
+    $("#class_c").removeClass("is-info");
+    $("#class_d").removeClass("is-info");
+    $("#class_e").removeClass("is-info");
+    $("#class_f").removeClass("is-info");
         
-    // $("#" + btn.id).addClass("is-info");
-    var rankingClass = btn.value;
+    $("#" + btn.id).addClass("is-info");
 
-    if(rankingClass === "AllClasses")
+    if(btn.id === "all_classes")
     {
         _currentRankingClass = "All Classes";
     }
-    else if(rankingClass === "ClassI")
+    else if(btn.id === "class_a")
     {
         _currentRankingClass = "Class I";
     }
-    else if(rankingClass === "ClassII")
+    else if(btn.id === "class_b")
     {
         _currentRankingClass = "Class II";
     }
-    else if(rankingClass === "ClassIII")
+    else if(btn.id === "class_c")
     {
         _currentRankingClass = "Class III";
     }
-    else if(rankingClass === "ClassIV")
+    else if(btn.id === "class_d")
     {
         _currentRankingClass = "Class IV";
     }
-    else if(rankingClass === "ClassV")
+    else if(btn.id === "class_e")
     {
         _currentRankingClass = "Class V";
     }
-    else if(rankingClass === "ClassVI")
+    else if(btn.id === "class_f")
     {
         _currentRankingClass = "Class VI";
     }
@@ -3898,26 +3474,26 @@ function ChangeRankingClass(btn)
 
 function ChangeCategory(btn)
 {
-    // $("#btn_overall").removeClass("is-info");
-    // $("#btn_sp").removeClass("is-info");
-    // $("#btn_inv").removeClass("is-info");
-    // $("#btn_real").removeClass("is-info");
-    // $("#btn_gp").removeClass("is-info");
-    // $("#btn_hmd").removeClass("is-info");
-    // $("#btn_mono").removeClass("is-info");
-    // $("#btn_proj").removeClass("is-info");
+    $("#btn_overall").removeClass("is-info");
+    $("#btn_sp").removeClass("is-info");
+    $("#btn_inv").removeClass("is-info");
+    $("#btn_real").removeClass("is-info");
+    $("#btn_gp").removeClass("is-info");
+    $("#btn_hmd").removeClass("is-info");
+    $("#btn_mono").removeClass("is-info");
+    $("#btn_proj").removeClass("is-info");
         
-    // $("#" + btn.id).addClass("is-info");
+    $("#" + btn.id).addClass("is-info");
 
-    _currentCategory = btn.value;
+    _currentCategory = btn.id;
 
-    if(_currentCategory === "Overall")
+    if(_currentCategory === "btn_overall")
     {
         _currentObject = overallObject;
 
         _category = "Overall";
     }
-    else if(_currentCategory === "SpatialPresence")
+    else if(_currentCategory === "btn_sp")
     {
         _category = "SP";
 
@@ -3926,7 +3502,7 @@ function ChangeCategory(btn)
             return e.name === "SP";
         });
     }
-    else if(_currentCategory === "Involvement")
+    else if(_currentCategory === "btn_inv")
     {
         _category = "INV";
 
@@ -3935,7 +3511,7 @@ function ChangeCategory(btn)
             return e.name === "INV";
         });
     }
-    else if(_currentCategory === "ExperiencedRealism")
+    else if(_currentCategory === "btn_real")
     {
         _category = "REAL";
 
@@ -3944,7 +3520,7 @@ function ChangeCategory(btn)
             return e.name === "REAL";
         });
     }
-    else if(_currentCategory === "GeneralPresence")
+    else if(_currentCategory === "btn_gp")
     {
         _category = "GP";
 
@@ -3953,7 +3529,7 @@ function ChangeCategory(btn)
             return e.name === "GP";
         });
     }
-    else if(_currentCategory === "3D-HMD")
+    else if(_currentCategory === "btn_hmd")
     {
         _category = "3D - HMD";
 
@@ -3962,7 +3538,7 @@ function ChangeCategory(btn)
             return e.name === "3D - HMD VR";
         });
     }
-    else if(_currentCategory === "3D-Monoscopic")
+    else if(_currentCategory === "btn_mono")
     {       
         _category = "3D - Monoscopic";
 
@@ -3973,7 +3549,7 @@ function ChangeCategory(btn)
     }
     else if(_currentCategory === "btn_proj")
     {       
-        _category = "ProjectionDisplay";
+        _category = "3D - Projection Display";
 
         _currentObject = visualDisplaysObject.value.find(function(e)
         {
@@ -4020,18 +3596,7 @@ function UpdateCategoryAndClassSelection()
     $("#info_main_category").html(_category);
     $("#info_main_participants").html(_currentClassObject.participants);
     $("#info_main_percent").html(_currentClassObject.percent);
-
-    if(_currentRankingClass == "Class I")
-        $("#info_main_adjective_rating").html("Exceptional");
-    else if(_currentRankingClass == "Class II")
-        $("#info_main_adjective_rating").html("Very High");
-    else if(_currentRankingClass == "Class III")
-        $("#info_main_adjective_rating").html("High");
-    else if(_currentRankingClass == "Class IV")
-        $("#info_main_adjective_rating").html("Moderate");
-    else if(_currentRankingClass == "Class V")
-        $("#info_main_adjective_rating").html("Low");
-
+    $("#info_main_adjective_rating").html(_currentRankingClass);   
     $("#info_main_years").html(_currentClassObject.years.length);  
     $("#info_main_user_studies").html(_currentClassObject.user_studies.length);   
     $("#info_main_publications").html(_currentClassObject.publications.length);  
@@ -4076,55 +3641,23 @@ function SortBy(isYear = true, isNPar = false, isAscending = true)
     }
 }
 
-function YearSortBy(btn)
+function YearSortBy(btn, isYear = true, isNPar = false, isAscending = true)
 {
-    // $("#btn_year_ascending").removeClass("is-info");
-    // $("#btn_year_descending").removeClass("is-info");
+    $("#btn_year_ascending").removeClass("is-info");
+    $("#btn_year_descending").removeClass("is-info");
         
-    // $("#" + btn.id).addClass("is-info");
-    var isAscending = true;
-    if(btn.value == "descending")
-        isAscending = false;
+    $("#" + btn.id).addClass("is-info");
 
-    SortBy(true, false, isAscending);
+    SortBy(isYear, isNPar, isAscending);
 }
 
-function NParSortBy(btn)
+function NParSortBy(btn, isYear = false, isNPar = true, isAscending = true)
 {
-    // $("#btn_npar_ascending").removeClass("is-info");
-    // $("#btn_npar_descending").removeClass("is-info");
+    $("#btn_npar_ascending").removeClass("is-info");
+    $("#btn_npar_descending").removeClass("is-info");
         
-    // $("#" + btn.id).addClass("is-info");
+    $("#" + btn.id).addClass("is-info");
 
-    var isAscending = true;
-    if(btn.value == "descending")
-        isAscending = false;
-
-    SortBy(false, true, isAscending);
+    SortBy(isYear, isNPar, isAscending);
 }
 
-function ClassesConverter(formerClass)
-{
-    if(formerClass == "Class I")
-    {
-        return "Class Exceptional";
-    }
-    else if(formerClass == "Class II")
-    {
-        return "Class Very High";
-    }
-    else if(formerClass == "Class III")
-    {
-        return "Class High";
-    }
-    else if(formerClass == "Class IV")
-    {
-        return "Class Moderate";
-    }
-    else if(formerClass == "Class V")
-    {
-        return "Class Low";
-    }
-
-    return "Unclassified";
-}
