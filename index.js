@@ -245,11 +245,11 @@ var numberofParticipants = 0;
 // ];
 
 var colors = [
-    {"name": 'Low', "color":"#f7fbff"},
-    {"name": 'Moderate', "color":"#deebf7"},
-    {"name": 'High', "color":"#c6dbef"},
-    {"name": 'Very High', "color":"#9ecae1"},
-    {"name": 'Exceptional', "color":"#6baed6"}
+    {"name": 'Class Low', "color":"#f7fbff"},
+    {"name": 'Class Moderate', "color":"#deebf7"},
+    {"name": 'Class High', "color":"#c6dbef"},
+    {"name": 'Class Very High', "color":"#9ecae1"},
+    {"name": 'Class Exceptional', "color":"#6baed6"}
 ];
 
 var user_data_color = "#F39C12";
@@ -433,11 +433,11 @@ function ParseData(data, name, attr, col = "", type = "ipq")
     // adjectiveRatingsObject.value.push({"name": 'Class II', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
     // adjectiveRatingsObject.value.push({"name": 'Class I', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
     
-    adjectiveRatingsObject.value.push({"name": 'Low', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
-    adjectiveRatingsObject.value.push({"name": 'Moderate', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
-    adjectiveRatingsObject.value.push({"name": 'High', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
-    adjectiveRatingsObject.value.push({"name": 'Very High', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
-    adjectiveRatingsObject.value.push({"name": 'Exceptional', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
+    adjectiveRatingsObject.value.push({"name": 'Class Low', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
+    adjectiveRatingsObject.value.push({"name": 'Class Moderate', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
+    adjectiveRatingsObject.value.push({"name": 'Class High', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
+    adjectiveRatingsObject.value.push({"name": 'Class Very High', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
+    adjectiveRatingsObject.value.push({"name": 'Class Exceptional', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
     
 
     mainObject.value.push(overallObject);
@@ -2366,7 +2366,7 @@ conditions_values.append([variable_` + i + `_value_overall, variable_` + i + `_v
 
         code += `
 print(conditions_values)
-bp_colors = ["#D2B4DE", "#A9CCE3", "#A3E4D7", "#F9E79F", "#F5CBA7"]
+bp_colors = ["#fccde5", "#b3de69", "#fdb462", "#80b1d3", "#fb8072"]
 bp_xlabels = ["Overall", "General Presence", "Spatial Presence", "Involvement", "Experienced Realism"]
 
 left = 0.25
@@ -3514,7 +3514,7 @@ function IllustrateUserData(data, width, height, div, user_data, condition)
     });
 
     adjectiveRatingsObject.value.forEach(function(e){
-        if(e.name === user_data.adjective_rating)
+        if(e.name === ClassesConverter(user_data.adjective_rating))
         {
             e.number++;
             e.color = user_data_color;
@@ -3561,7 +3561,9 @@ function DrawPie(data, width, height, margin, div_id, is_reference, data_score =
     var path = mainPieSVG.selectAll(".solidArc")
         .data(circlePie(data))
         .enter().append("path")
-        .attr("fill", function(element) { return element.data.color; })
+        .attr("fill", function(element) { 
+            return element.data.color; 
+        })
         .attr("class", "solidArc")
         .attr("stroke", "gray")
         .attr('d', outerCircleArc)              
@@ -3970,28 +3972,28 @@ function ChangeRankingClass(btn)
     }
     else if(rankingClass === "ClassI")
     {
-        _currentRankingClass = "Class I";
+        _currentRankingClass = "Class Exceptional";
     }
     else if(rankingClass === "ClassII")
     {
-        _currentRankingClass = "Class II";
+        _currentRankingClass = "Class Very High";
     }
     else if(rankingClass === "ClassIII")
     {
-        _currentRankingClass = "Class III";
+        _currentRankingClass = "Class High";
     }
     else if(rankingClass === "ClassIV")
     {
-        _currentRankingClass = "Class IV";
+        _currentRankingClass = "Class Moderate";
     }
     else if(rankingClass === "ClassV")
     {
-        _currentRankingClass = "Class V";
+        _currentRankingClass = "Class Low";
     }
-    else if(rankingClass === "ClassVI")
-    {
-        _currentRankingClass = "Class VI";
-    }
+    // else if(rankingClass === "ClassVI")
+    // {
+    //     _currentRankingClass = "Class VI";
+    // }
 
     UpdateCategoryAndClassSelection();
 }
@@ -4122,15 +4124,15 @@ function UpdateCategoryAndClassSelection()
     $("#info_main_percent").html(_currentClassObject.percent);
 
     if(_currentRankingClass == "Class I")
-        $("#info_main_adjective_rating").html("Exceptional");
+        $("#info_main_adjective_rating").html("Class Exceptional");
     else if(_currentRankingClass == "Class II")
-        $("#info_main_adjective_rating").html("Very High");
+        $("#info_main_adjective_rating").html("Class Very High");
     else if(_currentRankingClass == "Class III")
-        $("#info_main_adjective_rating").html("High");
+        $("#info_main_adjective_rating").html("Class High");
     else if(_currentRankingClass == "Class IV")
-        $("#info_main_adjective_rating").html("Moderate");
+        $("#info_main_adjective_rating").html("Class Moderate");
     else if(_currentRankingClass == "Class V")
-        $("#info_main_adjective_rating").html("Low");
+        $("#info_main_adjective_rating").html("Class Low");
 
     $("#info_main_years").html(_currentClassObject.years.length);  
     $("#info_main_user_studies").html(_currentClassObject.user_studies.length);   
@@ -4205,23 +4207,23 @@ function NParSortBy(btn)
 
 function ClassesConverter(formerClass)
 {
-    if(formerClass == "Class I")
+    if(formerClass === "Class I")
     {
         return "Class Exceptional";
     }
-    else if(formerClass == "Class II")
+    else if(formerClass === "Class II")
     {
         return "Class Very High";
     }
-    else if(formerClass == "Class III")
+    else if(formerClass === "Class III")
     {
         return "Class High";
     }
-    else if(formerClass == "Class IV")
+    else if(formerClass === "Class IV")
     {
         return "Class Moderate";
     }
-    else if(formerClass == "Class V")
+    else if(formerClass === "Class V")
     {
         return "Class Low";
     }
