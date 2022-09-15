@@ -75,16 +75,91 @@ function RadarChart(id, data, options) {
 	var axisGrid = g.append("g").attr("class", "axisWrapper");
 	
 	//Draw the background circles
+	// axisGrid.selectAll(".levels")
+	// .data(d3.range(1,(cfg.levels+1)).reverse())
+	// .enter()
+	// 	.append("circle")
+	// 	.attr("class", "gridCircle")
+	// 	.attr("r", function(d, i){return radius/cfg.levels*d;})
+	// 	.style("fill", "#CDCDCD")
+	// 	.style("stroke", "#CDCDCD")
+	// 	.style("fill-opacity", cfg.opacityCircles)
+	// 	.style("filter" , "url(#glow)");
+
 	axisGrid.selectAll(".levels")
-	.data(d3.range(1,(cfg.levels+1)).reverse())
-	.enter()
-		.append("circle")
-		.attr("class", "gridCircle")
-		.attr("r", function(d, i){return radius/cfg.levels*d;})
-		.style("fill", "#CDCDCD")
-		.style("stroke", "#CDCDCD")
-		.style("fill-opacity", cfg.opacityCircles)
-		.style("filter" , "url(#glow)");
+		.data(d3.range(1,(cfg.levels+1)).reverse())
+		.enter()
+			.append("circle")
+			.attr("class", "gridCircle")
+			.attr("r", function(d, i){return radius/cfg.levels*d;})
+			.style("fill", function(d, i){
+				if(i == 0)
+				{
+					return "#6baed6";
+				}
+				else if(i == 1)
+				{
+					return "#9ecae1";
+				}
+				else if(i == 2)
+				{
+					return "#c6dbef";
+				}
+				else if(i == 3)
+				{
+					return "#deebf7";
+				}
+				else if(i == 4)
+				{
+					return "#f7fbff";
+				}
+				
+				return "#CDCDCD";
+			})
+			.style("stroke", function(d, i){
+				if(i == 0)
+				{
+					return "#6baed6";
+				}
+				else if(i == 1)
+				{
+					return "#9ecae1";
+				}
+				else if(i == 2)
+				{
+					return "#c6dbef";
+				}
+				else if(i == 3)
+				{
+					return "#deebf7";
+				}
+				else if(i == 4)
+				{
+					return "#f7fbff";
+				}
+				
+				return "#CDCDCD";
+			});
+
+	// axisGrid.selectAll(".levels")
+	// .data(d3.range(1,(cfg.levels+1)).reverse())
+	// .enter()
+	// 	.append("circle")
+	// 	.attr("class", "gridCircle")
+	// 	.attr("r", radius/cfg.levels * 3)
+	// 	.style("fill", "#CDCDCD")
+	// 	.style("stroke", "#CDCDCD")
+	// 	.style("fill-opacity", cfg.opacityCircles);
+
+	// axisGrid.selectAll(".levels")
+	// 	.data(d3.range(1,(cfg.levels+1)).reverse())
+	// 	.enter()
+	// 		.append("circle")
+	// 		.attr("class", "gridCircle")
+	// 		.attr("r", radius/cfg.levels * 3)
+	// 		.style("fill", "#CDCDCD")
+	// 		.style("stroke", "#CDCDCD")
+	// 		.style("fill-opacity", cfg.opacityCircles);
 
 	//Text indicating at what % each level is
 	axisGrid.selectAll(".axisLabel")
@@ -94,7 +169,7 @@ function RadarChart(id, data, options) {
 	.attr("x", 4)
 	.attr("y", function(d){return -d*radius/cfg.levels;})
 	.attr("dy", "0.4em")
-	.style("font-size", "10px")
+	.style("font-size", "12px")
 	.attr("fill", "#737373")
 	.text(function(d,i) { 
 		if(i == 0)
@@ -144,11 +219,11 @@ function RadarChart(id, data, options) {
 	//Append the labels at each axis
 	axis.append("text")
 		.attr("class", "legend")
-		.style("font-size", "11px")
 		.attr("text-anchor", "middle")
 		.attr("dy", "0.35em")
 		.attr("x", function(d, i){ return rScale(maxValue * cfg.labelFactor) * Math.cos(angleSlice*i - Math.PI/2); })
-		.attr("y", function(d, i){ return rScale(maxValue * cfg.labelFactor) * Math.sin(angleSlice*i - Math.PI/2); })
+		.attr("y", function(d, i){ return rScale(maxValue * cfg.labelFactor) * Math.sin(angleSlice*i - Math.PI/2); })		
+		.style("font-size", "10x")
 		.text(function(d){
 			if(d === "GP")
 				return "General Presence";

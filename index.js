@@ -2,6 +2,8 @@ var stage = "main";
 var currentObject;
 var currentSelectedPie = undefined;
 
+$("#progress-popup").hide();
+$("#content").show();
 $("#main_page").show();
 $("#user_data_page").hide();
 $("#terms_and_conditions").hide();
@@ -243,11 +245,11 @@ var numberofParticipants = 0;
 // ];
 
 var colors = [
-    {"name": 'Class V', "color":"#accbff"},
-    {"name": 'Class IV', "color":"#92bbff"},
-    {"name": 'Class III', "color":"#78aaff"},
-    {"name": 'Class II', "color":"#649eff"},
-    {"name": 'Class I', "color":"#4188ff"}
+    {"name": 'Low', "color":"#f7fbff"},
+    {"name": 'Moderate', "color":"#deebf7"},
+    {"name": 'High', "color":"#c6dbef"},
+    {"name": 'Very High', "color":"#9ecae1"},
+    {"name": 'Exceptional', "color":"#6baed6"}
 ];
 
 var user_data_color = "#F39C12";
@@ -265,7 +267,7 @@ var standard_total_each_item_mono = [];
 var standard_total_each_item_proj = [];
 
 jQuery(window).ready(function () {
-    d3.csv("data/August2020_Revision2021/IPQReport_EachCondition_August2020_Revision2021_Reformatted_EachSubscale_UTF8.csv", function (error, data)
+    d3.csv("data/August2020_Revision2022/IPQReport_EachCondition_August2020_Revision2022_Reformatted_EachSubscale_UTF8.csv", function (error, data)
     {      
         for(var i = 0; i < subscalesObject.value.length; i++)
         {
@@ -298,13 +300,13 @@ jQuery(window).ready(function () {
                 return element.name === "AdjectiveRatings";
             });
 
-            var width = 0.85 * $(div).width();        
+            var width = 0.9 * $(div).width();        
             DrawPie(adjectiveRatingsObject.value, width, width,"", div, false, "");
             subscalesObject.value[i] = e;
         }     
     });
 
-    d3.csv("data/August2020_Revision2021/IPQReport_EachCondition_August2020_Revision2021_Reformatted_VisualDisplays_UTF8.csv", function (error, data)
+    d3.csv("data/August2020_Revision2022/IPQReport_EachCondition_August2020_Revision2022_Reformatted_VisualDisplays_UTF8.csv", function (error, data)
     {      
         for(var i = 0; i < visualDisplaysObject.value.length; i++)
         {
@@ -324,14 +326,14 @@ jQuery(window).ready(function () {
                 div = "#main_projectiondisplay_pie_chart";
             }
             
-            var width = 0.85 * $(div).width();        
+            var width = 0.9 * $(div).width();        
             DrawPie(adjectiveRatingsObject.value, width, width,"", div, false, "");      
             visualDisplaysObject.value[i] = e;
         }     
         
     });
 
-    d3.csv("data/August2020_Revision2021/IPQReport_EachCondition_August2020_Revision2021_Reformatted_EachStudy_UTF8.csv", function (error, data)
+    d3.csv("data/August2020_Revision2022/IPQReport_EachCondition_August2020_Revision2022_Reformatted_EachStudy_UTF8.csv", function (error, data)
     {      
         overallObject = ParseData(data, "Overall", "Ranking_class", "Standard_total_each_item");
         var adjectiveRatingsObject = overallObject.value.find(function(element) {
@@ -386,7 +388,7 @@ jQuery(window).ready(function () {
 
         // _currentObject = _currentObject.value[0];
 
-        var width = 0.85 * $("#main_pie_chart").width();
+        var width = 0.9 * $("#main_pie_chart").width();
 
         DrawPie(adjectiveRatingsObject.value, width, width,"", "#main_pie_chart", false, "");    
     });
@@ -424,13 +426,20 @@ function ParseData(data, name, attr, col = "", type = "ipq")
     // adjectiveRatingsObject.value.push({"name": "Excellent", "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
     // adjectiveRatingsObject.value.push({"name": "Best", "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
     
-    adjectiveRatingsObject.value.push({"name": 'Class VI', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
-    adjectiveRatingsObject.value.push({"name": 'Class V', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
-    adjectiveRatingsObject.value.push({"name": 'Class IV', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
-    adjectiveRatingsObject.value.push({"name": 'Class III', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
-    adjectiveRatingsObject.value.push({"name": 'Class II', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
-    adjectiveRatingsObject.value.push({"name": 'Class I', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
+    // adjectiveRatingsObject.value.push({"name": 'Class VI', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
+    // adjectiveRatingsObject.value.push({"name": 'Class V', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
+    // adjectiveRatingsObject.value.push({"name": 'Class IV', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
+    // adjectiveRatingsObject.value.push({"name": 'Class III', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
+    // adjectiveRatingsObject.value.push({"name": 'Class II', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
+    // adjectiveRatingsObject.value.push({"name": 'Class I', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
     
+    adjectiveRatingsObject.value.push({"name": 'Low', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
+    adjectiveRatingsObject.value.push({"name": 'Moderate', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
+    adjectiveRatingsObject.value.push({"name": 'High', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
+    adjectiveRatingsObject.value.push({"name": 'Very High', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
+    adjectiveRatingsObject.value.push({"name": 'Exceptional', "condition": "Previous Studies", "subscale": subscale, "display": display, "number": "0", "percent": "", "color":"", "participants": "0", "publications": [], "years": [], "user_studies": [], "value": [{"name": "Studies", "value": []}, {"name": "ByYear", "value": []}, {"name": "ByScore", "value": []}]});
+    
+
     mainObject.value.push(overallObject);
     mainObject.value.push(adjectiveRatingsObject);
     numberofParticipants = 0;
@@ -456,6 +465,12 @@ function ParseData(data, name, attr, col = "", type = "ipq")
                         selectedColor = {"name": 'Unclassified', "color":"#ffffff"};
                     }
                     e.color = selectedColor.color;
+
+                    if(e.name == "Summary")
+                    {
+                        e.color = "#2160c4";
+                    }
+
                     e.participants = parseInt(e.participants) + parseInt(d.Number_of_study_participants);
                     if(!e.years.includes(d.Year))
                     {
@@ -794,7 +809,7 @@ function AddScoreBarChart(object, div){
         .attr("x", function(d) { 
             return x(d.bin); 
         })
-        .attr("width", x.rangeBand())
+        .attr("width", x.rangeBand() - 2)
         .attr("y", function(d) { 
             return y(d.number); 
         })
@@ -1002,6 +1017,9 @@ var loadFile = function(event) {
 
     var reader = new FileReader();
     reader.onload = function(){
+        $("#progress-popup").show();
+        $("#content").fadeTo(500, .05);
+
         var dataURL = reader.result;
 
         $("#user_data_file_name").html(input.files[0].name);
@@ -1020,6 +1038,7 @@ var loadFile = function(event) {
 
 function HandleUploadedData()
 {
+
     var uploadedDataLines = uploadedFileData.split("\n");
 
     var research_id = "", number_of_participants = "", experiment_design = "", number_of_experimental_conditions ="", number_of_entries ="";
@@ -1647,35 +1666,56 @@ function HandleUploadedData()
                         <div class="column">                                    
                         </div>                                                 
                         <div class="column is-11 is-centered">
-                            <div class="columns">
-                                <div class="column is-5 is-vcentered">
-                                    <div class="row">
+                            <div class="row">
+                                <div class = "row box"> 
+                                    <div class="columns">
+                                        <div class="column is-4">
+                                            <div class="" id="user_data_radar_chart_for_score_` + averageData.value[i].name + `">                                           
+                                            </div>
+                                        </div>
+                                        <div class="column is-8">
+                                            <div class="row">
+                                                <div class="columns">
+                                                    <div class="column is-one-fifth" id="user_data_pie_chart_` + averageData.value[i].name + `">
+                                                    </div>
+                                                    <div class="column is-one-fifth" id="user_data_gp_pie_chart_` + averageData.value[i].name + `">
+                                                    </div>
+                                                    <div class="column is-one-fifth" id="user_data_sp_pie_chart_` + averageData.value[i].name + `">
+                                                    </div> 
+                                                    <div class="column is-one-fifth" id="user_data_inv_pie_chart_` + averageData.value[i].name + `">
+                                                    </div>
+                                                    <div class="column is-one-fifth" id="user_data_real_pie_chart_` + averageData.value[i].name + `">
+                                                    </div>                                                       
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="columns">
+                                                    <div class="column is-one-fifth" id="user_data_hmd_pie_chart_` + averageData.value[i].name + `">
+                                                    </div>
+                                                    <div class="column is-one-fifth" id="user_data_hmd_pie_chart_` + averageData.value[i].name + `">
+                                                    </div>
+                                                    <div class="column is-one-fifth" id="user_data_projectiondisplay_pie_chart_` + averageData.value[i].name + `">
+                                                    </div>
+                                                    <div class="column has-text-centered" id="user_data_appendix_` + averageData.value[i].name + `">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="row" style="margin-top:10px;">
+                                <div class="columns">
+                                    <div class="column is-vcentered is-4">                                        
                                         <div class="box summary-text" class="" id="user_data_text_report_` + averageData.value[i].name + `">                                                                                  
-                                        </div>
-                                    </div>   
-                                    <div class="row">
+                                        </div>                                  
+                                    </div>
+                                    <div class="column is-vcentered is-8">
                                         <div class="box" class="" id="user_data_bar_chart_for_score_` + averageData.value[i].name + `">                                           
-                                        </div>
-                                    </div>                                    
-                                </div>
-                                <div class="column is-5">
-                                    <div class="box" class="" id="user_data_radar_chart_for_score_` + averageData.value[i].name + `">                                           
+                                        </div>                                  
                                     </div>
-                                </div>
-                                <div class="column is-2">
-                                    <div class="box">
-                                        <div class="row has-text-centered" id="user_data_hmd_pie_chart_` + averageData.value[i].name + `">
-
-                                        </div> 
-                                        <div class="row has-text-centered" id="user_data_hmd_pie_chart_` + averageData.value[i].name + `">
-                                        
-                                        </div> 
-                                        <div class="row has-text-centered" id="user_data_projectiondisplay_pie_chart_` + averageData.value[i].name + `">
-
-                                        </div>                                           
-                                    </div>
-                                </div>
-                            </div>                                     
+                                </div> 
+                            </div>                                                              
                         </div>   
                         <div class="column">                                    
                         </div>         
@@ -1686,9 +1726,65 @@ function HandleUploadedData()
         $("#user_data_summary").append(html);
 
 
+        // <div class="columns">
+        //     <div class="column is-3 is-vcentered">
+        //         <div class="row">
+        //             <div class="box summary-text" class="" id="user_data_text_report_` + averageData.value[i].name + `">                                                                                  
+        //             </div>
+        //         </div>   
+        //         <div class="row" style="margin-top: 10px;">
+        //             <div class="box" class="" id="user_data_bar_chart_for_score_` + averageData.value[i].name + `">                                           
+        //             </div>
+        //         </div>                                    
+        //     </div>
+        //     <div class="column is-9">
+        //         <div class = "row box"> 
+        //             <div class="columns">
+        //                 <div class="column is-6">
+        //                     <div class="" id="user_data_radar_chart_for_score_` + averageData.value[i].name + `">                                           
+        //                     </div>
+        //                 </div>
+        //                 <div class="column is-6">
+        //                     <div class="row">
+        //                         <div class="columns">
+        //                             <div class="column" id="user_data_pie_chart_` + averageData.value[i].name + `">
+        //                             </div>
+        //                             <div class="column" id="user_data_gp_pie_chart_` + averageData.value[i].name + `">
+        //                             </div>
+        //                             <div class="column" id="user_data_sp_pie_chart_` + averageData.value[i].name + `">
+        //                             </div>                                                        
+        //                         </div>
+        //                     </div>
+        //                     <div class="row">
+        //                         <div class="columns">
+        //                             <div class="column" id="user_data_inv_pie_chart_` + averageData.value[i].name + `">
+        //                             </div>
+        //                             <div class="column" id="user_data_real_pie_chart_` + averageData.value[i].name + `">
+        //                             </div>
+        //                             <div class="column has-text-centered" id="user_data_appendix_` + averageData.value[i].name + `">
+        //                             </div>
+        //                         </div>
+        //                     </div>
+        //                     <div class="row">
+        //                         <div class="columns">
+        //                             <div class="column" id="user_data_hmd_pie_chart_` + averageData.value[i].name + `">
+        //                             </div>
+        //                             <div class="column" id="user_data_hmd_pie_chart_` + averageData.value[i].name + `">
+        //                             </div>
+        //                             <div class="column" id="user_data_projectiondisplay_pie_chart_` + averageData.value[i].name + `">
+        //                             </div>
+        //                         </div>
+        //                     </div>
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     </div>
+        // </div> 
+
+
         var radarChartDiv = "#user_data_radar_chart_for_score_" + averageData.value[i].name;
 
-        var margin = {top: 100, right: 100, bottom: 100, left: 100},
+        var margin = {top: 50, right: 65, bottom: 65, left: 85},
             width = $(radarChartDiv).width() - margin.left - margin.right,
             height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
 
@@ -1696,8 +1792,8 @@ function HandleUploadedData()
             .range(["#F27F0C","#F7AD19","#9FE7F5"]);
             
         var radarChartOptions = {
-            w: width,
-            h: height,
+            w: width * 0.85,
+            h: height * 0.85,
             margin: margin,
             maxValue: 5,
             levels: 5,
@@ -1796,29 +1892,29 @@ function HandleUploadedData()
 
         if(i === 0)
         {
-            var user_data_report_text = '<p>In general, the analysis on IPQ scores showed that this experiment provided users with level "' + averageData.value[i].value[0].adjective_rating +
+            var user_data_report_text = '<p>In general, the analysis on IPQ scores showed that this experiment provided users with level "' + ClassesConverter(averageData.value[i].value[0].adjective_rating) +
                 '" of presence in comparison with previous user studies. For more details, the level presence for sub-scales of IPQ including general presence, spatial presence, involvement, and experienced realism are "' +
-                averageData.value[0].value[1].adjective_rating + '", "' + 
-                averageData.value[0].value[2].adjective_rating + '", "' + 
-                averageData.value[0].value[3].adjective_rating + '", and "' + 
-                averageData.value[0].value[4].adjective_rating + '", ' + 
+                ClassesConverter(averageData.value[0].value[1].adjective_rating) + '", "' + 
+                ClassesConverter(averageData.value[0].value[2].adjective_rating) + '", "' + 
+                ClassesConverter(averageData.value[0].value[3].adjective_rating) + '", and "' + 
+                ClassesConverter(averageData.value[0].value[4].adjective_rating) + '", ' + 
                 ' respectively. ';
 
             if(averageData.value[0].value.length > 5)
             {
-                user_data_report_text += 'The ' + averageData.value[0].value[5].name + ' visual display used in this study provided a "' + averageData.value[0].value[5].adjective_rating + 
+                user_data_report_text += 'The ' + averageData.value[0].value[5].name + ' visual display used in this study provided a "' + ClassesConverter(averageData.value[0].value[5].adjective_rating) + 
                     '" level of presence. ';
             }
 
             if(averageData.value[0].value.length > 6)
             {
-                user_data_report_text += 'In addition, users perceived presence at level "' + averageData.value[0].value[6].adjective_rating + 
+                user_data_report_text += 'In addition, users perceived presence at level "' + ClassesConverter(averageData.value[0].value[6].adjective_rating) + 
                     '" when they experienced with the ' + averageData.value[0].value[6].name + ' display. ';
             }
 
             if(averageData.value[0].value.length > 7)
             {
-                user_data_report_text += 'For the ' + averageData.value[0].value[7].name + ' visual display, the level of presence was eventually at "' + averageData.value[0].value[7].adjective_rating + 
+                user_data_report_text += 'For the ' + averageData.value[0].value[7].name + ' visual display, the level of presence was eventually at "' + ClassesConverter(averageData.value[0].value[7].adjective_rating) + 
                     '" in comparison with previous studies using the same technology. ';
             }
 
@@ -1826,58 +1922,58 @@ function HandleUploadedData()
         }
         else if(i === 1)
         {
-            var user_data_report_text = '<p>Condition ' + averageData.value[i].name + ' generally present users with "' + averageData.value[i].value[0].adjective_rating +
+            var user_data_report_text = '<p>Condition ' + averageData.value[i].name + ' generally present users with "' + ClassesConverter(averageData.value[i].value[0].adjective_rating) +
                 '" level of presence. In addition, the classes for general presence and spatial presence are "' +
-                averageData.value[0].value[1].adjective_rating + '" and "' + 
-                averageData.value[0].value[2].adjective_rating + '", respectively. "' + 
-                averageData.value[0].value[3].adjective_rating + '" and "' + 
-                averageData.value[0].value[4].adjective_rating + '" are, furthermore, categories for involvement and experienced realism.</p>';
+                ClassesConverter(averageData.value[0].value[1].adjective_rating) + '" and "' + 
+                ClassesConverter(averageData.value[0].value[2].adjective_rating) + '", respectively. "' + 
+                ClassesConverter(averageData.value[0].value[3].adjective_rating) + '" and "' + 
+                ClassesConverter(averageData.value[0].value[4].adjective_rating) + '" are, furthermore, categories for involvement and experienced realism.</p>';
         }
         else if(i === 2)
         {
-            var user_data_report_text = '<p>Users reported that they perceived the "' + averageData.value[i].value[0].adjective_rating + '" level of presence in condition ' + averageData.value[i].name + 
+            var user_data_report_text = '<p>Users reported that they perceived the "' + ClassesConverter(averageData.value[i].value[0].adjective_rating) + '" level of presence in condition ' + averageData.value[i].name + 
             '. In this condition, the level of presence for general presence was "' +
-            averageData.value[0].value[1].adjective_rating + '" and "' + 
-            averageData.value[0].value[2].adjective_rating + '" was the level of presence of spatial presence. While involvement sub-scale had level "' + 
-            averageData.value[0].value[3].adjective_rating + '" of presence, "' + 
-            averageData.value[0].value[4].adjective_rating + '" is the class for experienced realism.</p>';
+            ClassesConverter(averageData.value[0].value[1].adjective_rating) + '" and "' + 
+            ClassesConverter(averageData.value[0].value[2].adjective_rating) + '" was the level of presence of spatial presence. While involvement sub-scale had level "' + 
+            ClassesConverter(averageData.value[0].value[3].adjective_rating) + '" of presence, "' + 
+            ClassesConverter(averageData.value[0].value[4].adjective_rating) + '" is the class for experienced realism.</p>';
         }
         
         $("#user_data_text_report_" + averageData.value[i].name).html(user_data_report_text);             
 
-        // var width = 0.85 * $("#user_data_pie_chart_" + averageData.value[i].name).width();
+        var width = 0.95 * $("#user_data_pie_chart_" + averageData.value[i].name).width();
 
-        // IllustrateUserData(Object.assign({}, overallObject), width, width, "#user_data_pie_chart_" + averageData.value[i].name, averageData.value[i].value[0], averageData.value[i].name);
+        IllustrateUserData(Object.assign({}, overallObject), width, width, "#user_data_pie_chart_" + averageData.value[i].name, averageData.value[i].value[0], averageData.value[i].name);
 
-        // subscalesObject.value.forEach(function(e)
-        // {
-        //     var div = "#user_data_sp_pie_chart_" + averageData.value[i].name;
-        //     if(e.name === "SP")
-        //     {
-        //         div = "#user_data_sp_pie_chart_" + averageData.value[i].name;
-        //     }
-        //     else if(e.name === "GP")
-        //     {
-        //         div = "#user_data_gp_pie_chart_" + averageData.value[i].name;
-        //     }
-        //     else if(e.name === "INV")
-        //     {
-        //         div = "#user_data_inv_pie_chart_" + averageData.value[i].name;
-        //     }
-        //     else if(e.name === "REAL")
-        //     {
-        //         div = "#user_data_real_pie_chart_" + averageData.value[i].name;
-        //     }
+        subscalesObject.value.forEach(function(e)
+        {
+            var div = "#user_data_sp_pie_chart_" + averageData.value[i].name;
+            if(e.name === "SP")
+            {
+                div = "#user_data_sp_pie_chart_" + averageData.value[i].name;
+            }
+            else if(e.name === "GP")
+            {
+                div = "#user_data_gp_pie_chart_" + averageData.value[i].name;
+            }
+            else if(e.name === "INV")
+            {
+                div = "#user_data_inv_pie_chart_" + averageData.value[i].name;
+            }
+            else if(e.name === "REAL")
+            {
+                div = "#user_data_real_pie_chart_" + averageData.value[i].name;
+            }
 
-        //     width = 0.85 * $(div).width();
+            width = 0.95 * $(div).width();
             
-        //     averageData.value[i].value.forEach(function(f){
-        //         if(e.name === f.name)
-        //         {
-        //             IllustrateUserData(Object.assign({}, e), width, width, div, f, averageData.value[i].name);
-        //         }
-        //     });
-        // });
+            averageData.value[i].value.forEach(function(f){
+                if(e.name === f.name)
+                {
+                    IllustrateUserData(Object.assign({}, e), width, width, div, f, averageData.value[i].name);
+                }
+            });
+        });
 
         visualDisplaysObject.value.forEach(function(e)
         {
@@ -1898,7 +1994,7 @@ function HandleUploadedData()
 
             if(div != "")
             {
-                width = 0.7 * $(div).width();
+                width = 0.95 * $(div).width();
             
                 averageData.value[i].value.forEach(function(f){
                     if(e.name.replace(/\s/g,'') === f.name.replace(/\s/g,''))
@@ -3393,6 +3489,9 @@ user_data_sample_report_text.innerHTML = html
             pyodide.runPython(code);
         });
     })
+
+    $("#progress-popup").hide();
+    $("#content").fadeTo(200, 1);
 }
 
 function IllustrateUserData(data, width, height, div, user_data, condition)
@@ -3570,7 +3669,7 @@ function DrawPie(data, width, height, margin, div_id, is_reference, data_score =
 
 function AddAppendix(is_user_data = false, div = "#main_appendix")
 {    
-    var width = 0.85 * $(div).width(); 
+    var width = 200;//0.9 * $(div).width(); 
     var height = width;
     
     var appendixSVG = d3.select(div)
@@ -3587,26 +3686,27 @@ function AddAppendix(is_user_data = false, div = "#main_appendix")
     // appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 3 * (height / 8)).attr("r", 6).style("fill", "#AED6F1");
     // appendixSVG.append("circle").attr("cx", width/5 + width/3).attr("cy", height - 4 * (height / 8)).attr("r", 6).style("fill", "#D6EAF8");
     // appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 4 * (height / 8)).attr("r", 6).style("fill", "#EBF5FB");
+				
 
-    appendixSVG.append("circle").attr("cx", width/5 + width/3).attr("cy", height - 2 * (height / 8)).attr("r", 6).style("fill", "#cce2fd");
-    appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 2 * (height / 8)).attr("r", 6).style("fill", "#a9d7fc");
-    appendixSVG.append("circle").attr("cx", width/5 + width/3).attr("cy", height - 3 * (height / 8)).attr("r", 6).style("fill", "#80cafb");
-    appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 3 * (height / 8)).attr("r", 6).style("fill", "#51bbfa");
-    appendixSVG.append("circle").attr("cx", width/5 + width/3).attr("cy", height - 4 * (height / 8)).attr("r", 6).style("fill", "#31b1f9");
-    appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 4 * (height / 8)).attr("r", 6).style("fill", "#3092c7");
+    // appendixSVG.append("circle").attr("cx", width/5 + width/3).attr("cy", height - 2 * (height / 8)).attr("r", 6).style("fill", "#e2e2e2");
+    appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 2 * (height / 8)).attr("r", 6).style("fill", "#f7fbff");
+    appendixSVG.append("circle").attr("cx", width/5 + width/2 - 10).attr("cy", height - 3 * (height / 8)).attr("r", 6).style("fill", "#deebf7");
+    appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 3 * (height / 8)).attr("r", 6).style("fill", "#c6dbef");
+    appendixSVG.append("circle").attr("cx", width/5 + width/2 - 10).attr("cy", height - 4 * (height / 8)).attr("r", 6).style("fill", "#9ecae1");
+    appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 4 * (height / 8)).attr("r", 6).style("fill", "#6baed6");
 
     // appendixSVG.append("text").attr("x", width/5 + 15).attr("y", height - 1 * (height / 8)).text("Best").attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
-    appendixSVG.append("text").attr("x", width/5 + width/3 + 15).attr("y", height - 2 * (height / 8)).text('Class VI').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
-    appendixSVG.append("text").attr("x", width/5 + 15).attr("y", height - 2 * (height / 8)).text('Class V').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
-    appendixSVG.append("text").attr("x", width/5 + width/3 + 15).attr("y", height - 3 * (height / 8)).text('Class IV').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
-    appendixSVG.append("text").attr("x", width/5 + 15).attr("y", height - 3 * (height / 8)).text('Class III').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
-    appendixSVG.append("text").attr("x", width/5 + width/3 + 15).attr("y", height - 4 * (height / 8)).text('Class II').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
-    appendixSVG.append("text").attr("x", width/5 + 15).attr("y", height - 4 * (height / 8)).text('Class I').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
+    //appendixSVG.append("text").attr("x", width/5 + width/3 + 15).attr("y", height - 2 * (height / 8)).text('Class VI').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
+    appendixSVG.append("text").attr("x", width/5 + 15).attr("y", height - 2 * (height / 8)).text('Low').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
+    appendixSVG.append("text").attr("x", width/5 + width/2 + 15 - 10).attr("y", height - 3 * (height / 8)).text('Moderate').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
+    appendixSVG.append("text").attr("x", width/5 + 15).attr("y", height - 3 * (height / 8)).text('High').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
+    appendixSVG.append("text").attr("x", width/5 + width/2 + 15 - 10).attr("y", height - 4 * (height / 8)).text('Very High').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
+    appendixSVG.append("text").attr("x", width/5 + 15).attr("y", height - 4 * (height / 8)).text('Exceptional').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
 
     if(is_user_data)
     {        
-        appendixSVG.append("circle").attr("cx", width/5 + width/3).attr("cy", height - height / 8).attr("r", 6).style("fill", "#F39C12");
-        appendixSVG.append("text").attr("x", width/5 + width/3 + 15).attr("y", height - 1 * (height / 8)).text("Your Data").attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
+        appendixSVG.append("circle").attr("cx", width/5 + width/2 - 10).attr("cy", height - 2 * (height / 8)).attr("r", 6).style("fill", "#F39C12");
+        appendixSVG.append("text").attr("x", width/5 + width/2 + 15 - 10).attr("y", height - 2 * (height / 8)).text("Your Data").attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
     }
     
 }
