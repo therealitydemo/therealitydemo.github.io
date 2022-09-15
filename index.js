@@ -1894,8 +1894,8 @@ function HandleUploadedData()
 
         if(i === 0)
         {
-            var user_data_report_text = '<p>In general, the analysis on IPQ scores showed that this experiment provided users with level "' + ClassesConverter(averageData.value[i].value[0].adjective_rating) +
-                '" of presence in comparison with previous user studies. For more details, the level presence for sub-scales of IPQ including general presence, spatial presence, involvement, and experienced realism are "' +
+            var user_data_report_text = '<p>In general, the analysis on IPQ scores showed that the rating scores for presence from users responses were in "' + ClassesConverter(averageData.value[i].value[0].adjective_rating) +
+                '" level in this experiment in comparison with previous user studies. For more details, the rating scores for sub-scales of IPQ including general presence, spatial presence, involvement, and experienced realism were in "' +
                 ClassesConverter(averageData.value[0].value[1].adjective_rating) + '", "' + 
                 ClassesConverter(averageData.value[0].value[2].adjective_rating) + '", "' + 
                 ClassesConverter(averageData.value[0].value[3].adjective_rating) + '", and "' + 
@@ -1904,19 +1904,19 @@ function HandleUploadedData()
 
             if(averageData.value[0].value.length > 5)
             {
-                user_data_report_text += 'The ' + averageData.value[0].value[5].name + ' visual display used in this study provided a "' + ClassesConverter(averageData.value[0].value[5].adjective_rating) + 
-                    '" level of presence. ';
+                user_data_report_text += 'The ' + averageData.value[0].value[5].name + ' visual display used in this study received rating scores for presence was in "' + ClassesConverter(averageData.value[0].value[5].adjective_rating) + 
+                    '". ';
             }
 
             if(averageData.value[0].value.length > 6)
             {
-                user_data_report_text += 'In addition, users perceived presence at level "' + ClassesConverter(averageData.value[0].value[6].adjective_rating) + 
-                    '" when they experienced with the ' + averageData.value[0].value[6].name + ' display. ';
+                user_data_report_text += 'In addition, users perceived presence with rating scores were at "' + ClassesConverter(averageData.value[0].value[6].adjective_rating) + 
+                    '" level when they experienced with the ' + averageData.value[0].value[6].name + ' display. ';
             }
 
             if(averageData.value[0].value.length > 7)
             {
-                user_data_report_text += 'For the ' + averageData.value[0].value[7].name + ' visual display, the level of presence was eventually at "' + ClassesConverter(averageData.value[0].value[7].adjective_rating) + 
+                user_data_report_text += 'For the ' + averageData.value[0].value[7].name + ' visual display, the rating scores for presence was eventually at "' + ClassesConverter(averageData.value[0].value[7].adjective_rating) + 
                     '" in comparison with previous studies using the same technology. ';
             }
 
@@ -1924,21 +1924,21 @@ function HandleUploadedData()
         }
         else if(i === 1)
         {
-            var user_data_report_text = '<p>Condition ' + averageData.value[i].name + ' generally present users with "' + ClassesConverter(averageData.value[i].value[0].adjective_rating) +
-                '" level of presence. In addition, the classes for general presence and spatial presence are "' +
+            var user_data_report_text = '<p>Condition ' + averageData.value[i].name + ' generally received "' + ClassesConverter(averageData.value[i].value[0].adjective_rating) +
+                '" level of rating scores for presence. In addition, the classes for general presence and spatial presence rating scores are "' +
                 ClassesConverter(averageData.value[0].value[1].adjective_rating) + '" and "' + 
                 ClassesConverter(averageData.value[0].value[2].adjective_rating) + '", respectively. "' + 
                 ClassesConverter(averageData.value[0].value[3].adjective_rating) + '" and "' + 
-                ClassesConverter(averageData.value[0].value[4].adjective_rating) + '" are, furthermore, categories for involvement and experienced realism.</p>';
+                ClassesConverter(averageData.value[0].value[4].adjective_rating) + '" are, furthermore, categories for rating scores for involvement and experienced realism.</p>';
         }
         else if(i === 2)
         {
-            var user_data_report_text = '<p>Users reported that they perceived the "' + ClassesConverter(averageData.value[i].value[0].adjective_rating) + '" level of presence in condition ' + averageData.value[i].name + 
-            '. In this condition, the level of presence for general presence was "' +
+            var user_data_report_text = '<p>Users rated scores for presence was in "' + ClassesConverter(averageData.value[i].value[0].adjective_rating) + '" level for condition '+ averageData.value[i].name +  
+            '. In this condition, the rating scores for general presence was in "' +
             ClassesConverter(averageData.value[0].value[1].adjective_rating) + '" and "' + 
-            ClassesConverter(averageData.value[0].value[2].adjective_rating) + '" was the level of presence of spatial presence. While involvement sub-scale had level "' + 
-            ClassesConverter(averageData.value[0].value[3].adjective_rating) + '" of presence, "' + 
-            ClassesConverter(averageData.value[0].value[4].adjective_rating) + '" is the class for experienced realism.</p>';
+            ClassesConverter(averageData.value[0].value[2].adjective_rating) + '" was the class for rating scores for spatial presence. While involvement sub-scale had level "' + 
+            ClassesConverter(averageData.value[0].value[3].adjective_rating) + '" of its rating scores, "' + 
+            ClassesConverter(averageData.value[0].value[4].adjective_rating) + '" is the class for experienced realism rating scores.</p>';
         }
         
         $("#user_data_text_report_" + averageData.value[i].name).html(user_data_report_text);             
