@@ -1,3 +1,5 @@
+//const { pie } = require('d3');
+
 var stage = "main";
 var currentObject;
 var currentSelectedPie = undefined;
@@ -1692,7 +1694,7 @@ function HandleUploadedData()
                                                 <div class="columns">
                                                     <div class="column is-one-fifth" id="user_data_hmd_pie_chart_` + averageData.value[i].name + `">
                                                     </div>
-                                                    <div class="column is-one-fifth" id="user_data_hmd_pie_chart_` + averageData.value[i].name + `">
+                                                    <div class="column is-one-fifth" id="user_data_monoscopic_pie_chart_` + averageData.value[i].name + `">
                                                     </div>
                                                     <div class="column is-one-fifth" id="user_data_projectiondisplay_pie_chart_` + averageData.value[i].name + `">
                                                     </div>
@@ -3535,10 +3537,22 @@ function DrawPie(data, width, height, margin, div_id, is_reference, data_score =
     var radius = Math.min(width, height) / 2,
         innerRadius = 0.3 * radius;
 
+    var count = 0;
+
+    for(var i = 0; i < data.length; i++)
+    {
+        if(data[i].number > 0)
+            count += 1;
+    }
+
+    var pieSize = 100 / count;
+
     var circlePie = d3.layout.pie()
         .sort(null)
         .value(function(element){
-            return 20;
+            if(element.number == 0)
+                return 0;
+            return pieSize;
             //return element.percent;
     });
 
