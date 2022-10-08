@@ -1083,7 +1083,7 @@ function HandleUploadedData()
     for(var i = 7; i < parseInt(number_of_entries) + 7; i++)
     {
         var eachSPScore = 0, eachGPScore = 0, eachINVScore = 0, eachREALScore = 0;
-        var averageSPScore = 0, averageGPScore = 0, averageINVScore = 0, averageREALScore = 0, averageEach = 0;
+        var averageSPScore = 0, averageGPScore = 0, averageINVScore = 0, averageREALScore = 0, averageOverallScore = 0;
 
         var subStrings = uploadedDataLines[i].split(",");
         var participant_id = subStrings[0], visual_display = subStrings[1], experimental_condition = subStrings[2];
@@ -1140,7 +1140,7 @@ function HandleUploadedData()
             averageGPScore = eachGPScore / 1;
             averageINVScore = eachINVScore / 4;
             averageREALScore = eachREALScore / 4;
-            averageEach = (eachSPScore + eachGPScore + eachINVScore + eachREALScore) / 14;            
+            averageOverallScore = (averageSPScore + averageGPScore + averageINVScore + averageREALScore) / 4;            
 
             overallSPScore += eachSPScore;
             overallGPScore += eachGPScore;
@@ -1205,9 +1205,11 @@ function HandleUploadedData()
     
                     if(e.name === "Overall" || e.name === visual_display)
                     {
-                        eachObject.value.push(averageEach);
-                        e.count += 14;
-                        e.total += eachSPScore + eachGPScore + eachINVScore + eachREALScore;
+                        eachObject.value.push(averageOverallScore);
+                        // e.count += 14;
+                        // e.total += eachSPScore + eachGPScore + eachINVScore + eachREALScore;
+                        e.count += 4;
+                        e.total += averageSPScore + averageGPScore + averageINVScore + averageREALScore;
                     }
                     else if(e.name === "GP")
                     {
@@ -1429,106 +1431,157 @@ function HandleUploadedData()
 
     var visualisationData = [];
 
-    arrayData.value.forEach(element =>{
+    averageData.value.forEach(element =>{
         var object = {
             "name": element.name,
             "data": []
         };
 
-        element.ratingscores.forEach(element => {
-            var mean = math.round(math.mean(element.values), 3);
-            var sd = math.round(math.std(element.values), 3);
-            var value;
-
-            var retObject = adjective_ratings.find(function(ea){
-                return ea.name.replace(/\s/g,'') === element.name.replace(/\s/g,'')
-            });
-    
-            if(retObject !== undefined)
+        element.value.forEach(element => {
+            if(element.name == "Overall" ||
+                element.name == "SP" || 
+                element.name == "GP" || 
+                element.name == "INV" || 
+                element.name == "REAL")
             {
-                retObject.ranges.forEach(function(r)
-                {
-                    if(r.name === 'Class V' && mean >= r.from && mean < r.to)
+                var averageValues = [];
+                element.value.forEach(element =>
                     {
-                        value = 1;
-                    }
-                    else if(r.name === 'Class IV' && mean >= r.from && mean < r.to)
-                    {
-                        value = 2;
-                    }
-                    else if(r.name === 'Class III' && mean >= r.from && mean <= r.to)
-                    {
-                        value = 3;
-                    }
-                    else if(r.name === 'Class II' && mean > r.from && mean <= r.to)
-                    {
-                        value = 4;
-                    }
-                    else if(r.name === 'Class I' && mean > r.from && mean <= r.to)
-                    {
-                        value = 5;
-                    }
+                        averageValues = averageValues.concat(element.value);
+                    });
+                var mean = math.round(math.mean(averageValues), 3);
+                var sd = math.round(math.std(averageValues), 3);
+                var value;
+
+                var retObject = adjective_ratings.find(function(ea){
+                    return ea.name.replace(/\s/g,'') === element.name.replace(/\s/g,'')
                 });
+        
+                if(retObject !== undefined)
+                {
+                    retObject.ranges.forEach(function(r)
+                    {
+                        if(r.name === 'Class V' && mean >= r.from && mean < r.to)
+                        {
+                            value = 1;
+                        }
+                        else if(r.name === 'Class IV' && mean >= r.from && mean < r.to)
+                        {
+                            value = 2;
+                        }
+                        else if(r.name === 'Class III' && mean >= r.from && mean <= r.to)
+                        {
+                            value = 3;
+                        }
+                        else if(r.name === 'Class II' && mean > r.from && mean <= r.to)
+                        {
+                            value = 4;
+                        }
+                        else if(r.name === 'Class I' && mean > r.from && mean <= r.to)
+                        {
+                            value = 5;
+                        }
+                    });
+                }
+        
+                object.data.push({"axis": element.name, "value": value, "mean": mean, "std": sd });
             }
+        });
+
+        // element.ratingscores.forEach(element => {
+        //     var mean = math.round(math.mean(element.values), 3);
+        //     var sd = math.round(math.std(element.values), 3);
+        //     var value;
+
+        //     var retObject = adjective_ratings.find(function(ea){
+        //         return ea.name.replace(/\s/g,'') === element.name.replace(/\s/g,'')
+        //     });
     
-            object.data.push({"axis": element.name, "value": value, "mean": mean, "std": sd });
-        }); 
+        //     if(retObject !== undefined)
+        //     {
+        //         retObject.ranges.forEach(function(r)
+        //         {
+        //             if(r.name === 'Class V' && mean >= r.from && mean < r.to)
+        //             {
+        //                 value = 1;
+        //             }
+        //             else if(r.name === 'Class IV' && mean >= r.from && mean < r.to)
+        //             {
+        //                 value = 2;
+        //             }
+        //             else if(r.name === 'Class III' && mean >= r.from && mean <= r.to)
+        //             {
+        //                 value = 3;
+        //             }
+        //             else if(r.name === 'Class II' && mean > r.from && mean <= r.to)
+        //             {
+        //                 value = 4;
+        //             }
+        //             else if(r.name === 'Class I' && mean > r.from && mean <= r.to)
+        //             {
+        //                 value = 5;
+        //             }
+        //         });
+        //     }
+    
+        //     object.data.push({"axis": element.name, "value": value, "mean": mean, "std": sd });
+        // }); 
 
         visualisationData.push(object);
     });
 
-    var wholeElement = visualisationData.find(function(element){
-        return element.name == "Whole";
-    });
+    // var wholeElement = visualisationData.find(function(element){
+    //     return element.name == "Whole";
+    // });
 
-    if(wholeElement === undefined)
-    {
-        var wholeElementVisualisationData = {
-            "name": "Whole",
-            "data": []
-        };
+    // if(wholeElement === undefined)
+    // {
+    //     var wholeElementVisualisationData = {
+    //         "name": "Whole",
+    //         "data": []
+    //     };
 
-        wholeExperimentObject.ratingscores.forEach(element => {
-            var mean = math.round(math.mean(element.values), 3);
-            var sd = math.round(math.std(element.values), 3);
-            var value;
+    //     wholeExperimentObject.ratingscores.forEach(element => {
+    //         var mean = math.round(math.mean(element.values), 3);
+    //         var sd = math.round(math.std(element.values), 3);
+    //         var value;
 
-            var retObject = adjective_ratings.find(function(ea){
-                return ea.name.replace(/\s/g,'') === element.name.replace(/\s/g,'')
-            });
+    //         var retObject = adjective_ratings.find(function(ea){
+    //             return ea.name.replace(/\s/g,'') === element.name.replace(/\s/g,'')
+    //         });
     
-            if(retObject !== undefined)
-            {
-                retObject.ranges.forEach(function(r)
-                {
-                    if(r.name === 'Class V' && mean >= r.from && mean < r.to)
-                    {
-                        value = 1;
-                    }
-                    else if(r.name === 'Class IV' && mean >= r.from && mean < r.to)
-                    {
-                        value = 2;
-                    }
-                    else if(r.name === 'Class III' && mean >= r.from && mean <= r.to)
-                    {
-                        value = 3;
-                    }
-                    else if(r.name === 'Class II' && mean > r.from && mean <= r.to)
-                    {
-                        value = 4;
-                    }
-                    else if(r.name === 'Class I' && mean > r.from && mean <= r.to)
-                    {
-                        value = 5;
-                    }
-                });
-            }
+    //         if(retObject !== undefined)
+    //         {
+    //             retObject.ranges.forEach(function(r)
+    //             {
+    //                 if(r.name === 'Class V' && mean >= r.from && mean < r.to)
+    //                 {
+    //                     value = 1;
+    //                 }
+    //                 else if(r.name === 'Class IV' && mean >= r.from && mean < r.to)
+    //                 {
+    //                     value = 2;
+    //                 }
+    //                 else if(r.name === 'Class III' && mean >= r.from && mean <= r.to)
+    //                 {
+    //                     value = 3;
+    //                 }
+    //                 else if(r.name === 'Class II' && mean > r.from && mean <= r.to)
+    //                 {
+    //                     value = 4;
+    //                 }
+    //                 else if(r.name === 'Class I' && mean > r.from && mean <= r.to)
+    //                 {
+    //                     value = 5;
+    //                 }
+    //             });
+    //         }
     
-            wholeElementVisualisationData.data.push({"axis": element.name, "value": value, "mean": mean, "std": sd });
-        }); 
+    //         wholeElementVisualisationData.data.push({"axis": element.name, "value": value, "mean": mean, "std": sd });
+    //     }); 
 
-        visualisationData.unshift(wholeElementVisualisationData);
-    }
+    //     visualisationData.unshift(wholeElementVisualisationData);
+    // }
 
     averageData.value.forEach(function(c)
     {
@@ -1806,11 +1859,14 @@ function HandleUploadedData()
 
         //Call function to draw the Radar chart
         var radarData = [];
-        radarData.push(visualisationData.find(function(e){
-            if(e.name == "Whole")
-                e.name = "Overall---AAA";
-            return e.name === averageData.value[i].name;
-        }).data);
+        // radarData.push(visualisationData.find(function(e){
+
+        //     // if(e.name == "Whole")
+        //     //     e.name = "Overall---AAA";
+        //     // return e.name === averageData.value[i].name;
+        // }).data);
+
+        radarData.push(visualisationData.find(element => element.name == averageData.value[i].name).data);
 
         RadarChart(
             radarChartDiv,
