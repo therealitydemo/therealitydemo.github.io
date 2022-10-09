@@ -3703,14 +3703,14 @@ function DrawPie(data, width, height, margin, div_id, is_reference, data_score =
             .attr("class", "ipq-eachstudyscore")
             .attr("dy", "-0.05em")
             .attr("text-anchor", "middle")
-            .style("font-size", (width/2) + "%") 
+            .style("font-size", (width/1.45) + "%") 
             .text(data_score);    
 
         mainPieSVG.append("svg:text")
             .attr("class", "ipq-eachstudyscore")
             .attr("dy", "1.5em")
             .attr("text-anchor", "middle")
-            .style("font-size", (width/4) + "%") 
+            .style("font-size", (width/2.5) + "%") 
             .text(adjective_rating);       
     }
     else if(stage === "main")
@@ -3725,7 +3725,7 @@ function DrawPie(data, width, height, margin, div_id, is_reference, data_score =
             .attr("class", "ipq-eachstudyscore")
             .attr("dy", "0.5em")
             .attr("text-anchor", "middle")
-            .style("font-size", (width/4) + "%") 
+            .style("font-size", (width/2.5) + "%") 
             .text(category); 
     }
     
@@ -3749,7 +3749,7 @@ function AddAppendix(is_user_data = false, div = "#main_appendix")
         .attr("width", width)
         .attr("height", height);
 
-    appendixSVG.append("text").attr("x", width/2 - 30).attr("y", height - 5 * (height / 8)).text("APPENDIX").attr("alignment-baseline","middle").style("font-size", (width/2.5) + "%");
+    appendixSVG.append("text").attr("x", width/2 - 30).attr("y", height - 5 * (height / 8)).text("APPENDIX").attr("alignment-baseline","middle").style("font-size", (width/2) + "%");
     
     // appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - height / 8).attr("r", 6).style("fill", "#3092C7");
     // appendixSVG.append("circle").attr("cx", width/5 + width/3).attr("cy", height - 2 * (height / 8)).attr("r", 6).style("fill", "#3498DB");
@@ -3769,16 +3769,16 @@ function AddAppendix(is_user_data = false, div = "#main_appendix")
 
     // appendixSVG.append("text").attr("x", width/5 + 15).attr("y", height - 1 * (height / 8)).text("Best").attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
     //appendixSVG.append("text").attr("x", width/5 + width/3 + 15).attr("y", height - 2 * (height / 8)).text('Class VI').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
-    appendixSVG.append("text").attr("x", width/5 + 15).attr("y", height - 2 * (height / 8)).text('Low').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
-    appendixSVG.append("text").attr("x", width/5 + width/2 + 15 - 10).attr("y", height - 3 * (height / 8)).text('Moderate').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
-    appendixSVG.append("text").attr("x", width/5 + 15).attr("y", height - 3 * (height / 8)).text('High').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
-    appendixSVG.append("text").attr("x", width/5 + width/2 + 15 - 10).attr("y", height - 4 * (height / 8)).text('Very High').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
-    appendixSVG.append("text").attr("x", width/5 + 15).attr("y", height - 4 * (height / 8)).text('Exceptional').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
+    appendixSVG.append("text").attr("x", width/5 + 15).attr("y", height - 2 * (height / 8)).text('Low').attr("alignment-baseline","middle").style("font-size", (width/2.65) + "%");
+    appendixSVG.append("text").attr("x", width/5 + width/2 + 15 - 10).attr("y", height - 3 * (height / 8)).text('Moderate').attr("alignment-baseline","middle").style("font-size", (width/2.65) + "%");
+    appendixSVG.append("text").attr("x", width/5 + 15).attr("y", height - 3 * (height / 8)).text('High').attr("alignment-baseline","middle").style("font-size", (width/2.65) + "%");
+    appendixSVG.append("text").attr("x", width/5 + width/2 + 15 - 10).attr("y", height - 4 * (height / 8)).text('Very High').attr("alignment-baseline","middle").style("font-size", (width/2.65) + "%");
+    appendixSVG.append("text").attr("x", width/5 + 15).attr("y", height - 4 * (height / 8)).text('Exceptional').attr("alignment-baseline","middle").style("font-size", (width/2.65) + "%");
 
     if(is_user_data)
     {        
         appendixSVG.append("circle").attr("cx", width/5 + width/2 - 10).attr("cy", height - 2 * (height / 8)).attr("r", 6).style("fill", "#F39C12");
-        appendixSVG.append("text").attr("x", width/5 + width/2 + 15 - 10).attr("y", height - 2 * (height / 8)).text("Your Data").attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
+        appendixSVG.append("text").attr("x", width/5 + width/2 + 15 - 10).attr("y", height - 2 * (height / 8)).text("Your Data").attr("alignment-baseline","middle").style("font-size", (width/2.65) + "%");
     }
     
 }

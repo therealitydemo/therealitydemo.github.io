@@ -169,7 +169,7 @@ function RadarChart(id, data, options) {
 	.attr("x", 4)
 	.attr("y", function(d){return -d*radius/cfg.levels;})
 	.attr("dy", "0.4em")
-	.style("font-size", "12px")
+	.style("font-size", "13px")
 	.attr("fill", "#737373")
 	.text(function(d,i) { 
 		if(i == 0)
@@ -223,7 +223,8 @@ function RadarChart(id, data, options) {
 		.attr("dy", "0.35em")
 		.attr("x", function(d, i){ return rScale(maxValue * cfg.labelFactor) * Math.cos(angleSlice*i - Math.PI/2); })
 		.attr("y", function(d, i){ return rScale(maxValue * cfg.labelFactor) * Math.sin(angleSlice*i - Math.PI/2); })		
-		.style("font-size", "10x")
+		.style("font-size", "12x")		
+		.style("font-weight", "bold")
 		.text(function(d){
 			if(d === "GP")
 				return "General Presence";
