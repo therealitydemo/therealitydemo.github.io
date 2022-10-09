@@ -1761,11 +1761,11 @@ function HandleUploadedData()
                             </div>
                             <div class="row" style="margin-top:10px;">
                                 <div class="columns">
-                                    <div class="column is-vcentered is-4">                                        
+                                    <div class="column is-vcentered is-5">                                        
                                         <div class="box summary-text" class="" id="user_data_text_report_` + averageData.value[i].name + `">                                                                                  
                                         </div>                                  
                                     </div>
-                                    <div class="column is-vcentered is-8">
+                                    <div class="column is-vcentered is-7">
                                         <div class="box" class="" id="user_data_bar_chart_for_score_` + averageData.value[i].name + `">                                           
                                         </div>                                  
                                     </div>
