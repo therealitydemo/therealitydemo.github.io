@@ -2246,13 +2246,6 @@ analysis_code.innerHTML += '<p class="code"> whole_experiment_real = []<p>'
         {
             code += `
 ## init variable ` + i + `
-variable_` + i + `_name = "` + overallScoreObject.value[i-1].name + `"
-variable_` + i + `_value_overall = ` + JSON.stringify(overallScoreObject.value[i-1].value) + `
-variable_` + i + `_participantsid_overall = ` + JSON.stringify(overallScoreObject.value[i-1].participants) + `
-variable_` + i + `_mean_overall = round(np.mean(variable_` + i + `_value_overall), 3)
-variable_` + i + `_std_overall = round(np.std(variable_` + i + `_value_overall), 3)
-whole_experiment_overall += variable_` + i + `_value_overall
-
 variable_` + i + `_value_gp = ` + JSON.stringify(gpScoreObject.value[i-1].value) + `
 variable_` + i + `_participantsid_gp = ` + JSON.stringify(gpScoreObject.value[i-1].participants) + `
 variable_` + i + `_mean_gp = round(np.mean(variable_` + i + `_value_gp), 3)
@@ -2276,6 +2269,13 @@ variable_` + i + `_participantsid_real = ` + JSON.stringify(realScoreObject.valu
 variable_` + i + `_mean_real = round(np.mean(variable_` + i + `_value_real), 3)
 variable_` + i + `_std_real = round(np.std(variable_` + i + `_value_real), 3)
 whole_experiment_real += variable_` + i + `_value_real
+
+variable_` + i + `_name = "` + overallScoreObject.value[i-1].name + `"
+variable_` + i + `_value_overall = ` + JSON.stringify(overallScoreObject.value[i-1].value) + `
+variable_` + i + `_participantsid_overall = ` + JSON.stringify(overallScoreObject.value[i-1].participants) + `
+variable_` + i + `_mean_overall = round(np.mean(variable_` + i + `_value_overall), 3)
+variable_` + i + `_std_overall = round(np.std(variable_` + i + `_value_overall), 3)
+whole_experiment_overall += variable_` + i + `_value_overall
 
 print(variable_` + i + `_name + " ( M = " + str(variable_` + i + `_mean_overall) + ", SD = " + str(variable_` + i + `_std_overall) + ")")
 
