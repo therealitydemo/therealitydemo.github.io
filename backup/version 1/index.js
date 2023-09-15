@@ -2965,12 +2965,14 @@ user_data_sample_report_text.innerHTML = html
     }
         
     console.log(code);
+
+    pyodide.runPython(code);
     
-    languagePluginLoader.then(() => {
-        pyodide.loadPackage(['numpy', 'scipy', 'pandas', 'statsmodels', 'matplotlib']).then(() => {            
-            pyodide.runPython(code);
-        });
-    })
+    // languagePluginLoader.then(() => {
+    //     pyodide.loadPackage(['numpy', 'scipy', 'pandas', 'statsmodels', 'matplotlib']).then(() => {            
+    //         pyodide.runPython(code);
+    //     });
+    // })
 }
 
 function IllustrateUserData(data, width, height, div, user_data, condition)
@@ -3228,25 +3230,25 @@ $( document ).ready(function() {
     $("#copyright").text(copyrightText);
 });
 
-languagePluginLoader.then(() => {
-    pyodide.loadPackage(['numpy', 'scipy', 'pandas', 'statsmodels', 'matplotlib']).then(() => {            
-        pyodide.runPython(`
-import io
-import base64
-import numpy as np
-from scipy import stats
-import pandas as pd
-import statsmodels.stats.api as sm
-from statsmodels.stats.anova import AnovaRM
-from statsmodels.regression.mixed_linear_model import MixedLM
-from statsmodels.formula.api import ols
-import matplotlib.pyplot as plt
-from js import window, eval as jseval
+// languagePluginLoader.then(() => {
+//     pyodide.loadPackage(['numpy', 'scipy', 'pandas', 'statsmodels', 'matplotlib']).then(() => {            
+//         pyodide.runPython(`
+// import io
+// import base64
+// import numpy as np
+// from scipy import stats
+// import pandas as pd
+// import statsmodels.stats.api as sm
+// from statsmodels.stats.anova import AnovaRM
+// from statsmodels.regression.mixed_linear_model import MixedLM
+// from statsmodels.formula.api import ols
+// import matplotlib.pyplot as plt
+// from js import window, eval as jseval
 
-print("Preload libraries are finished!")
-`);
-    });
-})
+// print("Preload libraries are finished!")
+// `);
+//     });
+// })
 
 function HideTermsandCondition(){    
     $("#terms_and_conditions").hide();

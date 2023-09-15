@@ -1,4 +1,47 @@
-//const { pie } = require('d3');
+var isPyodideLoaded = false;
+
+// Load Pyodide
+async function loadPyodideLibrary()
+{
+    // Load Pyodide library
+    const PYODIDE_BASE_URL = "https://cdn.jsdelivr.net/pyodide/v0.23.4/full/";
+
+    loadPyodide({ indexURL: PYODIDE_BASE_URL }).then((pyodide) => {
+        globalThis.pyodide = pyodide      // you might also want to store pyodide globally so 
+                                            // so you can access anywhere in the scope
+        pyodide.loadPackage(['numpy', 'scipy', 'pandas', 'statsmodels', 'matplotlib']).then(async () => {
+            await pyodide.runPython(`   
+            import io
+            import base64
+            import numpy as np
+            from scipy import stats
+            import pandas as pd
+            import statsmodels.stats.api as sm
+            from statsmodels.stats.anova import AnovaRM
+            from statsmodels.regression.mixed_linear_model import MixedLM
+            from statsmodels.formula.api import ols
+            import matplotlib.pyplot as plt
+            from js import window, eval as jseval
+            
+            print("Preload libraries are finished!")
+            `);
+
+            isPyodideLoaded = true;
+        });
+    });
+}
+
+async function main() {   
+    // Load dependency data files
+    loadOverallFile();
+    loadSubscaleFile();
+    loadVisualDisplayFile();
+
+    // Add appendix
+    AddAppendix();
+};
+
+main();
 
 var stage = "main";
 var currentObject;
@@ -97,11 +140,11 @@ $("#terms_and_conditions").hide();
 // ];
 
 var adjective_ratings_overall = [
-    {'name': 'Class V', 'from': -3, 'to': 0.230}, 
-    {'name': 'Class IV', 'from': 0.230, 'to': 0.667}, 
-    {'name': 'Class III', 'from': 0.667, 'to': 1.104}, 
-    {'name': 'Class II', 'from': 1.104, 'to': 1.465}, 
-    {'name': 'Class I', 'from': 1.465, 'to': 3}, 
+    {'name': 'Class V', 'from': -3, 'to': 0.28}, 
+    {'name': 'Class IV', 'from': 0.28, 'to': 0.73}, 
+    {'name': 'Class III', 'from': 0.73, 'to': 1.07}, 
+    {'name': 'Class II', 'from': 1.07, 'to': 1.30}, 
+    {'name': 'Class I', 'from': 1.30, 'to': 3}, 
 ];
 
 var adjective_ratings_SP = [
@@ -171,20 +214,20 @@ var adjective_ratings = [
     {'name': 'SP', 'ranges': adjective_ratings_SP},
     {'name': 'INV', 'ranges': adjective_ratings_INV},
     {'name': 'REAL', 'ranges': adjective_ratings_REAL},
-    {'name': '3D - HMD VR', 'ranges': adjective_ratings_hmd},
-    {'name': '3D - Monoscopic', 'ranges': adjective_ratings_monoscopic},
+    {'name': '3D Graphics - HMD VR/MR', 'ranges': adjective_ratings_hmd},
+    {'name': '3D Graphics - Monoscopic', 'ranges': adjective_ratings_monoscopic},
     {'name': 'Projection Display', 'ranges': adjective_ratings_projection_display}];
 
 
 var rootPapers = [];
 
-var overallObject = {'name': 'Overall', 'attr': 'Ranking_class', 'value': []};
+var overallObject = {'name': 'Overall', 'attr': 'ranking_class', 'value': []};
 var subscalesObject = {'name': 'Subscales', 'value': []};
 
-var spObject = {'name': 'SP', 'attr': 'Sp_ranking_class', 'value': []};
-var gpObject = {'name': 'GP', 'attr': 'Gp_ranking_class', 'value': []};
-var invObject = {'name': 'INV', 'attr': 'Inv_ranking_class', 'value': []};
-var realObject = {'name': 'REAL', 'attr': 'Real_ranking_class', 'value': []};
+var spObject = {'name': 'SP', 'attr': 'sp_ranking_class', 'value': []};
+var gpObject = {'name': 'GP', 'attr': 'gp_ranking_class', 'value': []};
+var invObject = {'name': 'INV', 'attr': 'inv_ranking_class', 'value': []};
+var realObject = {'name': 'REAL', 'attr': 'real_ranking_class', 'value': []};
 
 subscalesObject.value.push(spObject);
 subscalesObject.value.push(gpObject);
@@ -193,9 +236,9 @@ subscalesObject.value.push(realObject);
 
 var visualDisplaysObject = {'name': 'Visual_Displays', 'value': []};
 
-var hmdObject = {'name': '3D - HMD VR', 'attr': 'Ranking_class', 'value': []};
-var monoscopicObject = {'name': '3D - Monoscopic', 'attr': 'Ranking_class', 'value': []};
-var projectionObject = {'name': 'Projection Display', 'attr': 'Ranking_class', 'value': []};
+var hmdObject = {'name': '3D Graphics - HMD VR/MR', 'attr': 'ranking_class', 'value': []};
+var monoscopicObject = {'name': '3D Graphics - Monoscopic', 'attr': 'ranking_class', 'value': []};
+var projectionObject = {'name': 'Projection Display', 'attr': 'ranking_class', 'value': []};
 
 visualDisplaysObject.value.push(hmdObject);
 visualDisplaysObject.value.push(monoscopicObject);
@@ -246,12 +289,37 @@ var numberofParticipants = 0;
 //     {"name": 'Class I', "color":"#3092c7"}
 // ];
 
+// var colors = [
+//     {"name": 'Class Low', "color":"#f7fbff"},
+//     {"name": 'Class Moderate', "color":"#deebf7"},
+//     {"name": 'Class High', "color":"#c6dbef"},
+//     {"name": 'Class Very High', "color":"#9ecae1"},
+//     {"name": 'Class Exceptional', "color":"#6baed6"}
+// ];
+
+// var colors = [
+//         {"name": 'Class Low', "color":"#a9d6e5"},
+//         {"name": 'Class Moderate', "color":"#61a5c2"},
+//         {"name": 'Class High', "color":"#2c7da0"},
+//         {"name": 'Class Very High', "color":"#014f86"},
+//         {"name": 'Class Exceptional', "color":"#013a63"}
+// ];
+
+
+// var colors = [
+//     {"name": 'Class Low', "color":"#d0eef8"},
+//     {"name": 'Class Moderate', "color":"#a0ddf1"},
+//     {"name": 'Class High', "color":"#71cde9"},
+//     {"name": 'Class Very High', "color":"#41bce2"},
+//     {"name": 'Class Exceptional', "color":"#12abdb"}
+// ];
+
 var colors = [
-    {"name": 'Class Low', "color":"#f7fbff"},
-    {"name": 'Class Moderate', "color":"#deebf7"},
-    {"name": 'Class High', "color":"#c6dbef"},
-    {"name": 'Class Very High', "color":"#9ecae1"},
-    {"name": 'Class Exceptional', "color":"#6baed6"}
+    {"name": 'Class Low', "color":"#d0eef8"},
+    {"name": 'Class Moderate', "color":"#a0ddf1"},
+    {"name": 'Class High', "color":"#71cde9"},
+    {"name": 'Class Very High', "color":"#41bce2"},
+    {"name": 'Class Exceptional', "color":"#12abdb"}
 ];
 
 var user_data_color = "#F39C12";
@@ -268,76 +336,11 @@ var standard_total_each_item_hmd = [];
 var standard_total_each_item_mono = [];
 var standard_total_each_item_proj = [];
 
-jQuery(window).ready(function () {
-    d3.csv("data/August2020_Revision2022/IPQReport_EachCondition_August2020_Revision2022_Reformatted_EachSubscale_UTF8.csv", function (error, data)
+async function loadOverallFile()
+{
+    d3.csv("data/May2023/PoPCites_ToMay2023_Data_Final_EachStudy_Overall.csv", function (error, data)
     {      
-        for(var i = 0; i < subscalesObject.value.length; i++)
-        {
-            var div = "#main_hmd_pie_chart";
-            var col = "Standard_sp_each_item";
-            if(subscalesObject.value[i].name === "SP")
-            {
-                div = "#main_sp_pie_chart";
-                col = "Standard_sp_each_item";
-            }
-            else if(subscalesObject.value[i].name === "GP")
-            {
-                div = "#main_gp_pie_chart";
-                col = "Standard_gp_each_item";
-            }
-            else if(subscalesObject.value[i].name === "INV")
-            {
-                div = "#main_inv_pie_chart";
-                col = "Standard_inv_each_item";
-            }
-            else if(subscalesObject.value[i].name === "REAL")
-            {
-                div = "#main_real_pie_chart";
-                col = "Standard_real_each_item";
-            }
-
-            var e = ParseData(data, subscalesObject.value[i].name, subscalesObject.value[i].attr, col);
-
-            var adjectiveRatingsObject = e.value.find(function(element) {
-                return element.name === "AdjectiveRatings";
-            });
-
-            var width = 0.9 * $(div).width();        
-            DrawPie(adjectiveRatingsObject.value, width, width,"", div, false, "");
-            subscalesObject.value[i] = e;
-        }     
-    });
-
-    d3.csv("data/August2020_Revision2022/IPQReport_EachCondition_August2020_Revision2022_Reformatted_VisualDisplays_UTF8.csv", function (error, data)
-    {      
-        for(var i = 0; i < visualDisplaysObject.value.length; i++)
-        {
-            var e = ParseData(data, visualDisplaysObject.value[i].name, visualDisplaysObject.value[i].attr, "Standard_total_each_item", "display");
-
-            var adjectiveRatingsObject = e.value.find(function(element) {
-                return element.name === "AdjectiveRatings";
-            });
-
-            var div = "#main_hmd_pie_chart";
-            if(e.name === "3D - Monoscopic")
-            {
-                div = "#main_monoscopic_pie_chart";
-            }
-            else if(e.name === "Projection Display")
-            {
-                div = "#main_projectiondisplay_pie_chart";
-            }
-            
-            var width = 0.9 * $(div).width();        
-            DrawPie(adjectiveRatingsObject.value, width, width,"", div, false, "");      
-            visualDisplaysObject.value[i] = e;
-        }     
-        
-    });
-
-    d3.csv("data/August2020_Revision2022/IPQReport_EachCondition_August2020_Revision2022_Reformatted_EachStudy_UTF8.csv", function (error, data)
-    {      
-        overallObject = ParseData(data, "Overall", "Ranking_class", "Standard_total_each_item");
+        overallObject = ParseData(data, "Overall", "ranking_class", "standard_total_each_item");
         var adjectiveRatingsObject = overallObject.value.find(function(element) {
             return element.name === "AdjectiveRatings";
         });
@@ -393,9 +396,90 @@ jQuery(window).ready(function () {
         var width = 0.9 * $("#main_pie_chart").width();
 
         DrawPie(adjectiveRatingsObject.value, width, width,"", "#main_pie_chart", false, "");    
-    });
 
-    AddAppendix();
+        console.log("Loaded overall data file sucessfully!");
+    });
+}
+
+async function loadSubscaleFile()
+{
+    d3.csv("data/May2023/PoPCites_ToMay2023_Data_Final_EachStudy_Subscale.csv", function (error, data)
+    {      
+        for(var i = 0; i < subscalesObject.value.length; i++)
+        {
+            var div = "#main_hmd_pie_chart";
+            var col = "standard_sp_each_item";
+            if(subscalesObject.value[i].name === "SP")
+            {
+                div = "#main_sp_pie_chart";
+                col = "standard_sp_each_item";
+            }
+            else if(subscalesObject.value[i].name === "GP")
+            {
+                div = "#main_gp_pie_chart";
+                col = "standard_gp_each_item";
+            }
+            else if(subscalesObject.value[i].name === "INV")
+            {
+                div = "#main_inv_pie_chart";
+                col = "standard_inv_each_item";
+            }
+            else if(subscalesObject.value[i].name === "REAL")
+            {
+                div = "#main_real_pie_chart";
+                col = "standard_real_each_item";
+            }
+
+            var e = ParseData(data, subscalesObject.value[i].name, subscalesObject.value[i].attr, col);
+
+            var adjectiveRatingsObject = e.value.find(function(element) {
+                return element.name === "AdjectiveRatings";
+            });
+
+            var width = 0.9 * $(div).width();        
+            DrawPie(adjectiveRatingsObject.value, width, width,"", div, false, "");
+            subscalesObject.value[i] = e;
+        }             
+
+        console.log("Loaded each subscale data file sucessfully!");
+    });
+}
+
+async function loadVisualDisplayFile()
+{
+    d3.csv("data/May2023/PoPCites_ToMay2023_Data_Final_EachVisualDisplay.csv", function (error, data)
+    {      
+        for(var i = 0; i < visualDisplaysObject.value.length; i++)
+        {
+            var e = ParseData(data, visualDisplaysObject.value[i].name, visualDisplaysObject.value[i].attr, "standard_total_each_item", "display");
+
+            var adjectiveRatingsObject = e.value.find(function(element) {
+                return element.name === "AdjectiveRatings";
+            });
+
+            var div = "#main_hmd_pie_chart";
+            if(e.name === "3D Graphics - Monoscopic")
+            {
+                div = "#main_monoscopic_pie_chart";
+            }
+            else if(e.name === "Projection Display")
+            {
+                div = "#main_projectiondisplay_pie_chart";
+            }
+            
+            var width = 0.9 * $(div).width();        
+            DrawPie(adjectiveRatingsObject.value, width, width,"", div, false, "");      
+            visualDisplaysObject.value[i] = e;
+        }   
+
+        console.log("Loaded each visual display data file sucessfully!");  
+        
+    });
+}
+
+jQuery(window).ready(function () {
+    
+    
 
 });
 
@@ -447,14 +531,14 @@ function ParseData(data, name, attr, col = "", type = "ipq")
     numberofParticipants = 0;
 
     data.forEach(function(d){
-        numberofParticipants += parseInt(d.Number_of_study_participants);
+        numberofParticipants += parseInt(d.number_of_study_participants);
         
         mainObject.value.forEach(function(object)
         {
             object.value.forEach(function(e)
             {
                 if(((e.name === "Summary" && object.name === "Overall") || 
-                (e.name === d[attr] && object.name === "AdjectiveRatings")) && (type === "ipq" || (type === "display" && name === d["Visual_display"])))
+                (e.name === d[attr] && object.name === "AdjectiveRatings")) && (type === "ipq" || (type === "display" && name === d["visual_display"])))
                 {
                     e.number++;
                     
@@ -473,20 +557,20 @@ function ParseData(data, name, attr, col = "", type = "ipq")
                         e.color = "#2160c4";
                     }
 
-                    e.participants = parseInt(e.participants) + parseInt(d.Number_of_study_participants);
-                    if(!e.years.includes(d.Year))
+                    e.participants = parseInt(e.participants) + parseInt(d.number_of_study_participants);
+                    if(!e.years.includes(d.year))
                     {
-                        e.years.push(d.Year);
+                        e.years.push(d.year);
                     }
 
-                    if(!e.publications.includes(d.Paperid))
+                    if(!e.publications.includes(d.paperid))
                     {
-                        e.publications.push(d.Paperid);
+                        e.publications.push(d.paperid);
                     }
 
-                    if(!e.user_studies.includes(d.Studyid))
+                    if(!e.user_studies.includes(d.studyid))
                     {
-                        e.user_studies.push(d.Studyid);
+                        e.user_studies.push(d.studyid);
                     }
                     
                     e.value.forEach(function(e2)
@@ -501,7 +585,7 @@ function ParseData(data, name, attr, col = "", type = "ipq")
                             var flag = false;
 
                             e2.value.forEach(function(e3){
-                                if(e3.year === d.Year)
+                                if(e3.year === d.year)
                                 {
                                     e3.number++;
                                     e3.value.push(d);
@@ -514,19 +598,19 @@ function ParseData(data, name, attr, col = "", type = "ipq")
 
                             if(!flag)
                             {
-                                var element = {"year": d.Year, "number": 1, "value": []};
+                                var element = {"year": d.year, "number": 1, "value": []};
                                 element.value.push(d);
 
                                 e2.value.push(element);
                             }
 
-                            if(d.Year < fromYear)
+                            if(d.year < fromYear)
                             {
-                                fromYear = d.Year;
+                                fromYear = d.year;
                             }
-                            else if(d.Year > toYear)
+                            else if(d.year > toYear)
                             {
-                                toYear = d.Year;
+                                toYear = d.year;
                             }
                         }
 
@@ -592,13 +676,13 @@ function ParseData(data, name, attr, col = "", type = "ipq")
         }        
         else if(type === "display")
         {
-            if(d.Visual_display === name)
+            if(d.visual_display === name)
             {
-                if(name === "3D - HMD VR")
+                if(name === "3D Graphics - HMD VR/MR")
                 {
                     standard_total_each_item_hmd.push(d[col]);
                 }
-                else if(name === "3D - Monoscopic")
+                else if(name === "3D Graphics - Monoscopic")
                 {
                     standard_total_each_item_mono.push(d[col]);
                 }
@@ -660,6 +744,7 @@ function AddYearBarChart(object, div){
         yearDomain.push(i);
     }
 
+    maxNumberofStudiesForYear = 40;
     var x = d3.scale.ordinal().domain(yearDomain).rangeRoundBands([0, width], .05);
     var y = d3.scale.linear().domain([0,maxNumberofStudiesForYear]).range([height, 0]);
 
@@ -969,39 +1054,39 @@ function WriteTable(data, div)
                 '</tfoot>' +
                 '<tbody height="200px">';
 
-    var rating_scale = "Ranking_class";
+    var rating_scale = "ranking_class";
 
     if(data.subscale === "Overall")
     {
-        rating_scale = 'Ranking_class';
+        rating_scale = 'ranking_class';
     }
     else if(data.subscale === "SP")
     {
-        rating_scale = 'Sp_ranking_class';
+        rating_scale = 'sp_ranking_class';
     }
     else if(data.subscale === "GP")
     {
-        rating_scale = 'Gp_ranking_class';
+        rating_scale = 'gp_ranking_class';
     }
     else if(data.subscale === "INV")
     {
-        rating_scale = 'Inv_ranking_class';
+        rating_scale = 'inv_ranking_class';
     }
     else if(data.subscale === "REAL")
     {
-        rating_scale = 'Real_ranking_class';
+        rating_scale = 'real_ranking_class';
     }
 
     detailObject.value.forEach(function(e){         
         html = html + '<tr>' +
-                        '<td>' + e.Title + '</td>' + 
-                        '<td>' + e.Authors + '</td>' + 
+                        '<td>' + e.title + '</td>' + 
+                        '<td>' + e.authors + '</td>' + 
                         '<td>' + e[rating_scale] + '</td>' + 
-                        '<td>' + Math.round(e.Standard_total_each_item * 1000) / 1000 + '</td>' + 
-                        '<td>' + e.Number_of_total_participants + '</td>' + 
-                        '<td>' + e.Year + '</td>' + 
-                        '<td>' + e.Source + '</td>' + 
-                        '<td><a href="' + e.ArticleURL + '">Link</a></td>' +                    
+                        '<td>' + Math.round(e.standard_total_each_item * 1000) / 1000 + '</td>' + 
+                        '<td>' + e.number_of_total_participants + '</td>' + 
+                        '<td>' + e.year + '</td>' + 
+                        '<td>' + e.source + '</td>' + 
+                        '<td><a href="' + e.articleURL + '">Link</a></td>' +                    
                     '</tr>';
     });
 
@@ -1013,32 +1098,68 @@ function WriteTable(data, div)
 }
 
 //User input
-var uploadedFileData = "";
-var loadFile = function(event) {
-    var input = event.target;
+let uploadedFileData;
+
+let intervalPyodideLibraryLoading;
+async function loadFile(event) {    
+    $("#analysing_status").empty();       
+    $("#progress-popup").show();
+    $("#content").fadeTo("fast", 0.35);
+    $("#content").prop("disabled", true); 
+
+    var input = event.target;  
+
+    $("#user_data_file_name").html(input.files[0].name);
+    $("#main_page").hide();
+    $("#user_data_page").show();
+    $("#header").css('background-color', '#E9F7EF');
+    $("#navbar").css('background-color', '#E9F7EF');
 
     var reader = new FileReader();
-    reader.onload = function(){
-        $("#progress-popup").show();
-        $("#content").fadeTo(500, .05);
-
-        var dataURL = reader.result;
-
-        $("#user_data_file_name").html(input.files[0].name);
-        $("#main_page").hide();
-        $("#user_data_page").show();
-        $("#header").css('background-color', '#E9F7EF');
-        $("#navbar").css('background-color', '#E9F7EF');
-
+    reader.onload = async function(){
+        var dataURL = reader.result;       
+        
         uploadedFileData = reader.result;
-        HandleUploadedData();
-        stage="user_data";
+
+        if(isPyodideLoaded)
+        {                        
+            await ProcessUploadedData();
+        }  
+        else      
+        {
+            $("#analysing_status").append("Loading Python environment and libraries <br>");
+            // Load Pyodide Library
+            loadPyodideLibrary();
+
+            intervalPyodideLibraryLoading = setInterval(pyodideLibraryLoadingCallback, 1000);
+        }
     };
 
     reader.readAsText(input.files[0]);
-};
+}
 
-function HandleUploadedData()
+
+async function ProcessUploadedData()
+{
+    $("#analysing_status").append("Processing your data <br>");
+    await HandleUploadedData();
+    stage="user_data";
+}
+
+
+async function pyodideLibraryLoadingCallback() {
+    if(isPyodideLoaded)
+    {
+        clearInterval(intervalPyodideLibraryLoading);
+        await ProcessUploadedData();
+    }
+    else
+    {
+        console.log("still loading Pyodide libraries...");
+    }
+}
+
+async function HandleUploadedData()
 {
 
     var uploadedDataLines = uploadedFileData.split("\n");
@@ -2037,11 +2158,11 @@ function HandleUploadedData()
         {
             var div = "";
 
-            if(e.name.replace(/\s/g,'') === ("3D - HMD VR").replace(/\s/g,''))
+            if(e.name.replace(/\s/g,'') === ("3D Graphics - HMD VR/MR").replace(/\s/g,''))
             {
                 div = "#user_data_hmd_pie_chart_" + averageData.value[i].name;
             }
-            else if(e.name.replace(/\s/g,'') === ("3D - Monoscopic").replace(/\s/g,''))
+            else if(e.name.replace(/\s/g,'') === ("3D Graphics - Monoscopic").replace(/\s/g,''))
             {
                 div = "#user_data_monoscopic_pie_chart_" + averageData.value[i].name;
             }
@@ -2123,10 +2244,10 @@ print(stats.mstats.mquantiles(standard_real_each_item, prob=[0.5, 0.75, 0.90, 0.
 print("Quantiles for GP scores")
 print(stats.mstats.mquantiles(standard_gp_each_item, prob=[0.5, 0.75, 0.90, 0.95, 0.99], alphap = 0, betap = 0))
 
-print("Quantiles for 3D - HMD scores")
+print("Quantiles for 3D Graphics - HMD VR/MR scores")
 print(stats.mstats.mquantiles(standard_total_each_item_hmd, prob=[0.5, 0.75, 0.90, 0.95, 0.99], alphap = 0, betap = 0))
 
-print("Quantiles for 3D - Monoscopic scores")
+print("Quantiles for 3D Graphics - Monoscopic scores")
 print(stats.mstats.mquantiles(standard_total_each_item_mono, prob=[0.5, 0.75, 0.90, 0.95, 0.99], alphap = 0, betap = 0))
 
 print("Quantiles for Projection Display scores")
@@ -2189,11 +2310,11 @@ analysis_code.innerHTML += '<p class="comment code"> # percentiles at 50th, 75th
 analysis_code.innerHTML += '<p class="code"> print(stats.mstats.mquantiles(standard_gp_each_item, prob=[0.5, 0.75, 0.90, 0.95, 0.99], alphap = 0, betap = 0))<p>'  
 analysis_code.innerHTML += '<p class="code" style="background-color: white;"> &nbsp;' + str(stats.mstats.mquantiles(standard_gp_each_item, prob=[0.5, 0.75, 0.90, 0.95, 0.99], alphap = 0, betap = 0)) + '<p>'  
 
-analysis_code.innerHTML += '<p class="comment code"> # percentiles at 50th, 75th, 90th, 95th, and 99th for 3D - HMD scores <p>'
+analysis_code.innerHTML += '<p class="comment code"> # percentiles at 50th, 75th, 90th, 95th, and 99th for 3D Graphics - HMD VR/MR scores <p>'
 analysis_code.innerHTML += '<p class="code"> print(stats.mstats.mquantiles(standard_total_each_item_hmd, prob=[0.5, 0.75, 0.90, 0.95, 0.99], alphap = 0, betap = 0))<p>'  
 analysis_code.innerHTML += '<p class="code" style="background-color: white;"> &nbsp;' + str(stats.mstats.mquantiles(standard_total_each_item_hmd, prob=[0.5, 0.75, 0.90, 0.95, 0.99], alphap = 0, betap = 0)) + '<p>'  
 
-analysis_code.innerHTML += '<p class="comment code"> # percentiles at 50th, 75th, 90th, 95th, and 99th for 3D - Monoscopic scores <p>'
+analysis_code.innerHTML += '<p class="comment code"> # percentiles at 50th, 75th, 90th, 95th, and 99th for 3D Graphics - Monoscopic scores <p>'
 analysis_code.innerHTML += '<p class="code"> print(stats.mstats.mquantiles(standard_total_each_item_mono, prob=[0.5, 0.75, 0.90, 0.95, 0.99], alphap = 0, betap = 0))<p>'  
 analysis_code.innerHTML += '<p class="code" style="background-color: white;"> &nbsp;' + str(stats.mstats.mquantiles(standard_total_each_item_mono, prob=[0.5, 0.75, 0.90, 0.95, 0.99], alphap = 0, betap = 0)) + '<p>'  
 
@@ -2277,7 +2398,7 @@ variable_` + i + `_mean_overall = round(np.mean(variable_` + i + `_value_overall
 variable_` + i + `_std_overall = round(np.std(variable_` + i + `_value_overall), 3)
 whole_experiment_overall += variable_` + i + `_value_overall
 
-print(variable_` + i + `_name + " ( M = " + str(variable_` + i + `_mean_overall) + ", SD = " + str(variable_` + i + `_std_overall) + ")")
+print(variable_` + i + `_name + " ( <span class='emphasized'>M</span> = " + str(variable_` + i + `_mean_overall) + ", <span class='emphasized'>SD</span> = " + str(variable_` + i + `_std_overall) + ")")
 
 ## calculate percentiles
 percentile_variable_` + i + `_overall = stats.percentileofscore(standard_total_each_item, np.average(variable_` + i + `_value_overall))
@@ -2644,32 +2765,32 @@ html = '<br>' + html + '<br>'
 html += '<div class="box analysis-report">'
 
 if current_scale == "general_presence":
-    string = "The average score for general presence sub-scale was " + str(all_value_mean) + " (SD = " + str(all_value_std) + "), while "
+    string = "The average score for general presence sub-scale was " + str(round(all_value_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(all_value_std, 1)) + "), while "
     print(string)
 
     whole_analysis_report_text += string
     html += string
 elif current_scale == "spatial_presence":
-    string = " that score for spatial presence sub-scale was " + str(all_value_mean) + " (SD = " + str(all_value_std) + "). "
+    string = " the score for spatial presence sub-scale was " + str(round(all_value_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(all_value_std, 1)) + "). "
     print(string)
     
     whole_analysis_report_text += string
     html += string
 elif current_scale == "involvement":
-    string = "For the involvement sub-scale, the mean score rated by users was " + str(all_value_mean) + " (SD = " + str(all_value_std) + "). "
+    string = "For the involvement sub-scale, the mean score rated by users was " + str(round(all_value_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(all_value_std, 1)) + "). "
     print(string)
     
     whole_analysis_report_text += string
     html += string
 
 elif current_scale == "experience_realism":
-    string = "Finally, " + str(all_value_mean) + " and " + str(all_value_std) + " were mean and standard deviation rating score for experienced realism sub-scale. "
+    string = "Finally, the mean and standard deviation rating scores for the experienced realism sub-scale were " + str(round(all_value_mean, 1)) + " and " + str(round(all_value_std, 1)) + " respectively. "
     print(string)
     
     whole_analysis_report_text += string
     html += string
 else:
-    string = "In this experiment, users overally rated their score on the level of presence they felt in the environment around " + str(all_value_mean) + " (SD = " + str(all_value_std) + "). "
+    string = "In this experiment, users overall rated their score on the level of presence they felt in the environment at around " + str(round(all_value_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(all_value_std, 1)) + "). "
     print(string)
 
     whole_analysis_report_text += string
@@ -2734,7 +2855,7 @@ if is_normal_distribution == True:
     anova_model = ols('value ~ condition', data=df).fit()
     anova_ret = sm.anova_lm(anova_model, typ=2)
 
-    analysis_code.innerHTML += '<br><p class="code comment">> &nbsp;## conduct one-way anova<p>'
+    analysis_code.innerHTML += '<br><p class="code comment"> &nbsp;## conduct one-way anova<p>'
     analysis_code.innerHTML += '<p class="code"> &nbsp;anova_model = ols("value ~ condition", data=df).fit()<p>'
     analysis_code.innerHTML += '<p class="code"> &nbsp;anova_ret = sm.anova_lm(anova_model, typ=2)<p>'
 
@@ -2743,7 +2864,7 @@ if is_normal_distribution == True:
     anova_ret['Eta-Squared'] = [eta_squared, 'NaN']
     print(anova_ret)    
 
-    analysis_code.innerHTML += '<br><p class="code comment">> &nbsp;## calculate Eta-Squared from Sum Squared<p>'
+    analysis_code.innerHTML += '<br><p class="code comment"> &nbsp;## calculate Eta-Squared from Sum Squared<p>'
     analysis_code.innerHTML += '<p class="code"> &nbsp;eta_squared = anova_ret["sum_sq"][0] / (anova_ret["sum_sq"][0] + anova_ret["sum_sq"][1])<p>'
     analysis_code.innerHTML += '<p class="code"> &nbsp;anova_ret["Eta-Squared"] = [eta_squared, "NaN"]<p>'    
     analysis_code.innerHTML += '<p class="code"> &nbsp;print(anova_ret)<p>'    
@@ -2761,135 +2882,135 @@ if is_normal_distribution == True:
 
     if current_scale == "general_presence":
         if anova_ret['PR(>F)'][0] < alpha:
-            string = "The scores for general presence sub-scale analysed with one-way ANOVA showed that the difference in the level of presence between " + variable_1_name + " and " + variable_2_name + " (F<sub>" + str(round(anova_ret['df'][0])) + ", " + str(round(anova_ret['df'][1])) + "</sub> = " + str(round(anova_ret['F'][0], 3)) + ", p = " + str(round(p, 3)) + ", &eta;<sup>2</sup> = " + str(round(anova_ret['Eta-Squared'][0], 3)) + ") was significant. "
+            string = "The scores for general presence sub-scale analysed with one-way ANOVA showed that the difference in the level of presence between " + variable_1_name + " and " + variable_2_name + " (<span class='emphasized'>F</span><sub>(" + str(round(anova_ret['df'][0])) + ", " + str(round(anova_ret['df'][1])) + ")</sub> = " + str(round(anova_ret['F'][0], 2)) + ", <span class='emphasized'>p</span> = " + str(round(p, 3))[1:] + ", <span class='emphasized'>&eta;</span><sup>2</sup> = " + str(round(anova_ret['Eta-Squared'][0], 2)) + ") was significant. "
             print(string)
 
             whole_analysis_report_text += string
             html += string
 
             if variable_1_mean > variable_2_mean:
-                string = "For this subscale, condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + ") had higher ratings of presence than " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + "). "
+                string = "For this subscale, condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") had higher ratings of presence than " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
             else:
-                string = "For this subscale, condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + ") had higher ratings of presence than " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + "). "
+                string = "For this subscale, condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + ") had higher ratings of presence than " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
         else:
-            string = "The scores for general presence sub-scale analysed with one-way ANOVA showed that the difference in the level of presence between " + variable_1_name + " and " + variable_2_name + " (F<sub>" + str(round(anova_ret['df'][0])) + ", " + str(round(anova_ret['df'][1])) + "</sub> = " + str(round(anova_ret['F'][0], 3)) + ", p = " + str(round(p, 3)) + ", &eta;<sup>2</sup> = " + str(round(anova_ret['Eta-Squared'][0], 3)) + ") was not significant. "
-            string += "For this subscale, the average scores for condition " + variable_1_name + " and condition " + variable_2_name + " are " + str(variable_1_mean) + " (SD = " + str(variable_1_std) + ") and " + str(variable_2_mean) + " (SD = " + str(variable_2_std) + "), respectively. "
+            string = "The scores for general presence sub-scale analysed with one-way ANOVA showed that the difference in the level of presence between " + variable_1_name + " and " + variable_2_name + " (<span class='emphasized'>F</span><sub>(" + str(round(anova_ret['df'][0])) + ", " + str(round(anova_ret['df'][1])) + ")</sub> = " + str(round(anova_ret['F'][0], 2)) + ", <span class='emphasized'>p</span> = " + str(round(p, 3))[1:] + ", <span class='emphasized'>&eta;</span><sup>2</sup> = " + str(round(anova_ret['Eta-Squared'][0], 2)) + ") was not significant. "
+            string += "For this subscale, the average scores for condition " + variable_1_name + " and condition " + variable_2_name + " are " + str(round(variable_1_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") and " + str(round(variable_2_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "), respectively. "
             print(string)
 
             whole_analysis_report_text += string
             html += string
     elif current_scale == "spatial_presence":
         if anova_ret['PR(>F)'][0] < alpha:
-            string = "According to an test with one-way ANOVA, the scores of spatial presence was significant difference between" + variable_1_name + " and " + variable_2_name + " (F<sub>" + str(round(anova_ret['df'][0])) + ", " + str(round(anova_ret['df'][1])) + "</sub> = " + str(round(anova_ret['F'][0], 3)) + ", p = " + str(round(p, 3)) + ", &eta;<sup>2</sup> = " + str(round(anova_ret['Eta-Squared'][0], 3)) + "). "
+            string = "According to an test with one-way ANOVA, the scores of spatial presence was significant difference between" + variable_1_name + " and " + variable_2_name + " (<span class='emphasized'>F</span><sub>(" + str(round(anova_ret['df'][0])) + ", " + str(round(anova_ret['df'][1])) + ")</sub> = " + str(round(anova_ret['F'][0], 2)) + ", <span class='emphasized'>p</span> = " + str(round(p, 3))[1:] + ", <span class='emphasized'>&eta;</span><sup>2</sup> = " + str(round(anova_ret['Eta-Squared'][0], 2)) + "). "
             print(string)
             
             whole_analysis_report_text += string
             html += string
 
             if variable_1_mean > variable_2_mean:
-                string = "The result of this analysis showed that the rating scores for condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + ") was significantly higher than condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + "). "
+                string = "The result of this analysis showed that the rating scores for condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") was significantly higher than condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
             else:
-                string = "The result of this analysis showed that the rating scores for condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + ") was significantly higher than condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + "). "
+                string = "The result of this analysis showed that the rating scores for condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + ") was significantly higher than condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
         else:
-            string = "According to an test with one-way ANOVA, the scores of spatial presence was not significant difference between " + variable_1_name + " and " + variable_2_name + " (F<sub>" + str(round(anova_ret['df'][0])) + ", " + str(round(anova_ret['df'][1])) + "</sub> = " + str(round(anova_ret['F'][0], 3)) + ", p = " + str(round(p, 3)) + ", &eta;<sup>2</sup> = " + str(round(anova_ret['Eta-Squared'][0], 3)) + ") "
-            string += "The average score of spatial presence for condition " + variable_1_name + " was  at " + str(variable_1_mean) + " (SD = " + str(variable_1_std) +  " and for condition " + variable_2_name + " was " + str(variable_2_mean) + " (SD = " + str(variable_2_std) + "). "
+            string = "According to an test with one-way ANOVA, the scores of spatial presence was not significant difference between " + variable_1_name + " and " + variable_2_name + " (<span class='emphasized'>F</span><sub>(" + str(round(anova_ret['df'][0])) + ", " + str(round(anova_ret['df'][1])) + ")</sub> = " + str(round(anova_ret['F'][0], 2)) + ", <span class='emphasized'>p</span> = " + str(round(p, 3))[1:] + ", <span class='emphasized'>&eta;</span><sup>2</sup> = " + str(round(anova_ret['Eta-Squared'][0], 2)) + ") "
+            string += "The average score of spatial presence for condition " + variable_1_name + " was  at " + str(round(variable_1_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) +  ") and for condition " + variable_2_name + " was " + str(round(variable_2_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
             print(string)
 
             whole_analysis_report_text += string
             html += string
     elif current_scale == "involvement":
         if anova_ret['PR(>F)'][0] < alpha:
-            string = "The analysis for involvement sub-scale scores with one-way ANOVA procedure showed that the scores between " + variable_1_name + " and " + variable_2_name + " (F<sub>" + str(round(anova_ret['df'][0])) + ", " + str(round(anova_ret['df'][1])) + "</sub> = " + str(round(anova_ret['F'][0], 3)) + ", p = " + str(round(p, 3)) + ", &eta;<sup>2</sup> = " + str(round(anova_ret['Eta-Squared'][0], 3)) + ") was significantly different. "
+            string = "The analysis for involvement sub-scale scores with one-way ANOVA procedure showed that the scores between " + variable_1_name + " and " + variable_2_name + " (<span class='emphasized'>F</span><sub>(" + str(round(anova_ret['df'][0])) + ", " + str(round(anova_ret['df'][1])) + ")</sub> = " + str(round(anova_ret['F'][0], 2)) + ", <span class='emphasized'>p</span> = " + str(round(p, 3))[1:] + ", <span class='emphasized'>&eta;</span><sup>2</sup> = " + str(round(anova_ret['Eta-Squared'][0], 2)) + ") was significantly different. "
             print(string)
             
             whole_analysis_report_text += string
             html += string
 
             if variable_1_mean > variable_2_mean:
-                string = "It is observed that users had rated higher scores for involvement sub-scale for condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + ") than for " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + "). "
+                string = "It is observed that users had rated higher scores for involvement sub-scale for condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") than for " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
             else:
-                string = "It is observed that users had rated higher scores for involvement sub-scale for condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + ") than for " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + "). "
+                string = "It is observed that users had rated higher scores for involvement sub-scale for condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + ") than for " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
         else:
-            string = "The analysis for involvement sub-scale scores with one-way ANOVA procedure showed no significant difference between conditions " + variable_1_name + " and " + variable_2_name + " (F<sub>" + str(round(anova_ret['df'][0])) + ", " + str(round(anova_ret['df'][1])) + "</sub> = " + str(round(anova_ret['F'][0], 3)) + ", p = " + str(round(p, 3)) + ", &eta;<sup>2</sup> = " + str(round(anova_ret['Eta-Squared'][0], 3)) + "). "
-            string += "The average scores for this sub-scale for condition " + variable_1_name + " and condition " + variable_2_name + " are " + str(variable_1_mean) + " (SD = " + str(variable_1_std) + ") and " + str(variable_2_mean) + " (SD = " + str(variable_2_std) + "), respectively. "
+            string = "The analysis for involvement sub-scale scores with one-way ANOVA procedure showed no significant difference between conditions " + variable_1_name + " and " + variable_2_name + " (<span class='emphasized'>F</span><sub>(" + str(round(anova_ret['df'][0])) + ", " + str(round(anova_ret['df'][1])) + ")</sub> = " + str(round(anova_ret['F'][0], 2)) + ", <span class='emphasized'>p</span> = " + str(round(p, 3))[1:] + ", <span class='emphasized'>&eta;</span><sup>2</sup> = " + str(round(anova_ret['Eta-Squared'][0], 2)) + "). "
+            string += "The average scores for this sub-scale for condition " + variable_1_name + " and condition " + variable_2_name + " are " + str(round(variable_1_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") and " + str(round(variable_2_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "), respectively. "
             print(string)
 
             whole_analysis_report_text += string
             html += string
     elif current_scale == "experience_realism":
         if anova_ret['PR(>F)'][0] < alpha:
-            string = "Finally, the rating scores for experienced realism was analysed with an one-way ANOVA procedure. The results showed that there was a significant difference in rating scores for this sub-scale between " + variable_1_name + " and " + variable_2_name + " (F<sub>" + str(round(anova_ret['df'][0])) + ", " + str(round(anova_ret['df'][1])) + "</sub> = " + str(round(anova_ret['F'][0], 3)) + ", p = " + str(round(p, 3)) + ", &eta;<sup>2</sup> = " + str(round(anova_ret['Eta-Squared'][0], 3)) + "). "
+            string = "Finally, the rating scores for experienced realism was analysed with an one-way ANOVA procedure. The results showed that there was a significant difference in rating scores for this sub-scale between " + variable_1_name + " and " + variable_2_name + " (<span class='emphasized'>F</span><sub>(" + str(round(anova_ret['df'][0])) + ", " + str(round(anova_ret['df'][1])) + ")</sub> = " + str(round(anova_ret['F'][0], 2)) + ", <span class='emphasized'>p</span> = " + str(round(p, 3))[1:] + ", <span class='emphasized'>&eta;</span><sup>2</sup> = " + str(round(anova_ret['Eta-Squared'][0], 2)) + "). "
             print(string)
             
             whole_analysis_report_text += string
             html += string
 
             if variable_1_mean > variable_2_mean:
-                string = "Condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + ") had higher ratings of presence than " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + "). "
+                string = "Condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") had higher ratings of presence than " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
             else:
-                string = "Condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + ") had higher ratings of presence than " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + "). "
+                string = "Condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + ") had higher ratings of presence than " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
         else:
-            string = "Finally, the rating scores for experienced realism was analysed with an one-way ANOVA procedure. The results showed that there was no significant difference in rating scores for this sub-scale between " + variable_1_name + " and " + variable_2_name + " (F<sub>" + str(round(anova_ret['df'][0])) + ", " + str(round(anova_ret['df'][1])) + "</sub> = " + str(round(anova_ret['F'][0], 3)) + ", p = " + str(round(p, 3)) + ", &eta;<sup>2</sup> = " + str(round(anova_ret['Eta-Squared'][0], 3)) + "). "
-            string += "The mean rating score of this sub-scale for condition " + variable_1_name + " is " + str(variable_1_mean) + " (SD = " + str(variable_1_std) + ") and " + variable_2_name + " had the average score at " + str(variable_2_mean) + " (SD = " + str(variable_2_std) + "). "
+            string = "Finally, the rating scores for experienced realism was analysed with an one-way ANOVA procedure. The results showed that there was no significant difference in rating scores for this sub-scale between " + variable_1_name + " and " + variable_2_name + " (<span class='emphasized'>F</span><sub>(" + str(round(anova_ret['df'][0])) + ", " + str(round(anova_ret['df'][1])) + ")</sub> = " + str(round(anova_ret['F'][0], 2)) + ", <span class='emphasized'>p</span> = " + str(round(p, 3))[1:] + ", <span class='emphasized'>&eta;</span><sup>2</sup> = " + str(round(anova_ret['Eta-Squared'][0], 2)) + "). "
+            string += "The mean rating score of this sub-scale for condition " + variable_1_name + " is " + str(round(variable_1_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") and " + variable_2_name + " had the average score at " + str(round(variable_2_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
             print(string)
 
             whole_analysis_report_text += string
             html += string
     else:
         if anova_ret['PR(>F)'][0] < alpha:
-            string = "One-way ANOVA analysis for the overall scores could not show significant differences in the level of presence provided by " + variable_1_name + " and " + variable_2_name + " (F<sub>" + str(round(anova_ret['df'][0])) + ", " + str(round(anova_ret['df'][1])) + "</sub> = " + str(round(anova_ret['F'][0], 3)) + ", p = " + str(round(p, 3)) + ", &eta;<sup>2</sup> = " + str(round(anova_ret['Eta-Squared'][0], 3)) + "). "
+            string = "One-way ANOVA analysis for the overall scores could not show significant differences in the level of presence provided by " + variable_1_name + " and " + variable_2_name + " (<span class='emphasized'>F</span><sub>(" + str(round(anova_ret['df'][0])) + ", " + str(round(anova_ret['df'][1])) + ")</sub> = " + str(round(anova_ret['F'][0], 2)) + ", <span class='emphasized'>p</span> = " + str(round(p, 3))[1:] + ", <span class='emphasized'>&eta;</span><sup>2</sup> = " + str(round(anova_ret['Eta-Squared'][0], 2)) + "). "
             print(string)
             
             whole_analysis_report_text += string
             html += string
 
             if variable_1_mean > variable_2_mean:
-                string = "Condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + ") had higher ratings of presence than " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + "). "
+                string = "Condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") had higher ratings of presence than " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                 print(string)
         
                 whole_analysis_report_text += string
                 html += string
             else:
-                string = "Condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + ") had higher ratings of presence than " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + "). "
+                string = "Condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + ") had higher ratings of presence than " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
         else:
-            string = "One-way ANOVA analysis for the overall scores could not show significant differences in the level of presence provided by " + variable_1_name + " and " + variable_2_name + " (F<sub>" + str(round(anova_ret['df'][0])) + ", " + str(round(anova_ret['df'][1])) + "</sub> = " + str(round(anova_ret['F'][0], 3)) + ", p = " + str(round(p, 3)) + ", &eta;<sup>2</sup> = " + str(round(anova_ret['Eta-Squared'][0], 3)) + "). "
-            string += "The average overall presence scores for condition " + variable_1_name + " was " + str(variable_1_mean) + " (SD = " + str(variable_1_std) + ") and for condition " + variable_2_name + " was " + str(variable_2_mean) + " (SD = " + str(variable_2_std) + "). "
+            string = "One-way ANOVA analysis for the overall scores could not show significant differences in the level of presence provided by " + variable_1_name + " and " + variable_2_name + " (<span class='emphasized'>F</span><sub>(" + str(round(anova_ret['df'][0])) + ", " + str(round(anova_ret['df'][1])) + ")</sub> = " + str(round(anova_ret['F'][0], 2)) + ", <span class='emphasized'>p</span> = " + str(round(p, 3))[1:] + ", <span class='emphasized'>&eta;</span><sup>2</sup> = " + str(round(anova_ret['Eta-Squared'][0], 2)) + "). "
+            string += "The average overall presence scores for condition " + variable_1_name + " was " + str(round(variable_1_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") and for condition " + variable_2_name + " was " + str(round(variable_2_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
             print(string)
     
             whole_analysis_report_text += string
@@ -2941,135 +3062,135 @@ if is_normal_distribution == False:
 
     if current_scale == "general_presence":
         if p < alpha:
-            string = "The scores for general presence sub-scale analysed with a Mann-Whitney U test showed that the difference in the level of presence between " + variable_1_name + " and " + variable_2_name + " (U = " + str(u) + ", Z = " + str(z) + ", p = " + str(p) + ", r = " + str(r) + ") was significant. "
+            string = "The scores for general presence sub-scale analysed with a Mann-Whitney U test showed that the difference in the level of presence between " + variable_1_name + " and " + variable_2_name + " (U = " + str(u) + ", Z = " + str(z) + ", <span class='emphasized'>p</span> = " + str(p) + ", r = " + str(r) + ") was significant. "
             print(string)
             
             whole_analysis_report_text += string
             html += string
 
             if variable_1_mean > variable_2_mean:
-                string = "For this subscale, condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + ") had higher ratings of presence than " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + "). "
+                string = "For this subscale, condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") had higher ratings of presence than " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
             else:
-                string = "For this subscale, condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + ") had higher ratings of presence than " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + "). "
+                string = "For this subscale, condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + ") had higher ratings of presence than " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
         else:
-            string = "The scores for general presence sub-scale analysed with a Mann-Whitney U test showed that the difference in the level of presence between " + variable_1_name + " and " + variable_2_name + " (U = " + str(u) + ", Z = " + str(z) + ", p = " + str(p) + ", r = " + str(r) + ") was not significant. "
-            string += "For this subscale, the average scores for condition " + variable_1_name + " and condition " + variable_2_name + " are " + str(variable_1_mean) + " (SD = " + str(variable_1_std) + ") and " + str(variable_2_mean) + " (SD = " + str(variable_2_std) + "), respectively. "
+            string = "The scores for general presence sub-scale analysed with a Mann-Whitney U test showed that the difference in the level of presence between " + variable_1_name + " and " + variable_2_name + " (U = " + str(u) + ", Z = " + str(z) + ", <span class='emphasized'>p</span> = " + str(p) + ", r = " + str(r) + ") was not significant. "
+            string += "For this subscale, the average scores for condition " + variable_1_name + " and condition " + variable_2_name + " are " + str(round(variable_1_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") and " + str(round(variable_2_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "), respectively. "
             print(string)
 
             whole_analysis_report_text += string
             html += string
     elif current_scale == "spatial_presence":
         if p < alpha:
-            string = "According to a Mann-Whitney U test, the scores for spatial presence reveal significant differences between" + variable_1_name + " and " + variable_2_name + " (U = " + str(u) + ", Z = " + str(z) + ", p = " + str(p) + ", r = " + str(r) + "). "
+            string = "According to a Mann-Whitney U test, the scores for spatial presence reveal significant differences between" + variable_1_name + " and " + variable_2_name + " (U = " + str(u) + ", Z = " + str(z) + ", <span class='emphasized'>p</span> = " + str(p) + ", r = " + str(r) + "). "
             print(string)
             
             whole_analysis_report_text += string
             html += string
 
             if variable_1_mean > variable_2_mean:
-                string = "The result of this analysis showed that the rating scores for condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + ") was significantly higher than condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + "). "
+                string = "The result of this analysis showed that the rating scores for condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") was significantly higher than condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
             else:
-                string = "The result of this analysis showed that the rating scores for condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + ") was significantly higher than condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + "). "
+                string = "The result of this analysis showed that the rating scores for condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + ") was significantly higher than condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
         else:
-            string = "According to a Mann-Whitney U test, the scores for spatial presence did not reveal significant differences between " + variable_1_name + " and " + variable_2_name + " (U = " + str(u) + ", Z = " + str(z) + ", p = " + str(p) + ", r = " + str(r) + "). "
-            string += "The average score of spatial presence for condition " + variable_1_name + " was  at " + str(variable_1_mean) + " (SD = " + str(variable_1_std) +  ") and for condition " + variable_2_name + " was " + str(variable_2_mean) + " (SD = " + str(variable_2_std) + "). "
+            string = "According to a Mann-Whitney U test, the scores for spatial presence did not reveal significant differences between " + variable_1_name + " and " + variable_2_name + " (U = " + str(u) + ", Z = " + str(z) + ", <span class='emphasized'>p</span> = " + str(p) + ", r = " + str(r) + "). "
+            string += "The average score of spatial presence for condition " + variable_1_name + " was  at " + str(round(variable_1_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) +  ")) and for condition " + variable_2_name + " was " + str(round(variable_2_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
             print(string)
 
             whole_analysis_report_text += string
             html += string
     elif current_scale == "involvement":
         if p < alpha:
-            string = "The analysis for involvement sub-scale scores with a Mann-Whitney U test showed that the scores between " + variable_1_name + " and " + variable_2_name + " (U = " + str(u) + ", Z = " + str(z) + ", p = " + str(p) + ", r = " + str(r) + ") was significantly different. "
+            string = "The analysis for involvement sub-scale scores with a Mann-Whitney U test showed that the scores between " + variable_1_name + " and " + variable_2_name + " (U = " + str(u) + ", Z = " + str(z) + ", <span class='emphasized'>p</span> = " + str(p) + ", r = " + str(r) + ") was significantly different. "
             print(string)
             
             whole_analysis_report_text += string
             html += string
 
             if variable_1_mean > variable_2_mean:
-                string = "It was observed that users had rated higher scores for involvement sub-scale for condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + ") than for " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + "). "
+                string = "It was observed that users had rated higher scores for involvement sub-scale for condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") than for " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
             else:
-                string = "It was observed that users had rated higher scores for involvement sub-scale for condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + ") than for " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + "). "
+                string = "It was observed that users had rated higher scores for involvement sub-scale for condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + ") than for " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
         else:
-            string = "The analysis for involvement sub-scale scores with a Mann-Whitney U test showed no significant difference between conditions " + variable_1_name + " and " + variable_2_name + " (U = " + str(u) + ", Z = " + str(z) + ", p = " + str(p) + ", r = " + str(r) + "). "
-            string += "The average of these scores for condition " + variable_1_name + " and condition " + variable_2_name + " are " + str(variable_1_mean) + " (SD = " + str(variable_1_std) + ") and " + str(variable_2_mean) + " (SD = " + str(variable_2_std) + "), respectively. "
+            string = "The analysis for involvement sub-scale scores with a Mann-Whitney U test showed no significant difference between conditions " + variable_1_name + " and " + variable_2_name + " (U = " + str(u) + ", Z = " + str(z) + ", <span class='emphasized'>p</span> = " + str(p) + ", r = " + str(r) + "). "
+            string += "The average of these scores for condition " + variable_1_name + " and condition " + variable_2_name + " are " + str(round(variable_1_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") and " + str(round(variable_2_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "), respectively. "
             print(string)
 
             whole_analysis_report_text += string
             html += string
     elif current_scale == "experience_realism":
         if p < alpha:
-            string = "Finally, the rating scores for experienced realism was analysed with a Mann-Whitney U test. The results showed that there was a significant difference in rating scores for this sub-scale between " + variable_1_name + " and " + variable_2_name + " (U = " + str(u) + ", Z = " + str(z) + ", p = " + str(p) + ", r = " + str(r) + "). "
+            string = "Finally, the rating scores for experienced realism was analysed with a Mann-Whitney U test. The results showed that there was a significant difference in rating scores for this sub-scale between " + variable_1_name + " and " + variable_2_name + " (U = " + str(u) + ", Z = " + str(z) + ", <span class='emphasized'>p</span> = " + str(p) + ", r = " + str(r) + "). "
             print(string)
             
             whole_analysis_report_text += string
             html += string
 
             if variable_1_mean > variable_2_mean:
-                string = "Condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + ") had higher ratings of presence than " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + "). "
+                string = "Condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") had higher ratings of presence than " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
             else:
-                string = "Condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + ") had higher ratings of presence than " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + "). "
+                string = "Condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + ") had higher ratings of presence than " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
         else:
-            string = "Finally, the rating scores for experienced realism was analysed with a Mann-Whitney U test. The results showed that there was no significant difference in rating scores for this sub-scale between " + variable_1_name + " and " + variable_2_name + " (U = " + str(u) + ", Z = " + str(z) + ", p = " + str(p) + ", r = " + str(r) + "). "
-            string += "The mean rating score of this sub-scale for condition " + variable_1_name + " was " + str(variable_1_mean) + " (SD = " + str(variable_1_std) + ") and " + variable_2_name + " had the average score at " + str(variable_2_mean) + " (SD = " + str(variable_2_std) + "). "
+            string = "Finally, the rating scores for experienced realism was analysed with a Mann-Whitney U test. The results showed that there was no significant difference in rating scores for this sub-scale between " + variable_1_name + " and " + variable_2_name + " (U = " + str(u) + ", Z = " + str(z) + ", <span class='emphasized'>p</span> = " + str(p) + ", r = " + str(r) + "). "
+            string += "The mean rating score of this sub-scale for condition " + variable_1_name + " was " + str(round(variable_1_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") and " + variable_2_name + " had the average score at " + str(round(variable_2_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
             print(string)
 
             whole_analysis_report_text += string
             html += string
     else:
         if p < alpha:            
-            string = "Mann-Whitney U test showed that there was significant difference in the level of presence provided by " + variable_1_name + " and " + variable_2_name + " (U = " + str(u) + ", Z = " + str(z) + ", p = " + str(p) + ", r = " + str(r) + "). "
+            string = "Mann-Whitney U test showed that there was significant difference in the level of presence provided by " + variable_1_name + " and " + variable_2_name + " (U = " + str(u) + ", Z = " + str(z) + ", <span class='emphasized'>p</span> = " + str(p) + ", r = " + str(r) + "). "
             print(string)
             
             whole_analysis_report_text += string
             html += string
 
             if variable_1_mean > variable_2_mean:
-                string = "Condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + ") had higher ratings of presence than " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + "). "
+                string = "Condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") had higher ratings of presence than " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                 print(string)
         
                 whole_analysis_report_text += string
                 html += string
             else:
-                string = "Condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + ") had higher ratings of presence than " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + "). "
+                string = "Condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + ") had higher ratings of presence than " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
         else:
-            string = "Mann-Whitney U test showed that there was no significant difference in the level of presence provided by " + variable_1_name + " and " + variable_2_name + " (U = " + str(u) + ", Z = " + str(z) + ", p = " + str(p) + ", r = " + str(r) + "). "
-            string += "The average overall presence scores for condition " + variable_1_name + " was " + str(variable_1_mean) + " (SD = " + str(variable_1_std) + ") and for condition " + variable_2_name + " was " + str(variable_2_mean) + " (SD = " + str(variable_2_std) + "). "
+            string = "Mann-Whitney U test showed that there was no significant difference in the level of presence provided by " + variable_1_name + " and " + variable_2_name + " (U = " + str(u) + ", Z = " + str(z) + ", <span class='emphasized'>p</span> = " + str(p) + ", r = " + str(r) + "). "
+            string += "The average overall presence scores for condition " + variable_1_name + " was " + str(round(variable_1_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") and for condition " + variable_2_name + " was " + str(round(variable_2_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
             print(string)
     
             whole_analysis_report_text += string
@@ -3215,135 +3336,135 @@ if is_normal_distribution == False:
 
         if current_scale == "general_presence":
             if anova_table['Pr > F'][0] < alpha:
-                string = "The scores for general presence sub-scale analysed with one-way repeated-measures ANOVA showed that the difference in the level of presence between " + variable_1_name + " and " + variable_2_name + " (F<sub>" + str(anova_table['Num DF'][0]) + ", " + str(anova_table['Den DF'][00]) + "</sub> = " + str(round(anova_table['F Value'][0], 3)) + ", p = " + str(round(anova_table['Pr > F'][0], 3)) + ", &eta;<sup>2</sup> = " + str(round(anova_table['Eta-Squared'][0], 3)) + ") was significant. "
+                string = "The scores for general presence sub-scale analysed with one-way repeated-measures ANOVA showed that the difference in the level of presence between " + variable_1_name + " and " + variable_2_name + " (<span class='emphasized'>F</span><sub>(" + str(anova_table['Num DF'][0]) + ", " + str(anova_table['Den DF'][00]) + ")</sub> = " + str(round(anova_table['F Value'][0], 3)) + ", <span class='emphasized'>p</span> = " + str(round(anova_table['Pr > F'][0], 3)) + ", <span class='emphasized'>&eta;</span><sup>2</sup> = " + str(round(anova_table['Eta-Squared'][0], 3)) + ") was significant. "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
 
                 if variable_1_mean > variable_2_mean:
-                    string = "For this subscale, condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + ") had higher ratings of presence than " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + "). "
+                    string = "For this subscale, condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") had higher ratings of presence than " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                     print(string)
 
                     whole_analysis_report_text += string
                     html += string
                 else:
-                    string = "For this subscale, condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + ") had higher ratings of presence than " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + "). "
+                    string = "For this subscale, condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + ") had higher ratings of presence than " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + "). "
                     print(string)
 
                     whole_analysis_report_text += string
                     html += string
             else:
-                string = "The scores for general presence sub-scale analysed with one-way repeated-measures ANOVA showed that the difference in the level of presence between " + variable_1_name + " and " + variable_2_name + " (F<sub>" + str(anova_table['Num DF'][0]) + ", " + str(anova_table['Den DF'][00]) + "</sub> = " + str(round(anova_table['F Value'][0], 3)) + ", p = " + str(round(anova_table['Pr > F'][0], 3)) + ", &eta;<sup>2</sup> = " + str(round(anova_table['Eta-Squared'][0], 3)) + ") was not significant. "
-                string += "For this subscale, the average scores for condition " + variable_1_name + " and condition " + variable_2_name + " are " + str(variable_1_mean) + " (SD = " + str(variable_1_std) + ") and " + str(variable_2_mean) + " (SD = " + str(variable_2_std) + "), respectively. "
+                string = "The scores for general presence sub-scale analysed with one-way repeated-measures ANOVA showed that the difference in the level of presence between " + variable_1_name + " and " + variable_2_name + " (<span class='emphasized'>F</span><sub>(" + str(anova_table['Num DF'][0]) + ", " + str(anova_table['Den DF'][00]) + ")</sub> = " + str(round(anova_table['F Value'][0], 3)) + ", <span class='emphasized'>p</span> = " + str(round(anova_table['Pr > F'][0], 3)) + ", <span class='emphasized'>&eta;</span><sup>2</sup> = " + str(round(anova_table['Eta-Squared'][0], 3)) + ") was not significant. "
+                string += "For this subscale, the average scores for condition " + variable_1_name + " and condition " + variable_2_name + " are " + str(round(variable_1_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") and " + str(round(variable_2_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "), respectively. "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
         elif current_scale == "spatial_presence":
             if anova_table['Pr > F'][0] < alpha:
-                string = "According to an test with one-way repeated-measures ANOVA, the scores of spatial presence was significant difference between" + variable_1_name + " and " + variable_2_name + " (F<sub>" + str(anova_table['Num DF'][0]) + ", " + str(anova_table['Den DF'][00]) + "</sub> = " + str(round(anova_table['F Value'][0], 3)) + ", p = " + str(round(anova_table['Pr > F'][0], 3)) + ", &eta;<sup>2</sup> = " + str(round(anova_table['Eta-Squared'][0], 3)) + "). "
+                string = "According to an test with one-way repeated-measures ANOVA, the scores of spatial presence was significant difference between" + variable_1_name + " and " + variable_2_name + " (<span class='emphasized'>F</span><sub>(" + str(anova_table['Num DF'][0]) + ", " + str(anova_table['Den DF'][00]) + ")</sub> = " + str(round(anova_table['F Value'][0], 3)) + ", <span class='emphasized'>p</span> = " + str(round(anova_table['Pr > F'][0], 3)) + ", <span class='emphasized'>&eta;</span><sup>2</sup> = " + str(round(anova_table['Eta-Squared'][0], 3)) + "). "
                 print(string)
                 
                 whole_analysis_report_text += string
                 html += string
 
                 if variable_1_mean > variable_2_mean:
-                    string = "The result of this analysis showed that the rating scores for condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + ") was significantly higher than condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + "). "
+                    string = "The result of this analysis showed that the rating scores for condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") was significantly higher than condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                     print(string)
 
                     whole_analysis_report_text += string
                     html += string
                 else:
-                    string = "The result of this analysis showed that the rating scores for condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + ") was significantly higher than condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + "). "
+                    string = "The result of this analysis showed that the rating scores for condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + ") was significantly higher than condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + "). "
                     print(string)
 
                     whole_analysis_report_text += string
                     html += string
             else:
-                string = "According to an test with one-way repeated-measures ANOVA, the scores of spatial presence was not significant difference between " + variable_1_name + " and " + variable_2_name + " (F<sub>" + str(anova_table['Num DF'][0]) + ", " + str(anova_table['Den DF'][00]) + "</sub> = " + str(round(anova_table['F Value'][0], 3)) + ", p = " + str(round(anova_table['Pr > F'][0], 3)) + ", &eta;<sup>2</sup> = " + str(round(anova_table['Eta-Squared'][0], 3)) + ") "
-                string += "The average score of spatial presence for condition " + variable_1_name + " was  at " + str(variable_1_mean) + " (SD = " + str(variable_1_std) +  " and for condition " + variable_2_name + " was " + str(variable_2_mean) + " (SD = " + str(variable_2_std) + "). "
+                string = "According to an test with one-way repeated-measures ANOVA, the scores of spatial presence was not significant difference between " + variable_1_name + " and " + variable_2_name + " (<span class='emphasized'>F</span><sub>(" + str(anova_table['Num DF'][0]) + ", " + str(anova_table['Den DF'][00]) + ")</sub> = " + str(round(anova_table['F Value'][0], 3)) + ", <span class='emphasized'>p</span> = " + str(round(anova_table['Pr > F'][0], 3)) + ", <span class='emphasized'>&eta;</span><sup>2</sup> = " + str(round(anova_table['Eta-Squared'][0], 3)) + ") "
+                string += "The average score of spatial presence for condition " + variable_1_name + " was  at " + str(round(variable_1_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) +  ") and for condition " + variable_2_name + " was " + str(round(variable_2_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
         elif current_scale == "involvement":
             if anova_table['Pr > F'][0] < alpha:
-                string = "The analysis for involvement sub-scale scores with one-way repeated-measures ANOVA procedure showed that the scores between " + variable_1_name + " and " + variable_2_name + " (F<sub>" + str(anova_table['Num DF'][0]) + ", " + str(anova_table['Den DF'][00]) + "</sub> = " + str(round(anova_table['F Value'][0], 3)) + ", p = " + str(round(anova_table['Pr > F'][0], 3)) + ", &eta;<sup>2</sup> = " + str(round(anova_table['Eta-Squared'][0], 3)) + ") was significantly different. "
+                string = "The analysis for involvement sub-scale scores with one-way repeated-measures ANOVA procedure showed that the scores between " + variable_1_name + " and " + variable_2_name + " (<span class='emphasized'>F</span><sub>(" + str(anova_table['Num DF'][0]) + ", " + str(anova_table['Den DF'][00]) + ")</sub> = " + str(round(anova_table['F Value'][0], 3)) + ", <span class='emphasized'>p</span> = " + str(round(anova_table['Pr > F'][0], 3)) + ", <span class='emphasized'>&eta;</span><sup>2</sup> = " + str(round(anova_table['Eta-Squared'][0], 3)) + ") was significantly different. "
                 print(string)
                 
                 whole_analysis_report_text += string
                 html += string
 
                 if variable_1_mean > variable_2_mean:
-                    string = "It is observed that users had rated higher scores for involvement sub-scale for condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + ") than for " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + "). "
+                    string = "It is observed that users had rated higher scores for involvement sub-scale for condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") than for " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                     print(string)
 
                     whole_analysis_report_text += string
                     html += string
                 else:
-                    string = "It is observed that users had rated higher scores for involvement sub-scale for condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + ") than for " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + "). "
+                    string = "It is observed that users had rated higher scores for involvement sub-scale for condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + ") than for " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + "). "
                     print(string)
 
                     whole_analysis_report_text += string
                     html += string
             else:
-                string = "The analysis for involvement sub-scale scores with one-way repeated-measures ANOVA procedure showed no significant difference between conditions " + variable_1_name + " and " + variable_2_name + " (F<sub>" + str(anova_table['Num DF'][0]) + ", " + str(anova_table['Den DF'][00]) + "</sub> = " + str(round(anova_table['F Value'][0], 3)) + ", p = " + str(round(anova_table['Pr > F'][0], 3)) + ", &eta;<sup>2</sup> = " + str(round(anova_table['Eta-Squared'][0], 3)) + "). "
-                string += "The average of these scores for condition " + variable_1_name + " and condition " + variable_2_name + " are " + str(variable_1_mean) + " (SD = " + str(variable_1_std) + ") and " + str(variable_2_mean) + " (SD = " + str(variable_2_std) + "), respectively. "
+                string = "The analysis for involvement sub-scale scores with one-way repeated-measures ANOVA procedure showed no significant difference between conditions " + variable_1_name + " and " + variable_2_name + " (<span class='emphasized'>F</span><sub>(" + str(anova_table['Num DF'][0]) + ", " + str(anova_table['Den DF'][00]) + ")</sub> = " + str(round(anova_table['F Value'][0], 3)) + ", <span class='emphasized'>p</span> = " + str(round(anova_table['Pr > F'][0], 3)) + ", <span class='emphasized'>&eta;</span><sup>2</sup> = " + str(round(anova_table['Eta-Squared'][0], 3)) + "). "
+                string += "The average of these scores for condition " + variable_1_name + " and condition " + variable_2_name + " are " + str(round(variable_1_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") and " + str(round(variable_2_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "), respectively. "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
         elif current_scale == "experience_realism":
             if anova_table['Pr > F'][0] < alpha:
-                string = "Finally, the rating scores for experienced realism was analysed with an one-way repeated-measures ANOVA procedure. The results showed that there was a significant difference in rating scores for this sub-scale between " + variable_1_name + " and " + variable_2_name + " (F<sub>" + str(anova_table['Num DF'][0]) + ", " + str(anova_table['Den DF'][00]) + "</sub> = " + str(round(anova_table['F Value'][0], 3)) + ", p = " + str(round(anova_table['Pr > F'][0], 3)) + ", &eta;<sup>2</sup> = " + str(round(anova_table['Eta-Squared'][0], 3)) + "). "
+                string = "Finally, the rating scores for experienced realism was analysed with an one-way repeated-measures ANOVA procedure. The results showed that there was a significant difference in rating scores for this sub-scale between " + variable_1_name + " and " + variable_2_name + " (<span class='emphasized'>F</span><sub>(" + str(anova_table['Num DF'][0]) + ", " + str(anova_table['Den DF'][00]) + ")</sub> = " + str(round(anova_table['F Value'][0], 3)) + ", <span class='emphasized'>p</span> = " + str(round(anova_table['Pr > F'][0], 3)) + ", <span class='emphasized'>&eta;</span><sup>2</sup> = " + str(round(anova_table['Eta-Squared'][0], 3)) + "). "
                 print(string)
                 
                 whole_analysis_report_text += string
                 html += string
 
                 if variable_1_mean > variable_2_mean:
-                    string = "Condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + ") had higher ratings of presence than " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + "). "
+                    string = "Condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") had higher ratings of presence than " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                     print(string)
 
                     whole_analysis_report_text += string
                     html += string
                 else:
-                    string = "Condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + ") had higher ratings of presence than " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + "). "
+                    string = "Condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + ") had higher ratings of presence than " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + "). "
                     print(string)
 
                     whole_analysis_report_text += string
                     html += string
             else:
-                string = "Finally, the rating scores for experienced realism was analysed with an one-way repeated-measures ANOVA procedure. The results showed that there was no significant difference in rating scores for this sub-scale between " + variable_1_name + " and " + variable_2_name + " (F<sub>" + str(anova_table['Num DF'][0]) + ", " + str(anova_table['Den DF'][00]) + "</sub> = " + str(round(anova_table['F Value'][0], 3)) + ", p = " + str(round(anova_table['Pr > F'][0], 3)) + ", &eta;<sup>2</sup> = " + str(round(anova_table['Eta-Squared'][0], 3)) + "). "
-                string += "The mean rating score of this sub-scale for condition " + variable_1_name + " is " + str(variable_1_mean) + " (SD = " + str(variable_1_std) + ") and " + variable_2_name + " had the average score at " + str(variable_2_mean) + " (SD = " + str(variable_2_std) + "). "
+                string = "Finally, the rating scores for experienced realism was analysed with an one-way repeated-measures ANOVA procedure. The results showed that there was no significant difference in rating scores for this sub-scale between " + variable_1_name + " and " + variable_2_name + " (<span class='emphasized'>F</span><sub>(" + str(anova_table['Num DF'][0]) + ", " + str(anova_table['Den DF'][00]) + ")</sub> = " + str(round(anova_table['F Value'][0], 3)) + ", <span class='emphasized'>p</span> = " + str(round(anova_table['Pr > F'][0], 3)) + ", <span class='emphasized'>&eta;</span><sup>2</sup> = " + str(round(anova_table['Eta-Squared'][0], 3)) + "). "
+                string += "The mean rating score of this sub-scale for condition " + variable_1_name + " is " + str(round(variable_1_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") and " + variable_2_name + " had the average score at " + str(round(variable_2_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
         else:
             if anova_table['Pr > F'][0] < alpha:
-                string = "One-way repeated-measures ANOVA analysis for the overall scores could not show significant differences in the level of presence provided by " + variable_1_name + " and " + variable_2_name + " (F<sub>" + str(anova_table['Num DF'][0]) + ", " + str(anova_table['Den DF'][00]) + "</sub> = " + str(round(anova_table['F Value'][0], 3)) + ", p = " + str(round(anova_table['Pr > F'][0], 3)) + ", &eta;<sup>2</sup> = " + str(round(anova_table['Eta-Squared'][0], 3)) + "). "
+                string = "One-way repeated-measures ANOVA analysis for the overall scores could not show significant differences in the level of presence provided by " + variable_1_name + " and " + variable_2_name + " (<span class='emphasized'>F</span><sub>(" + str(anova_table['Num DF'][0]) + ", " + str(anova_table['Den DF'][00]) + ")</sub> = " + str(round(anova_table['F Value'][0], 3)) + ", <span class='emphasized'>p</span> = " + str(round(anova_table['Pr > F'][0], 3)) + ", <span class='emphasized'>&eta;</span><sup>2</sup> = " + str(round(anova_table['Eta-Squared'][0], 3)) + "). "
                 print(string)
                 
                 whole_analysis_report_text += string
                 html += string
 
                 if variable_1_mean > variable_2_mean:
-                    string = "Condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + ") had higher ratings of presence than " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + "). "
+                    string = "Condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") had higher ratings of presence than " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                     print(string)
             
                     whole_analysis_report_text += string
                     html += string
                 else:
-                    string = "Condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + ") had higher ratings of presence than " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + "). "
+                    string = "Condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + ") had higher ratings of presence than " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + "). "
                     print(string)
 
                     whole_analysis_report_text += string
                     html += string
             else:
-                string = "One-way repeated-measures ANOVA analysis showed that there was no significant difference in the level of presence provided by " + variable_1_name + " and " + variable_2_name + " (F<sub>" + str(anova_table['Num DF'][0]) + ", " + str(anova_table['Den DF'][00]) + "</sub> = " + str(round(anova_table['F Value'][0], 3)) + ", p = " + str(round(anova_table['Pr > F'][0], 3)) + ", &eta;<sup>2</sup> = " + str(round(anova_table['Eta-Squared'][0], 3)) + "). "
-                string += "The average overall presence scores for condition " + variable_1_name + " was " + str(variable_1_mean) + " (SD = " + str(variable_1_std) + ") and for condition " + variable_2_name + " was " + str(variable_2_mean) + " (SD = " + str(variable_2_std) + "). "
+                string = "One-way repeated-measures ANOVA analysis showed that there was no significant difference in the level of presence provided by " + variable_1_name + " and " + variable_2_name + " (<span class='emphasized'>F</span><sub>(" + str(anova_table['Num DF'][0]) + ", " + str(anova_table['Den DF'][00]) + ")</sub> = " + str(round(anova_table['F Value'][0], 3)) + ", <span class='emphasized'>p</span> = " + str(round(anova_table['Pr > F'][0], 3)) + ", <span class='emphasized'>&eta;</span><sup>2</sup> = " + str(round(anova_table['Eta-Squared'][0], 3)) + "). "
+                string += "The average overall presence scores for condition " + variable_1_name + " was " + str(round(variable_1_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") and for condition " + variable_2_name + " was " + str(round(variable_2_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                 print(string)
         
                 whole_analysis_report_text += string
@@ -3383,135 +3504,135 @@ if is_normal_distribution == False:
 
     if current_scale == "general_presence":
         if p < alpha:
-            string = "The scores for general presence sub-scale analysed with a Wilcoxon Signed-Rank test showed that the difference in the level of presence between " + variable_1_name + " and " + variable_2_name + " (z = " + str(z) + ", p = " + str(p) + ", r = " + str(r) + ") was significant. "
+            string = "The scores for general presence sub-scale analysed with a Wilcoxon Signed-Rank test showed that the difference in the level of presence between " + variable_1_name + " and " + variable_2_name + " (z = " + str(z) + ", <span class='emphasized'>p</span> = " + str(p) + ", r = " + str(r) + ") was significant. "
             print(string)
             
             whole_analysis_report_text += string
             html += string
 
             if variable_1_mean > variable_2_mean:
-                string = "For this subscale, condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + ") had higher ratings of presence than " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + "). "
+                string = "For this subscale, condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") had higher ratings of presence than " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
             else:
-                string = "For this subscale, condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + ") had higher ratings of presence than " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + "). "
+                string = "For this subscale, condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + ") had higher ratings of presence than " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
         else:
-            string = "The scores for general presence sub-scale analysed with a Wilcoxon Signed-Rank test showed that the difference in the level of presence between " + variable_1_name + " and " + variable_2_name + " (z = " + str(z) + ", p = " + str(p) + ", r = " + str(r) + ") was not significant. "
-            string += "For this subscale, the average scores for condition " + variable_1_name + " and condition " + variable_2_name + " are " + str(variable_1_mean) + " (SD = " + str(variable_1_std) + ") and " + str(variable_2_mean) + " (SD = " + str(variable_2_std) + "), respectively. "
+            string = "The scores for general presence sub-scale analysed with a Wilcoxon Signed-Rank test showed that the difference in the level of presence between " + variable_1_name + " and " + variable_2_name + " (z = " + str(z) + ", <span class='emphasized'>p</span> = " + str(p) + ", r = " + str(r) + ") was not significant. "
+            string += "For this subscale, the average scores for condition " + variable_1_name + " and condition " + variable_2_name + " are " + str(round(variable_1_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") and " + str(round(variable_2_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "), respectively. "
             print(string)
 
             whole_analysis_report_text += string
             html += string
     elif current_scale == "spatial_presence":
         if p < alpha:
-            string = "According to a Wilcoxon Signed-Rank test, the scores of spatial presence was significant difference between" + variable_1_name + " and " + variable_2_name + " (z = " + str(z) + ", p = " + str(p) + ", r = " + str(r) + "). "
+            string = "According to a Wilcoxon Signed-Rank test, the scores of spatial presence was significant difference between" + variable_1_name + " and " + variable_2_name + " (z = " + str(z) + ", <span class='emphasized'>p</span> = " + str(p) + ", r = " + str(r) + "). "
             print(string)
             
             whole_analysis_report_text += string
             html += string
 
             if variable_1_mean > variable_2_mean:
-                string = "The result of this analysis showed that the rating scores for condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + ") was significantly higher than condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + "). "
+                string = "The result of this analysis showed that the rating scores for condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") was significantly higher than condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
             else:
-                string = "The result of this analysis showed that the rating scores for condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + ") was significantly higher than condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + "). "
+                string = "The result of this analysis showed that the rating scores for condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + ") was significantly higher than condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
         else:
-            string = "According to a Wilcoxon Signed-Rank test, the scores of spatial presence was not significant difference between " + variable_1_name + " and " + variable_2_name + " (z = " + str(z) + ", p = " + str(p) + ", r = " + str(r) + "). "
-            string += "The average score of spatial presence for condition " + variable_1_name + " was  at " + str(variable_1_mean) + " (SD = " + str(variable_1_std) +  " and for condition " + variable_2_name + " was " + str(variable_2_mean) + " (SD = " + str(variable_2_std) + "). "
+            string = "According to a Wilcoxon Signed-Rank test, the scores of spatial presence was not significant difference between " + variable_1_name + " and " + variable_2_name + " (z = " + str(z) + ", <span class='emphasized'>p</span> = " + str(p) + ", r = " + str(r) + "). "
+            string += "The average score of spatial presence for condition " + variable_1_name + " was  at " + str(round(variable_1_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) +  ") and for condition " + variable_2_name + " was " + str(round(variable_2_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
             print(string)
 
             whole_analysis_report_text += string
             html += string
     elif current_scale == "involvement":
         if p < alpha:
-            string = "The analysis for involvement sub-scale scores with a Wilcoxon Signed-Rank test showed that the scores between " + variable_1_name + " and " + variable_2_name + " (z = " + str(z) + ", p = " + str(p) + ", r = " + str(r) + ") was significantly different. "
+            string = "The analysis for involvement sub-scale scores with a Wilcoxon Signed-Rank test showed that the scores between " + variable_1_name + " and " + variable_2_name + " (z = " + str(z) + ", <span class='emphasized'>p</span> = " + str(p) + ", r = " + str(r) + ") was significantly different. "
             print(string)
             
             whole_analysis_report_text += string
             html += string
 
             if variable_1_mean > variable_2_mean:
-                string = "It was observed that users had rated higher scores for involvement sub-scale for condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + ") than for " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + "). "
+                string = "It was observed that users had rated higher scores for involvement sub-scale for condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") than for " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
             else:
-                string = "It was observed that users had rated higher scores for involvement sub-scale for condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + ") than for " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + "). "
+                string = "It was observed that users had rated higher scores for involvement sub-scale for condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + ") than for " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
         else:
-            string = "The analysis for involvement sub-scale scores with a Wilcoxon Signed-Rank test showed no significant difference between conditions " + variable_1_name + " and " + variable_2_name + " (z = " + str(z) + ", p = " + str(p) + ", r = " + str(r) + "). "
-            string += "The average scores for this sub-scales for condition " + variable_1_name + " and condition " + variable_2_name + " are " + str(variable_1_mean) + " (SD = " + str(variable_1_std) + ") and " + str(variable_2_mean) + " (SD = " + str(variable_2_std) + "), respectively. "
+            string = "The analysis for involvement sub-scale scores with a Wilcoxon Signed-Rank test showed no significant difference between conditions " + variable_1_name + " and " + variable_2_name + " (z = " + str(z) + ", <span class='emphasized'>p</span> = " + str(p) + ", r = " + str(r) + "). "
+            string += "The average scores for this sub-scales for condition " + variable_1_name + " and condition " + variable_2_name + " are " + str(round(variable_1_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") and " + str(round(variable_2_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "), respectively. "
             print(string)
 
             whole_analysis_report_text += string
             html += string
     elif current_scale == "experience_realism":
         if p < alpha:
-            string = "Finally, the rating scores for experienced realism was analysed with a Wilcoxon Signed-Rank test. The results showed that there was a significant difference in rating scores for this sub-scale between " + variable_1_name + " and " + variable_2_name + " (z = " + str(z) + ", p = " + str(p) + ", r = " + str(r) + "). "
+            string = "Finally, the rating scores for experienced realism was analysed with a Wilcoxon Signed-Rank test. The results showed that there was a significant difference in rating scores for this sub-scale between " + variable_1_name + " and " + variable_2_name + " (z = " + str(z) + ", <span class='emphasized'>p</span> = " + str(p) + ", r = " + str(r) + "). "
             print(string)
             
             whole_analysis_report_text += string
             html += string
 
             if variable_1_mean > variable_2_mean:
-                string = "Condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + ") had higher ratings of presence than " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + "). "
+                string = "Condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") had higher ratings of presence than " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
             else:
-                string = "Condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + ") had higher ratings of presence than " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + "). "
+                string = "Condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + ") had higher ratings of presence than " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
         else:
-            string = "Finally, the rating scores for experienced realism was analysed with a Wilcoxon Signed-Rank test. The results showed that there was no significant difference in rating scores for this sub-scale between " + variable_1_name + " and " + variable_2_name + " (z = " + str(z) + ", p = " + str(p) + ", r = " + str(r) + "). "
-            string += "The mean rating score of this sub-scale for condition " + variable_1_name + " was " + str(variable_1_mean) + " (SD = " + str(variable_1_std) + ") and " + variable_2_name + " had the average score at " + str(variable_2_mean) + " (SD = " + str(variable_2_std) + "). "
+            string = "Finally, the rating scores for experienced realism was analysed with a Wilcoxon Signed-Rank test. The results showed that there was no significant difference in rating scores for this sub-scale between " + variable_1_name + " and " + variable_2_name + " (z = " + str(z) + ", <span class='emphasized'>p</span> = " + str(p) + ", r = " + str(r) + "). "
+            string += "The mean rating score of this sub-scale for condition " + variable_1_name + " was " + str(round(variable_1_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") and " + variable_2_name + " had the average score at " + str(round(variable_2_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
             print(string)
 
             whole_analysis_report_text += string
             html += string
     else:
         if p < alpha:            
-            string = "Wilcoxon Signed-Rank test showed that there was significant difference in the level of presence provided by " + variable_1_name + " and " + variable_2_name + " (z = " + str(z) + ", p = " + str(p) + ", r = " + str(r) + "). "
+            string = "Wilcoxon Signed-Rank test showed that there was significant difference in the level of presence provided by " + variable_1_name + " and " + variable_2_name + " (z = " + str(z) + ", <span class='emphasized'>p</span> = " + str(p) + ", r = " + str(r) + "). "
             print(string)
             
             whole_analysis_report_text += string
             html += string
 
             if variable_1_mean > variable_2_mean:
-                string = "Condition " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + ") had higher ratings of presence than " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + "). "
+                string = "Condition " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") had higher ratings of presence than " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
                 print(string)
         
                 whole_analysis_report_text += string
                 html += string
             else:
-                string = "Condition " + variable_2_name + " (M = " + str(variable_2_mean) + ", SD = " + str(variable_2_std) + ") had higher ratings of presence than " + variable_1_name + " (M = " + str(variable_1_mean) + ", SD = " + str(variable_1_std) + "). "
+                string = "Condition " + variable_2_name + " (<span class='emphasized'>M</span> = " + str(round(variable_2_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + ") had higher ratings of presence than " + variable_1_name + " (<span class='emphasized'>M</span> = " + str(round(variable_1_mean, 1)) + ", <span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + "). "
                 print(string)
 
                 whole_analysis_report_text += string
                 html += string
         else:
-            string = "Wilcoxon Signed-Rank test showed that there was no significant difference in the level of presence provided by " + variable_1_name + " and " + variable_2_name + " (z = " + str(z) + ", p = " + str(p) + ", r = " + str(r) + "). "
-            string += "The average overall presence scores for condition " + variable_1_name + " was " + str(variable_1_mean) + " (SD = " + str(variable_1_std) + ") and for condition " + variable_2_name + " was " + str(variable_2_mean) + " (SD = " + str(variable_2_std) + "). "
+            string = "Wilcoxon Signed-Rank test showed that there was no significant difference in the level of presence provided by " + variable_1_name + " and " + variable_2_name + " (z = " + str(z) + ", <span class='emphasized'>p</span> = " + str(p) + ", r = " + str(r) + "). "
+            string += "The average overall presence scores for condition " + variable_1_name + " was " + str(round(variable_1_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_1_std,1)) + ") and for condition " + variable_2_name + " was " + str(round(variable_2_mean, 1)) + " (<span class='emphasized'>SD</span> = " + str(round(variable_2_std,1)) + "). "
             print(string)
     
             whole_analysis_report_text += string
@@ -3541,15 +3662,18 @@ user_data_sample_report_text.innerHTML = html
     }
         
     console.log(code);
+
+    pyodide.runPython(code);
     
-    languagePluginLoader.then(() => {
-        pyodide.loadPackage(['numpy', 'scipy', 'pandas', 'statsmodels', 'matplotlib']).then(() => {            
-            pyodide.runPython(code);
-        });
-    })
+    // languagePluginLoader.then(() => {
+    //     pyodide.loadPackage(['numpy', 'scipy', 'pandas', 'statsmodels', 'matplotlib']).then(() => {            
+    //         pyodide.runPython(code);
+    //     });
+    // })
 
     $("#progress-popup").hide();
-    $("#content").fadeTo(200, 1);
+    $("#content").prop("disabled", false); 
+    $("#content").fadeTo("fast", 1);
 }
 
 function IllustrateUserData(data, width, height, div, user_data, condition)
@@ -3758,14 +3882,27 @@ function AddAppendix(is_user_data = false, div = "#main_appendix")
     // appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 3 * (height / 8)).attr("r", 6).style("fill", "#AED6F1");
     // appendixSVG.append("circle").attr("cx", width/5 + width/3).attr("cy", height - 4 * (height / 8)).attr("r", 6).style("fill", "#D6EAF8");
     // appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 4 * (height / 8)).attr("r", 6).style("fill", "#EBF5FB");
-				
+		
+    // // appendixSVG.append("circle").attr("cx", width/5 + width/3).attr("cy", height - 2 * (height / 8)).attr("r", 6).style("fill", "#e2e2e2");
+    // appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 2 * (height / 8)).attr("r", 6).style("fill", "#a9d6e5");
+    // appendixSVG.append("circle").attr("cx", width/5 + width/2 - 10).attr("cy", height - 3 * (height / 8)).attr("r", 6).style("fill", "#61a5c2");
+    // appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 3 * (height / 8)).attr("r", 6).style("fill", "#2c7da0");
+    // appendixSVG.append("circle").attr("cx", width/5 + width/2 - 10).attr("cy", height - 4 * (height / 8)).attr("r", 6).style("fill", "#014f86");
+    // appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 4 * (height / 8)).attr("r", 6).style("fill", "#013a63");
 
     // appendixSVG.append("circle").attr("cx", width/5 + width/3).attr("cy", height - 2 * (height / 8)).attr("r", 6).style("fill", "#e2e2e2");
-    appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 2 * (height / 8)).attr("r", 6).style("fill", "#f7fbff");
-    appendixSVG.append("circle").attr("cx", width/5 + width/2 - 10).attr("cy", height - 3 * (height / 8)).attr("r", 6).style("fill", "#deebf7");
-    appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 3 * (height / 8)).attr("r", 6).style("fill", "#c6dbef");
-    appendixSVG.append("circle").attr("cx", width/5 + width/2 - 10).attr("cy", height - 4 * (height / 8)).attr("r", 6).style("fill", "#9ecae1");
-    appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 4 * (height / 8)).attr("r", 6).style("fill", "#6baed6");
+    appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 2 * (height / 8)).attr("r", 6).style("fill", "#d0eef8");
+    appendixSVG.append("circle").attr("cx", width/5 + width/2 - 10).attr("cy", height - 3 * (height / 8)).attr("r", 6).style("fill", "#a0ddf1");
+    appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 3 * (height / 8)).attr("r", 6).style("fill", "#71cde9");
+    appendixSVG.append("circle").attr("cx", width/5 + width/2 - 10).attr("cy", height - 4 * (height / 8)).attr("r", 6).style("fill", "#41bce2");
+    appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 4 * (height / 8)).attr("r", 6).style("fill", "#12abdb");
+
+    // // appendixSVG.append("circle").attr("cx", width/5 + width/3).attr("cy", height - 2 * (height / 8)).attr("r", 6).style("fill", "#e2e2e2");
+    // appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 2 * (height / 8)).attr("r", 6).style("fill", "#f7fbff");
+    // appendixSVG.append("circle").attr("cx", width/5 + width/2 - 10).attr("cy", height - 3 * (height / 8)).attr("r", 6).style("fill", "#deebf7");
+    // appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 3 * (height / 8)).attr("r", 6).style("fill", "#c6dbef");
+    // appendixSVG.append("circle").attr("cx", width/5 + width/2 - 10).attr("cy", height - 4 * (height / 8)).attr("r", 6).style("fill", "#9ecae1");
+    // appendixSVG.append("circle").attr("cx", width/5).attr("cy", height - 4 * (height / 8)).attr("r", 6).style("fill", "#6baed6");
 
     // appendixSVG.append("text").attr("x", width/5 + 15).attr("y", height - 1 * (height / 8)).text("Best").attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
     //appendixSVG.append("text").attr("x", width/5 + width/3 + 15).attr("y", height - 2 * (height / 8)).text('Class VI').attr("alignment-baseline","middle").style("font-size", (width/3) + "%");
@@ -3779,8 +3916,7 @@ function AddAppendix(is_user_data = false, div = "#main_appendix")
     {        
         appendixSVG.append("circle").attr("cx", width/5 + width/2 - 10).attr("cy", height - 2 * (height / 8)).attr("r", 6).style("fill", "#F39C12");
         appendixSVG.append("text").attr("x", width/5 + width/2 + 15 - 10).attr("y", height - 2 * (height / 8)).text("Your Data").attr("alignment-baseline","middle").style("font-size", (width/2.65) + "%");
-    }
-    
+    }    
 }
 
 function SetCurrentObject(object)
@@ -3822,26 +3958,6 @@ $( document ).ready(function() {
 
     $("#copyright").text(copyrightText);
 });
-
-languagePluginLoader.then(() => {
-    pyodide.loadPackage(['numpy', 'scipy', 'pandas', 'statsmodels', 'matplotlib']).then(() => {            
-        pyodide.runPython(`
-import io
-import base64
-import numpy as np
-from scipy import stats
-import pandas as pd
-import statsmodels.stats.api as sm
-from statsmodels.stats.anova import AnovaRM
-from statsmodels.regression.mixed_linear_model import MixedLM
-from statsmodels.formula.api import ols
-import matplotlib.pyplot as plt
-from js import window, eval as jseval
-
-print("Preload libraries are finished!")
-`);
-    });
-})
 
 function HideTermsandCondition(){    
     $("#terms_and_conditions").hide();
@@ -4127,25 +4243,25 @@ function ChangeCategory(btn)
     }
     else if(_currentCategory === "3D-HMD")
     {
-        _category = "3D - HMD";
+        _category = "3D Graphics - HMD VR/MR";
 
         _currentObject = visualDisplaysObject.value.find(function(e)
         {
-            return e.name === "3D - HMD VR";
+            return e.name === "3D Graphics - HMD VR/MR";
         });
     }
     else if(_currentCategory === "3D-Monoscopic")
     {       
-        _category = "3D - Monoscopic";
+        _category = "3D Graphics - Monoscopic";
 
         _currentObject = visualDisplaysObject.value.find(function(e)
         {
-            return e.name === "3D - Monoscopic";
+            return e.name === "3D Graphics - Monoscopic";
         });
     }
-    else if(_currentCategory === "btn_proj")
+    else if(_currentCategory === "ProjectionDisplay")
     {       
-        _category = "ProjectionDisplay";
+        _category = "Projection Display";
 
         _currentObject = visualDisplaysObject.value.find(function(e)
         {

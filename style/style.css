@@ -47,7 +47,7 @@ body {
   } */
   
   .ipq-eachstudyscore { 
-    font-family: 'Baskervville', 'Merriweather', serif;
+    font-family: 'Cormorant Garamond', 'Merriweather', 'Baskervville', serif;
     line-height: 1;
     font-weight: bold;
   }
@@ -86,7 +86,7 @@ body {
   }
 
   .box.report-text p{
-    font-family: 'Baskervville', 'Sorts Mill Goudy', 'Lora', serif;
+    font-family: 'Cormorant Garamond', 'Merriweather', 'Sorts Mill Goudy', 'Lora', 'Baskervville', serif;
     line-height: 1;
     font-weight: bold;
     font-size: 18px;
@@ -96,7 +96,7 @@ body {
   }
 
   .box.summary-text p{
-    font-family: 'Baskervville', 'Sorts Mill Goudy', 'Lora', serif;
+    font-family: 'Cormorant Garamond', 'Merriweather', 'Sorts Mill Goudy', 'Lora', 'Baskervville', serif;
     line-height: 1;
     font-weight: bold;
     font-size: 16px;

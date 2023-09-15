@@ -1,37 +1,63 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Lora&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Baskervville|Calistoga&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet"/>
-<link rel="stylesheet" type="text/css" href="style/style.css">
-<link rel="stylesheet" type="text/css" href="style/css/bulma.css">
-<style>
-.button.is-custom{
-    height: 35px;
-    font-size : 12px;
-}
-.button.is-custom.is-info{
-    font-weight: bold;
-}
-</style>
-
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="https://d3js.org/d3.v3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.2.1/math.min.js"></script>
-
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.0.0/d3.min.js"></script> -->
-
-<script type="text/javascript">
-    // set the pyodide files URL (packages.json, pyodide.asm.data etc)
-    window.languagePluginUrl = 'https://cdn.jsdelivr.net/pyodide/v0.18.1/full/';
-</script>
-<script src="https://cdn.jsdelivr.net/pyodide/v0.18.1/full/pyodide.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Fira+Code&display=swap" rel="stylesheet">
-<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 <head>
+    <meta charset="utf-8">
     <title>IPQ Cal - An illustrative tool helps you with analysing IPQ data</title>
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data:"> -->
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Baskervville|Calistoga&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link rel="stylesheet" type="text/css" href="style/css/bulma.css">
+    <style>
+        .button.is-custom{
+            height: 35px;
+            font-size : 12px;
+        }
+        
+        .button.is-custom.is-info{
+            font-weight: bold;
+        }
+
+        .emphasized { 
+            font-style: italic; 
+        }
+    </style>
+
+    <!-- <script type="text/javascript" src="/libraries/code.jquery.com_jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/libraries/d3js.org_d3.v3.min.js"></script>
+    <script type="text/javascript" src="/libraries/cdnjs.cloudflare.com_ajax_libs_mathjs_11.2.1_math.min.js"></script> -->
+
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.2.1/math.min.js"></script>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.0.0/d3.min.js"></script> -->
+
+    <!-- <script type="text/javascript">
+        // set the pyodide files URL (packages.json, pyodide.asm.data etc)
+        window.languagePluginUrl = 'https://cdn.jsdelivr.net/pyodide/v0.18.1/full/';
+    </script> -->
+
+    <!-- <script src="https://cdn.jsdelivr.net/pyodide/v0.18.1/full/pyodide.js"></script> -->
+
+    <script type="text/javascript">
+        // set the pyodide files URL (packages.json, pyodide.asm.data etc)
+        window.languagePluginUrl = 'https://cdn.jsdelivr.net/pyodide/v0.23.4/full/';
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Fira+Code&display=swap" rel="stylesheet">
+    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 </head>
 <body>  
     <div id="progress-popup" style="
@@ -39,10 +65,12 @@
         position: absolute;
         top: 50%;
         left:40%;
+        z-index: 289;
         -ms-transform: translateY(-50%);
         transform: translateY(-50%);"
         >
-        <p class="has-text-centered code">Analysing your data...</p>
+        <p class="has-text-centered code">Analysing ...</p>        
+        <p id="analysing_status" class="has-text-centered code" style="font-family: 'Inconsolata', monospace;"></p>
         <br>
         <button class="button is-info is-loading is-large">Analysing your data...</button>
     </div>
@@ -53,7 +81,7 @@
                 <div class="navbar-menu">
                     <div class="navbar-start">
                         <h1 class="title" style="font-family: 'Calistoga', cursive; font-size: 45px;">IPQ Cal 
-                            <h2 class="sub" style="font-family: 'Baskervville', serif; font-size: 22.5px;">
+                            <h2 class="sub" style="font-family: 'Roboto', serif; font-size: 22.5px;">
                                 &nbsp;&nbsp;An illustrative tool helps you with analysing IPQ data
                             </h2>
                         </h1>
@@ -528,7 +556,7 @@
                                                     <select class="is-info" onchange="ChangeRankingClass(this)">                              
                                                         <option value="AllClasses">All Classes</option>
                                                         <option value="ClassI">Class Exceptional</option>
-                                                        <option value="ClassII">Class Very high</option>
+                                                        <option value="ClassII">Class Very High</option>
                                                         <option value="ClassIII">Class High</option>
                                                         <option value="ClassIV">Class Moderate</option>
                                                         <option value="ClassV">Class Low</option>

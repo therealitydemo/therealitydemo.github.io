@@ -77,7 +77,7 @@ function RadarChart(id, data, options) {
 	//Draw the background circles
 	// axisGrid.selectAll(".levels")
 	// .data(d3.range(1,(cfg.levels+1)).reverse())
-	// .enter()
+	// .enter()12abdb
 	// 	.append("circle")
 	// 	.attr("class", "gridCircle")
 	// 	.attr("r", function(d, i){return radius/cfg.levels*d;})
@@ -95,23 +95,23 @@ function RadarChart(id, data, options) {
 			.style("fill", function(d, i){
 				if(i == 0)
 				{
-					return "#6baed6";
+					return "#12abdb";
 				}
 				else if(i == 1)
 				{
-					return "#9ecae1";
+					return "#41bce2";
 				}
 				else if(i == 2)
 				{
-					return "#c6dbef";
+					return "#71cde9";
 				}
 				else if(i == 3)
 				{
-					return "#deebf7";
+					return "#a0ddf1";
 				}
 				else if(i == 4)
 				{
-					return "#f7fbff";
+					return "#d0eef8";
 				}
 				
 				return "#CDCDCD";
@@ -119,23 +119,23 @@ function RadarChart(id, data, options) {
 			.style("stroke", function(d, i){
 				if(i == 0)
 				{
-					return "#6baed6";
+					return "#12abdb";
 				}
 				else if(i == 1)
 				{
-					return "#9ecae1";
+					return "#41bce2";
 				}
 				else if(i == 2)
 				{
-					return "#c6dbef";
+					return "#71cde9";
 				}
 				else if(i == 3)
 				{
-					return "#deebf7";
+					return "#a0ddf1";
 				}
 				else if(i == 4)
 				{
-					return "#f7fbff";
+					return "#d0eef8";
 				}
 				
 				return "#CDCDCD";
@@ -178,7 +178,7 @@ function RadarChart(id, data, options) {
 		}
 		else if(i == 1)
 		{
-			return "Very high";
+			return "Very High";
 		}
 		else if(i == 2)
 		{
@@ -342,7 +342,7 @@ function RadarChart(id, data, options) {
 			}
 			else if(d.value == 4)
 			{
-				tooltipText = "Very high" + " (M = " + d.mean + ", SD = " + d.std + ")";
+				tooltipText = "Very High" + " (M = " + d.mean + ", SD = " + d.std + ")";
 			}
 			else if(d.value == 5)
 			{
